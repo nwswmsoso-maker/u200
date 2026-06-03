@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>الرمادي لايز | المتجر الإلكتروني</title>
+  <!-- اسم الغلاف (Cover) المقترح للموقع: al-ramadi-lays-cover.jpg -->
+  <!-- تقدر ترفع الغلاف يدويًا على جت هاب وتحط الرابط بدل الصورة الافتراضية -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      color: #1e1e1e;
+      line-height: 1.6;
+    }
+
+    /* container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* header & cover */
+    .site-cover {
+      background: linear-gradient(135deg, #2c3e50 0%, #4a6274 100%);
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+      border-bottom: 4px solid #bdc3c7;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .site-cover::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.08"><path d="M20 20 L30 20 L25 30 Z" fill="white"/><circle cx="70" cy="30" r="8" fill="white"/><rect x="75" y="60" width="15" height="15" fill="white" transform="rotate(20 75 60)"/></svg>');
+      background-size: 120px 120px;
+      pointer-events: none;
+    }
+
+    .store-title {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .store-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      font-weight: 300;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cover-note {
+      margin-top: 18px;
+      background: rgba(255,255,255,0.15);
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      backdrop-filter: blur(4px);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* navigation */
+    .navbar {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #2c3e50;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+      background: #e9ecef;
+    }
+
+    .user-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #2c3e50;
+      color: #2c3e50;
+    }
+
+    .btn-outline:hover {
+      background: #2c3e50;
+      color: white;
+    }
+
+    .btn-primary {
+      background: #2c3e50;
+      color: white;
+      border: 2px solid #2c3e50;
+    }
+
+    .btn-primary:hover {
+      background: #1e2b38;
+    }
+
+    .btn-gray {
+      background: #95a5a6;
+      color: white;
+      border: none;
+    }
+
+    .btn-gray:hover {
+      background: #7f8c8d;
+    }
+
+    .btn-sm {
+      padding: 6px 14px;
+      font-size: 0.8rem;
+    }
+
+    /* cards & sections */
+    .section {
+      margin: 40px 0;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      color: #2c3e50;
+      border-bottom: 3px solid #bdc3c7;
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #dfe6e9;
+    }
+
+    .product-info {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .product-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .product-price {
+      color: #2c3e50;
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    .product-desc {
+      color: #636e72;
+      font-size: 0.9rem;
+      flex: 1;
+    }
+
+    /* auth forms (modal style) */
+    .auth-container {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 450px;
+      margin: 30px auto;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    .auth-container.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #2c3e50;
+      box-shadow: 0 0 0 3px rgba(44,62,80,0.2);
+    }
+
+    .admin-badge {
+      background: #2c3e50;
+      color: white;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      margin-right: 6px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .dashboard-panel {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      margin: 25px 0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+
+    .add-product-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 500px;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding: 25px;
+      text-align: center;
+      background: #2c3e50;
+      color: #ccc;
+      border-radius: 20px 20px 0 0;
+    }
+
+    @media (max-width: 600px) {
+      .store-title {
+        font-size: 2.2rem;
+      }
+      .navbar {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- غلاف الموقع (الهيدر) -->
+  <header class="site-cover">
+    <div class="container">
+      <h1 class="store-title">الرمادي لايز</h1>
+      <p class="store-subtitle">متجر إلكتروني بنكهة رمادية راقية</p>
+      <div class="cover-note">
+        📷 اسم ملف الغلاف المقترح: <strong>al-ramadi-lays-cover.jpg</strong> (ارفعه يدويًا)
+      </div>
+    </div>
+  </header>
+
+  <!-- شريط التنقل -->
+  <div class="container">
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="#" id="homeLink">🏠 الرئيسية</a></li>
+        <li><a href="#" id="productsLink">🛍️ المنتجات</a></li>
+        <li><a href="#" id="adminLink" class="hidden">⚙️ لوحة الإدارة</a></li>
+      </ul>
+      <div class="user-area" id="userArea">
+        <span id="welcomeUser" style="font-weight:500;"></span>
+        <button class="btn btn-outline btn-sm" id="loginBtn">🔐 تسجيل الدخول</button>
+        <button class="btn btn-primary btn-sm" id="registerBtn">✨ حساب جديد</button>
+        <button class="btn btn-gray btn-sm hidden" id="logoutBtn">خروج</button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- المحتوى الرئيسي -->
+  <main class="container">
+    <!-- نماذج تسجيل الدخول والتسجيل -->
+    <div id="authSection" class="auth-container">
+      <h2 id="formTitle" style="margin-bottom:20px; text-align:center;">تسجيل الدخول</h2>
+      <div class="form-group">
+        <label>اسم المستخدم</label>
+        <input type="text" id="usernameInput" class="form-control" placeholder="أدخل اسم المستخدم">
+      </div>
+      <div class="form-group" id="emailGroup" style="display:none;">
+        <label>البريد الإلكتروني</label>
+        <input type="email" id="emailInput" class="form-control" placeholder="example@mail.com">
+      </div>
+      <div class="form-group">
+        <label>الرمز</label>
+        <input type="password" id="passwordInput" class="form-control" placeholder="الرمز السري">
+      </div>
+      <button class="btn btn-primary" id="submitAuth" style="width:100%;">دخول</button>
+      <p style="margin-top:15px; text-align:center; font-size:0.9rem;">
+        <span id="toggleText">ليس لديك حساب؟</span> 
+        <a href="#" id="toggleAuthLink" style="color:#2c3e50; font-weight:bold;">سجل الآن</a>
+      </p>
+      <div id="authMessage" style="margin-top:10px; color:#c0392b; text-align:center;"></div>
+    </div>
+
+    <!-- عرض المنتجات (للمستخدمين) -->
+    <div id="productsSection" class="section">
+      <h2 class="section-title">📦 أحدث المنتجات</h2>
+      <div id="productsContainer" class="products-grid">
+        <!-- المنتجات تُعرض هنا ديناميكيًا -->
+      </div>
+      <div id="emptyProducts" style="text-align:center; padding:30px; color:#7f8c8d;">لا توجد منتجات بعد. أضف منتجات من لوحة الإدارة.</div>
+    </div>
+
+    <!-- لوحة الإدارة (خاصة بالأدمن) -->
+    <div id="adminDashboard" class="dashboard-panel hidden">
+      <h2 style="color:#2c3e50; margin-bottom:20px;">🛠️ لوحة تحكم الأدمن</h2>
+      <p>مرحبًا أدمن <strong>3tx</strong>، يمكنك إضافة منتج جديد مع صورة.</p>
+      <div class="add-product-form">
+        <input type="text" id="productName" class="form-control" placeholder="اسم المنتج">
+        <input type="text" id="productPrice" class="form-control" placeholder="السعر (مثلاً 25 دينار)">
+        <textarea id="productDesc" class="form-control" rows="3" placeholder="وصف المنتج ..."></textarea>
+        <input type="url" id="productImage" class="form-control" placeholder="رابط الصورة (URL)">
+        <button class="btn btn-primary" id="addProductBtn">➕ إضافة المنتج</button>
+      </div>
+      <div style="margin-top:20px;">
+        <h3>المنتجات الحالية</h3>
+        <ul id="adminProductList" style="list-style:none; padding:0;"></ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="container">
+    <p>© 2025 الرمادي لايز - جميع الحقوق محفوظة. غلاف الموقع: al-ramadi-lays-cover.jpg</p>
+  </footer>
+
+  <script>
+    (function() {
+      // ---------- بيانات الأدمن الثابتة ----------
+      const ADMIN_USERNAME = "3tx";
+      const ADMIN_PASSWORD = "11";
+
+      // ---------- حالة التطبيق ----------
+      let currentUser = null; // { username, isAdmin }
+      let usersDB = JSON.parse(localStorage.getItem('ramadi_users')) || [];
+      let productsDB = JSON.parse(localStorage.getItem('ramadi_products')) || [];
+
+      // تأكد من وجود مستخدم الأدمن في قاعدة المستخدمين المحلية
+      if (!usersDB.some(u => u.username === ADMIN_USERNAME)) {
+        usersDB.push({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD, isAdmin: true });
+        localStorage.setItem('ramadi_users', JSON.stringify(usersDB));
+      }
+
+      // حفظ المنتجات في localStorage
+      function saveProducts() {
+        localStorage.setItem('ramadi_products', JSON.stringify(productsDB));
+      }
+
+      // ---------- عناصر DOM ----------
+      const authSection = document.getElementById('authSection');
+      const formTitle = document.getElementById('formTitle');
+      const emailGroup = document.getElementById('emailGroup');
+      const usernameInput = document.getElementById('usernameInput');
+      const emailInput = document.getElementById('emailInput');
+      const passwordInput = document.getElementById('passwordInput');
+      const submitAuth = document.getElementById('submitAuth');
+      const toggleAuthLink = document.getElementById('toggleAuthLink');
+      const toggleText = document.getElementById('toggleText');
+      const authMessage = document.getElementById('authMessage');
+      const loginBtn = document.getElementById('loginBtn');
+      const registerBtn = document.getElementById('registerBtn');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const welcomeUser = document.getElementById('welcomeUser');
+      const adminLink = document.getElementById('adminLink');
+      const adminDashboard = document.getElementById('adminDashboard');
+      const productsSection = document.getElementById('productsSection');
+      const productsContainer = document.getElementById('productsContainer');
+      const emptyProducts = document.getElementById('emptyProducts');
+      const addProductBtn = document.getElementById('addProductBtn');
+      const productName = document.getElementById('productName');
+      const productPrice = document.getElementById('productPrice');
+      const productDesc = document.getElementById('productDesc');
+      const productImage = document.getElementById('productImage');
+      const adminProductList = document.getElementById('adminProductList');
+
+      let authMode = 'login'; // 'login' or 'register'
+
+      // ---------- واجهة المستخدم حسب الحالة ----------
+      function updateUI() {
+        const loggedIn = !!currentUser;
+        const isAdmin = currentUser && currentUser.isAdmin;
+
+        // إظهار/إخفاء الأزرار
+        loginBtn.classList.toggle('hidden', loggedIn);
+        registerBtn.classList.toggle('hidden', loggedIn);
+        logoutBtn.classList.toggle('hidden', !loggedIn);
+        
+        if (loggedIn) {
+          welcomeUser.textContent = `👤 ${currentUser.username} ${isAdmin ? '<span class="admin-badge">أدمن</span>' : ''}`;
+        } else {
+          welcomeUser.textContent = '';
+        }
+
+        // رابط لوحة الإدارة
+        adminLink.classList.toggle('hidden', !isAdmin);
+        adminDashboard.classList.toggle('hidden', !isAdmin);
+
+        // إخفاء نموذج المصادقة إذا سجل الدخول
+        if (loggedIn) {
+          authSection.classList.remove('active');
+        }
+
+        renderProducts();
+        if (isAdmin) {
+          renderAdminProductList();
+        }
+      }
+
+      // عرض المنتجات في الواجهة الرئيسية
+      function renderProducts() {
+        if (!productsContainer) return;
+        productsContainer.innerHTML = '';
+        if (productsDB.length === 0) {
+          emptyProducts.style.display = 'block';
+        } else {
+          emptyProducts.style.display = 'none';
+          productsDB.forEach((product, index) => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+              <img src="${product.image || 'https://placehold.co/400x250/e9ecef/2c3e50?text=رمادي+لايز'}" alt="${product.name}" class="product-img" onerror="this.src='https://placehold.co/400x250/e9ecef/2c3e50?text=صورة+غير+متوفرة'">
+              <div class="product-info">
+                <h3 class="product-title">${product.name}</h3>
+                <p class="product-desc">${product.desc || 'بدون وصف'}</p>
+                <span class="product-price">${product.price || '---'}</span>
+              </div>
+            `;
+            productsContainer.appendChild(card);
+          });
+        }
+      }
+
+      // عرض المنتجات داخل لوحة الأدمن
+      function renderAdminProductList() {
+        if (!adminProductList) return;
+        adminProductList.innerHTML = '';
+        if (productsDB.length === 0) {
+          adminProductList.innerHTML = '<li style="color:#7f8c8d;">لا توجد منتجات.</li>';
+          return;
+        }
+        productsDB.forEach((p, idx) => {
+          const li = document.createElement('li');
+          li.style.display = 'flex';
+          li.style.justifyContent = 'space-between';
+          li.style.alignItems = 'center';
+          li.style.padding = '8px 0';
+          li.style.borderBottom = '1px solid #eee';
+          li.innerHTML = `<span>📌 ${p.name} - ${p.price}</span> 
+            <button class="btn btn-sm btn-gray remove-product" data-index="${idx}">🗑️ حذف</button>`;
+          adminProductList.appendChild(li);
+        });
+        document.querySelectorAll('.remove-product').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            const index = parseInt(this.getAttribute('data-index'));
+            productsDB.splice(index, 1);
+            saveProducts();
+            renderProducts();
+            renderAdminProductList();
+          });
+        });
+      }
+
+      // إعادة تعيين النموذج
+      function resetAuthForm() {
+        usernameInput.value = '';
+        emailInput.value = '';
+        passwordInput.value = '';
+        authMessage.textContent = '';
+      }
+
+      // تبديل النماذج (دخول / تسجيل)
+      function setAuthMode(mode) {
+        authMode = mode;
+        if (mode === 'login') {
+          formTitle.textContent = 'تسجيل الدخول';
+          emailGroup.style.display = 'none';
+          submitAuth.textContent = '🔐 دخول';
+          toggleText.textContent = 'ليس لديك حساب؟';
+          toggleAuthLink.textContent = 'سجل الآن';
+        } else {
+          formTitle.textContent = 'إنشاء حساب جديد';
+          emailGroup.style.display = 'block';
+          submitAuth.textContent = '✨ تسجيل';
+          toggleText.textContent = 'لديك حساب بالفعل؟';
+          toggleAuthLink.textContent = 'تسجيل الدخول';
+        }
+        resetAuthForm();
+        authSection.classList.add('active');
+      }
+
+      // إظهار نموذج الدخول
+      loginBtn.addEventListener('click', () => setAuthMode('login'));
+      registerBtn.addEventListener('click', () => setAuthMode('register'));
+      toggleAuthLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        setAuthMode(authMode === 'login' ? 'register' : 'login');
+      });
+
+      // معالجة تقديم النموذج
+      submitAuth.addEventListener('click', () => {
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+        const email = emailInput.value.trim();
+        authMessage.textContent = '';
+
+        if (!username || !password) {
+          authMessage.textContent = 'يرجى ملء اسم المستخدم والرمز.';
+          return;
+        }
+        if (authMode === 'register' && !email) {
+          authMessage.textContent = 'البريد الإلكتروني مطلوب للتسجيل.';
+          return;
+        }
+
+        if (authMode === 'login') {
+          // تسجيل الدخول
+          const user = usersDB.find(u => u.username === username && u.password === password);
+          if (user) {
+            currentUser = { username: user.username, isAdmin: user.isAdmin || false };
+            authSection.classList.remove('active');
+            updateUI();
+            resetAuthForm();
+          } else {
+            authMessage.textContent = 'اسم المستخدم أو الرمز غير صحيح.';
+          }
+        } else {
+          // تسجيل جديد
+          if (usersDB.some(u => u.username === username)) {
+            authMessage.textContent = 'اسم المستخدم موجود مسبقاً.';
+            return;
+          }
+          const newUser = { username, password, email, isAdmin: false };
+          usersDB.push(newUser);
+          localStorage.setItem('ramadi_users', JSON.stringify(usersDB));
+          // تسجيل دخول تلقائي
+          currentUser = { username: newUser.username, isAdmin: false };
+          authSection.classList.remove('active');
+          updateUI();
+          resetAuthForm();
+        }
+      });
+
+      // تسجيل الخروج
+      logoutBtn.addEventListener('click', () => {
+        currentUser = null;
+        authSection.classList.remove('active');
+        adminDashboard.classList.add('hidden');
+        updateUI();
+        resetAuthForm();
+      });
+
+      // إضافة منتج (للأدمن)
+      addProductBtn.addEventListener('click', () => {
+        if (!currentUser || !currentUser.isAdmin) {
+          alert('فقط الأدمن يمكنه إضافة منتجات.');
+          return;
+        }
+        const name = productName.value.trim();
+        const price = productPrice.value.trim();
+        const desc = productDesc.value.trim();
+        const image = productImage.value.trim();
+        if (!name || !price) {
+          alert('اسم المنتج والسعر مطلوبان.');
+          return;
+        }
+        productsDB.push({ name, price, desc, image: image || '' });
+        saveProducts();
+        productName.value = '';
+        productPrice.value = '';
+        productDesc.value = '';
+        productImage.value = '';
+        renderProducts();
+        renderAdminProductList();
+      });
+
+      // روابط التنقل
+      document.getElementById('homeLink').addEventListener('click', (e) => {
+        e.preventDefault();
+        productsSection.scrollIntoView({ behavior: 'smooth' });
+      });
+      document.getElementById('productsLink').addEventListener('click', (e) => {
+        e.preventDefault();
+        productsSection.scrollIntoView({ behavior: 'smooth' });
+      });
+      adminLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentUser && currentUser.isAdmin) {
+          adminDashboard.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      // بدء التشغيل
+      updateUI();
+      // إخفاء نموذج المصادقة افتراضياً
+      authSection.classList.remove('active');
+    })();
+  </script>
+</body>
+</html>

@@ -193,7 +193,7 @@
     .btn-del { padding:4px 10px; background:rgba(231,76,60,.18); border:1px solid rgba(231,76,60,.3); color:#e74c3c; border-radius:6px; font-size:.75rem; font-family:'Tajawal',sans-serif; cursor:pointer; font-weight:700; transition:all .2s; display:inline-flex; align-items:center; gap:4px; }
     .btn-del:hover { background:rgba(231,76,60,.3); }
 
-    /* رفع صورة - مبسط */
+    /* رفع صورة */
     .img-upload-area {
       border:2px dashed rgba(247,0,110,0.35); border-radius:10px;
       padding:0; text-align:center; cursor:pointer; transition:all .25s;
@@ -209,6 +209,95 @@
       border-radius:8px; display:none; border:2px solid var(--border);
     }
     .img-size-info { font-size:.75rem; color:var(--text-muted); margin-top:4px; }
+
+    /* نافذة قص الصورة */
+    .crop-overlay {
+      position:fixed; inset:0; z-index:600;
+      background:rgba(0,0,0,0.92); backdrop-filter:blur(10px);
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; pointer-events:none; transition:opacity .3s;
+    }
+    .crop-overlay.open { opacity:1; pointer-events:all; }
+    .crop-modal {
+      background:var(--dark2); border:1px solid var(--border); border-radius:20px;
+      padding:24px; width:95%; max-width:480px;
+      box-shadow:0 30px 80px rgba(0,0,0,0.8),0 0 40px var(--pink-glow);
+    }
+    .crop-modal h3 { font-size:1rem; font-weight:800; color:#fff; margin-bottom:12px; text-align:center; }
+    .crop-canvas-wrap {
+      position:relative; border-radius:12px; background:#111;
+      margin-bottom:14px; border:1px solid var(--border);
+      overflow:hidden; touch-action:none; cursor:move;
+    }
+    #cropCanvas { display:block; width:100%; }
+    .crop-controls { display:flex; gap:10px; align-items:center; margin-bottom:12px; }
+    .crop-controls label { font-size:.8rem; color:var(--text-muted); white-space:nowrap; }
+    .crop-controls input[type=range] { flex:1; accent-color:var(--pink); }
+    .ratio-btns { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+    .ratio-btn {
+      padding:5px 14px; border-radius:6px; border:1.5px solid rgba(255,255,255,0.12);
+      background:transparent; color:#aaa; font-family:'Tajawal',sans-serif;
+      font-size:.8rem; cursor:pointer; transition:all .2s;
+    }
+    .ratio-btn.active { border-color:var(--pink); color:var(--pink-light); background:var(--pink-dim); }
+    .crop-actions { display:flex; gap:10px; }
+    .crop-actions button { flex:1; }
+
+    /* بطاقات المنتجات المحسّنة */
+    .products-grid {
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+      gap:28px; margin-bottom:60px;
+    }
+    .product-card {
+      background:linear-gradient(145deg,#1e1e1e,#161616);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:20px; overflow:hidden; display:flex; flex-direction:column;
+      transition:all .35s cubic-bezier(.25,.8,.25,1); position:relative;
+    }
+    .product-card::before {
+      content:''; position:absolute; inset:0; border-radius:20px; z-index:0;
+      background:linear-gradient(135deg,rgba(247,0,110,0.06),transparent);
+      opacity:0; transition:opacity .3s; pointer-events:none;
+    }
+    .product-card:hover::before { opacity:1; }
+    .product-card:hover {
+      transform:translateY(-10px);
+      border-color:rgba(247,0,110,0.3);
+      box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(247,0,110,0.15);
+    }
+    .product-img-wrap { position:relative; overflow:hidden; }
+    .product-img {
+      width:100%; height:240px; object-fit:cover;
+      transition:transform .5s cubic-bezier(.25,.8,.25,1); display:block;
+    }
+    .product-card:hover .product-img { transform:scale(1.06); }
+    .product-img-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,transparent 55%);
+    }
+    .product-body { padding:20px; display:flex; flex-direction:column; flex-grow:1; position:relative; z-index:1; }
+    .product-name { font-size:1.1rem; font-weight:900; color:#fff; margin-bottom:8px; line-height:1.4; }
+    .product-desc {
+      font-size:.85rem; color:var(--text-muted); flex-grow:1; margin-bottom:16px; line-height:1.8;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+    }
+    .product-footer {
+      display:flex; justify-content:space-between; align-items:center;
+      padding-top:16px; border-top:1px solid rgba(255,255,255,.07); gap:10px;
+    }
+    .product-price {
+      font-size:1.2rem; font-weight:900;
+      background:linear-gradient(90deg,var(--pink),var(--pink-light));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .btn-order {
+      padding:9px 18px; border:none; border-radius:10px;
+      background:linear-gradient(135deg,var(--pink),var(--pink-light));
+      color:#fff; font-family:'Tajawal',sans-serif; font-size:.85rem; font-weight:800;
+      cursor:pointer; transition:all .25s; display:flex; align-items:center; gap:6px;
+      box-shadow:0 4px 16px var(--pink-glow); white-space:nowrap;
+    }
+    .btn-order:hover { transform:scale(1.06); box-shadow:0 8px 24px var(--pink-glow); }
 
     /* toast */
     .toast {
@@ -365,6 +454,31 @@
 
 </main>
 
+<!-- نافذة قص الصورة -->
+<div class="crop-overlay" id="cropOverlay">
+  <div class="crop-modal">
+    <h3><i class="fa-solid fa-crop-simple" style="color:var(--pink);"></i> اضبط الصورة</h3>
+    <div class="ratio-btns">
+      <button class="ratio-btn active" onclick="setRatio(1,1)">مربع ١:١</button>
+      <button class="ratio-btn" onclick="setRatio(4,3)">٤:٣</button>
+      <button class="ratio-btn" onclick="setRatio(16,9)">١٦:٩</button>
+      <button class="ratio-btn" onclick="setRatio(3,4)">٣:٤ عمودي</button>
+      <button class="ratio-btn" onclick="setRatio(0,0)">حر</button>
+    </div>
+    <div class="crop-canvas-wrap" id="cropWrap">
+      <canvas id="cropCanvas"></canvas>
+    </div>
+    <div class="crop-controls">
+      <label><i class="fa-solid fa-magnifying-glass"></i> تكبير</label>
+      <input type="range" id="zoomSlider" min="1" max="3" step="0.01" value="1">
+    </div>
+    <div class="crop-actions">
+      <button class="btn-auth" style="background:rgba(255,255,255,0.07);color:#aaa;box-shadow:none;" onclick="cancelCrop()">إلغاء</button>
+      <button class="btn-auth" id="btnApplyCrop"><i class="fa-solid fa-check"></i> تطبيق القص</button>
+    </div>
+  </div>
+</div>
+
 <footer>© 2026 <span>الرمادي لايز</span> — جميع الحقوق محفوظة</footer>
 <div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i><span id="toastMsg"></span></div>
 
@@ -396,49 +510,161 @@
      رفع الصورة - محوّل Base64
      لا يحتاج Storage أو أي إعداد
   ══════════════════════════════ */
+  /* ══════════════════════════════
+     قص الصورة وتعديل الحجم
+  ══════════════════════════════ */
   const fileInput   = document.getElementById('pImgFile');
   const imgPreview  = document.getElementById('imgPreview');
   const imgInfo     = document.getElementById('imgInfo');
   const uploadArea  = document.getElementById('uploadArea');
 
-  fileInput.addEventListener('change', () => handleImageFile(fileInput.files[0]));
+  let cropImg = new Image();
+  let cropRatioW = 1, cropRatioH = 1, cropFree = false;
+  let cropX = 0, cropY = 0, cropW = 0, cropH = 0;
+  let isDragging = false, dragStartX, dragStartY, dragOriginX, dragOriginY;
+  let zoomLevel = 1;
+  const canvas = document.getElementById('cropCanvas');
+  const ctx = canvas.getContext('2d');
 
-  /* سحب وإفلات */
-  uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.style.borderColor = 'var(--pink)'; });
-  uploadArea.addEventListener('dragleave', () => { uploadArea.style.borderColor = ''; });
+  fileInput.addEventListener('change', () => { if(fileInput.files[0]) openCrop(fileInput.files[0]); });
+
+  uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.style.borderColor='var(--pink)'; });
+  uploadArea.addEventListener('dragleave', () => { uploadArea.style.borderColor=''; });
   uploadArea.addEventListener('drop', e => {
-    e.preventDefault();
-    uploadArea.style.borderColor = '';
+    e.preventDefault(); uploadArea.style.borderColor='';
     const f = e.dataTransfer.files[0];
-    if (f && f.type.startsWith('image/')) handleImageFile(f);
-    else showToast('يرجى اختيار ملف صورة فقط', true);
+    if(f && f.type.startsWith('image/')) openCrop(f);
+    else showToast('يرجى اختيار ملف صورة', true);
   });
 
-  function handleImageFile(file) {
-    if (!file) return;
-    if (!file.type.startsWith('image/')) { showToast('ملف غير صالح — يجب أن يكون صورة', true); return; }
-    if (file.size > 2 * 1024 * 1024) { showToast('الصورة كبيرة — الحد الأقصى 2MB', true); return; }
-
+  function openCrop(file) {
+    if(file.size > 5*1024*1024) { showToast('الصورة كبيرة — الحد 5MB', true); return; }
     const reader = new FileReader();
     reader.onload = e => {
-      base64ImageData = e.target.result;          /* Data URL كاملة */
-      imgPreview.src = base64ImageData;
-      imgPreview.style.display = 'block';
-      uploadArea.style.display = 'none';          /* إخفاء منطقة الرفع */
-      imgInfo.style.display = 'block';
-      imgInfo.innerHTML = `✓ ${file.name} — ${(file.size/1024).toFixed(0)} KB
-        <span style="color:var(--pink);cursor:pointer;margin-right:8px;" onclick="resetImage()">تغيير الصورة ✕</span>`;
+      cropImg = new Image();
+      cropImg.onload = () => {
+        zoomLevel = 1;
+        document.getElementById('zoomSlider').value = 1;
+        initCrop();
+        document.getElementById('cropOverlay').classList.add('open');
+      };
+      cropImg.src = e.target.result;
     };
     reader.readAsDataURL(file);
   }
 
+  function initCrop() {
+    const wrap = document.getElementById('cropWrap');
+    const maxW = Math.min(wrap.clientWidth || 420, 420);
+    const scale = maxW / cropImg.width;
+    canvas.width  = Math.round(cropImg.width  * scale);
+    canvas.height = Math.round(cropImg.height * scale);
+    if(!cropFree) {
+      const side = Math.min(canvas.width, canvas.height) * 0.8;
+      cropW = side / (cropRatioW / cropRatioH > 1 ? 1 : cropRatioW/cropRatioH);
+      cropH = cropW * (cropRatioH / cropRatioW);
+      if(cropH > canvas.height * 0.9) { cropH = canvas.height * 0.9; cropW = cropH * cropRatioW/cropRatioH; }
+      cropW = Math.min(cropW, canvas.width * 0.9);
+    } else {
+      cropW = canvas.width * 0.8; cropH = canvas.height * 0.8;
+    }
+    cropX = (canvas.width  - cropW) / 2;
+    cropY = (canvas.height - cropH) / 2;
+    drawCrop();
+  }
+
+  function drawCrop() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.save();
+    ctx.translate(canvas.width/2, canvas.height/2);
+    ctx.scale(zoomLevel, zoomLevel);
+    ctx.translate(-canvas.width/2, -canvas.height/2);
+    ctx.drawImage(cropImg, 0, 0, canvas.width, canvas.height);
+    ctx.restore();
+    /* تعتيم خارج منطقة القص */
+    ctx.fillStyle = 'rgba(0,0,0,0.55)';
+    ctx.fillRect(0,0,canvas.width,cropY);
+    ctx.fillRect(0,cropY+cropH,canvas.width,canvas.height-cropY-cropH);
+    ctx.fillRect(0,cropY,cropX,cropH);
+    ctx.fillRect(cropX+cropW,cropY,canvas.width-cropX-cropW,cropH);
+    /* إطار */
+    ctx.strokeStyle = 'var(--pink-light)'; ctx.lineWidth = 2;
+    ctx.strokeRect(cropX, cropY, cropW, cropH);
+    /* خطوط ثلثية */
+    ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 1;
+    for(let i=1;i<3;i++){
+      ctx.beginPath(); ctx.moveTo(cropX+cropW*i/3,cropY); ctx.lineTo(cropX+cropW*i/3,cropY+cropH); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cropX,cropY+cropH*i/3); ctx.lineTo(cropX+cropW,cropY+cropH*i/3); ctx.stroke();
+    }
+  }
+
+  /* زوم */
+  document.getElementById('zoomSlider').addEventListener('input', function() {
+    zoomLevel = parseFloat(this.value); drawCrop();
+  });
+
+  /* سحب منطقة القص */
+  canvas.addEventListener('mousedown', e => startDrag(e.offsetX, e.offsetY));
+  canvas.addEventListener('mousemove', e => { if(isDragging) doDrag(e.offsetX, e.offsetY); });
+  canvas.addEventListener('mouseup',   () => isDragging=false);
+  canvas.addEventListener('mouseleave',() => isDragging=false);
+
+  canvas.addEventListener('touchstart', e => { e.preventDefault(); const t=e.touches[0]; const r=canvas.getBoundingClientRect(); startDrag(t.clientX-r.left, t.clientY-r.top); }, {passive:false});
+  canvas.addEventListener('touchmove',  e => { e.preventDefault(); const t=e.touches[0]; const r=canvas.getBoundingClientRect(); if(isDragging) doDrag(t.clientX-r.left, t.clientY-r.top); }, {passive:false});
+  canvas.addEventListener('touchend',   () => isDragging=false);
+
+  function startDrag(x,y) {
+    if(x>=cropX&&x<=cropX+cropW&&y>=cropY&&y<=cropY+cropH) {
+      isDragging=true; dragStartX=x; dragStartY=y; dragOriginX=cropX; dragOriginY=cropY;
+    }
+  }
+  function doDrag(x,y) {
+    cropX = Math.max(0, Math.min(canvas.width-cropW,  dragOriginX + (x-dragStartX)));
+    cropY = Math.max(0, Math.min(canvas.height-cropH, dragOriginY + (y-dragStartY)));
+    drawCrop();
+  }
+
+  window.setRatio = function(w,h) {
+    cropFree = (w===0);
+    cropRatioW = w||1; cropRatioH = h||1;
+    document.querySelectorAll('.ratio-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    initCrop();
+  };
+
+  window.cancelCrop = function() {
+    document.getElementById('cropOverlay').classList.remove('open');
+    fileInput.value='';
+  };
+
+  document.getElementById('btnApplyCrop').addEventListener('click', () => {
+    /* رسم المنطقة المقصوصة بجودة عالية */
+    const out = document.createElement('canvas');
+    const scaleX = cropImg.width  / (canvas.width  / zoomLevel);
+    const scaleY = cropImg.height / (canvas.height / zoomLevel);
+    const srcX = (cropX / zoomLevel) * scaleX;
+    const srcY = (cropY / zoomLevel) * scaleY;
+    const srcW = (cropW / zoomLevel) * scaleX;
+    const srcH = (cropH / zoomLevel) * scaleY;
+    out.width = Math.round(srcW); out.height = Math.round(srcH);
+    const octx = out.getContext('2d');
+    octx.drawImage(cropImg, srcX, srcY, srcW, srcH, 0, 0, out.width, out.height);
+    base64ImageData = out.toDataURL('image/jpeg', 0.88);
+    /* معاينة */
+    imgPreview.src = base64ImageData;
+    imgPreview.style.display = 'block';
+    uploadArea.style.display = 'none';
+    imgInfo.style.display = 'block';
+    imgInfo.innerHTML = `✓ تم القص بنجاح — ${out.width}×${out.height}px
+      <span style="color:var(--pink);cursor:pointer;margin-right:8px;" onclick="resetImage()">تغيير ✕</span>`;
+    document.getElementById('cropOverlay').classList.remove('open');
+  });
+
   window.resetImage = function() {
     base64ImageData = '';
-    imgPreview.style.display = 'none';
-    imgPreview.src = '';
+    imgPreview.style.display = 'none'; imgPreview.src = '';
     uploadArea.style.display = 'flex';
-    imgInfo.style.display = 'none';
-    fileInput.value = '';
+    imgInfo.style.display = 'none'; fileInput.value = '';
   };
 
   /* ══ OTP boxes — تنقل تلقائي ══ */
@@ -716,15 +942,22 @@
     data.forEach(p => {
       const card = document.createElement('div');
       card.className = 'product-card';
+      const igMsg = encodeURIComponent(`مرحبا، أريد طلب: ${p.name} - السعر: ${p.price}`);
+      const igLink = `https://ig.me/m/4.2nr?text=${igMsg}`;
       card.innerHTML = `
-        <img src="${p.image_url || DEF}" class="product-img" alt="${p.name}"
-             onerror="this.src='${DEF}'">
+        <div class="product-img-wrap">
+          <img src="${p.image_url || DEF}" class="product-img" alt="${p.name}"
+               onerror="this.src='${DEF}'">
+          <div class="product-img-overlay"></div>
+        </div>
         <div class="product-body">
           <div class="product-name">${p.name}</div>
           <div class="product-desc">${p.description || 'لا توجد تفاصيل إضافية.'}</div>
           <div class="product-footer">
             <span class="product-price">${p.price}</span>
-            <button class="btn-order"><i class="fa-solid fa-basket-shopping"></i> طلب</button>
+            <a href="${igLink}" target="_blank" class="btn-order">
+              <i class="fa-brands fa-instagram"></i> اطلب الآن
+            </a>
           </div>
         </div>`;
       grid.appendChild(card);

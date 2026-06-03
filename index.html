@@ -2,20 +2,34 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>الرمادي لايز | المتجر الإلكتروني</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الرمادي لايز | المتجر الإلكتروني الفخم</title>
+  
+  <!-- تضمين مكتبة Supabase ومكتبة أيقونات FontAwesome لمظهر احترافي -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #34495e;
+      --accent-color: #e74c3c;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-main: #2d3436;
+      --text-muted: #636e72;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f5f5;
-      color: #1e1e1e;
+      background-color: var(--bg-color);
+      color: var(--text-main);
       line-height: 1.6;
     }
 
@@ -25,221 +39,206 @@
       padding: 0 20px;
     }
 
-    /* header & cover */
-    .site-cover {
-      background: linear-gradient(135deg, #2c3e50 0%, #4a6274 100%);
+    /* هيدر وغلاف الموقع الاحترافي */
+    .site-header {
+      background: linear-gradient(rgba(44, 62, 80, 0.85), rgba(52, 73, 94, 0.9)), url('al-ramadi-lays-cover.jpg') no-repeat center center/cover;
       color: white;
-      padding: 30px 0;
+      padding: 80px 0;
       text-align: center;
-      border-bottom: 4px solid #bdc3c7;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .site-cover::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.08"><path d="M20 20 L30 20 L25 30 Z" fill="white"/><circle cx="70" cy="30" r="8" fill="white"/><rect x="75" y="60" width="15" height="15" fill="white" transform="rotate(20 75 60)"/></svg>');
-      background-size: 120px 120px;
-      pointer-events: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     }
 
     .store-title {
-      font-size: 3rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-size: 3.5rem;
+      font-weight: 800;
       margin-bottom: 10px;
-      position: relative;
-      z-index: 2;
+      text-shadow: 2px 4px 8px rgba(0,0,0,0.5);
     }
 
     .store-subtitle {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       opacity: 0.9;
       font-weight: 300;
-      position: relative;
-      z-index: 2;
+      letter-spacing: 1px;
     }
 
-    .cover-note {
-      margin-top: 18px;
-      background: rgba(255,255,255,0.15);
-      display: inline-block;
-      padding: 6px 18px;
-      border-radius: 30px;
-      font-size: 0.9rem;
-      backdrop-filter: blur(4px);
-      position: relative;
-      z-index: 2;
-    }
-
+    /* شريط التنقل */
     .navbar {
-      background: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      padding: 10px 0;
+      background: var(--card-bg);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
     }
 
     .nav-links {
       display: flex;
-      gap: 25px;
+      gap: 20px;
       list-style: none;
-      font-weight: 500;
     }
 
     .nav-links a {
       text-decoration: none;
-      color: #2c3e50;
-      padding: 8px 12px;
-      border-radius: 6px;
-      transition: 0.2s;
+      color: var(--primary-color);
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
     }
 
-    .nav-links a:hover {
-      background: #e9ecef;
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(44, 62, 80, 0.1);
+      color: var(--primary-color);
     }
 
-    .user-area {
+    .user-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
+    /* الأزرار */
     .btn {
-      padding: 10px 20px;
+      padding: 10px 22px;
       border: none;
-      border-radius: 30px;
+      border-radius: 50px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
       font-size: 0.9rem;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
     }
 
     .btn-outline {
       background: transparent;
-      border: 2px solid #2c3e50;
-      color: #2c3e50;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
     }
 
     .btn-outline:hover {
-      background: #2c3e50;
+      background: var(--primary-color);
       color: white;
     }
 
-    .btn-primary {
-      background: #2c3e50;
+    .btn-danger {
+      background: var(--accent-color);
       color: white;
-      border: 2px solid #2c3e50;
     }
 
-    .btn-primary:hover {
-      background: #1e2b38;
-    }
-
-    .btn-gray {
-      background: #95a5a6;
-      color: white;
-      border: none;
-    }
-
-    .btn-gray:hover {
-      background: #7f8c8d;
-    }
-
-    .btn-sm {
-      padding: 6px 14px;
-      font-size: 0.8rem;
-    }
-
-    .section {
-      margin: 40px 0;
-    }
-
+    /* قسم المنتجات */
     .section-title {
-      font-size: 1.8rem;
-      margin-bottom: 25px;
-      color: #2c3e50;
-      border-bottom: 3px solid #bdc3c7;
-      display: inline-block;
-      padding-bottom: 6px;
+      font-size: 2rem;
+      margin: 40px 0 20px;
+      color: var(--primary-color);
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--primary-color);
+      border-radius: 2px;
     }
 
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
     }
 
     .product-card {
-      background: white;
+      background: var(--card-bg);
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
       display: flex;
       flex-direction: column;
+      border: 1px solid rgba(0,0,0,0.03);
     }
 
     .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.12);
     }
 
     .product-img {
       width: 100%;
-      height: 200px;
+      height: 240px;
       object-fit: cover;
-      background: #dfe6e9;
     }
 
-    .product-info {
-      padding: 16px;
-      flex: 1;
+    .product-body {
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      flex-grow: 1;
     }
 
-    .product-title {
-      font-weight: 700;
-      font-size: 1.2rem;
-    }
-
-    .product-price {
-      color: #2c3e50;
-      font-weight: bold;
+    .product-name {
       font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 8px;
     }
 
     .product-desc {
-      color: #636e72;
-      font-size: 0.9rem;
-      flex: 1;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+      flex-grow: 1;
     }
 
-    .auth-container {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .product-price {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--accent-color);
+    }
+
+    /* واجهة تسجيل الدخول الاحترافية */
+    .auth-card {
+      background: var(--card-bg);
       max-width: 450px;
-      margin: 30px auto;
-      box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+      margin: 50px auto;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
       display: none;
     }
 
-    .auth-container.active {
+    .auth-card.active {
       display: block;
     }
 
@@ -249,627 +248,408 @@
 
     .form-group label {
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       font-weight: 600;
-      color: #2c3e50;
+      color: var(--primary-color);
     }
 
     .form-control {
       width: 100%;
       padding: 12px 16px;
-      border: 1px solid #ddd;
-      border-radius: 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
       font-size: 1rem;
-      transition: 0.2s;
+      transition: all 0.3s ease;
     }
 
     .form-control:focus {
       outline: none;
-      border-color: #2c3e50;
-      box-shadow: 0 0 0 3px rgba(44,62,80,0.2);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
     }
 
-    .admin-badge {
-      background: #2c3e50;
-      color: white;
-      padding: 2px 10px;
+    /* لوحة التحكم للأدمن */
+    .admin-panel {
+      background: var(--card-bg);
+      padding: 30px;
       border-radius: 20px;
-      font-size: 0.75rem;
-      margin-right: 6px;
+      margin: 40px 0;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      border-top: 5px solid var(--primary-color);
     }
 
     .hidden {
       display: none !important;
     }
 
-    .dashboard-panel {
-      background: white;
-      border-radius: 20px;
-      padding: 25px;
-      margin: 25px 0;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-    }
-
-    .add-product-form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 500px;
-    }
-
-    .loading-spinner {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255,255,255,.3);
-      border-radius: 50%;
-      border-top-color: #fff;
-      animation: spin 1s ease-in-out infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .message {
-      padding: 10px;
+    .status-msg {
+      padding: 12px;
       border-radius: 8px;
-      margin: 10px 0;
+      margin: 15px 0;
       text-align: center;
+      font-weight: 600;
     }
 
-    .message-error {
-      background: #ffeaa7;
-      color: #d63031;
-    }
-
-    .message-success {
-      background: #dfe6e9;
-      color: #00b894;
-    }
+    .msg-success { background: #d4edda; color: #155724; }
+    .msg-error { background: #f8d7da; color: #721c24; }
 
     footer {
-      margin-top: 60px;
-      padding: 25px;
+      background: var(--primary-color);
+      color: white;
       text-align: center;
-      background: #2c3e50;
-      color: #ccc;
-      border-radius: 20px 20px 0 0;
+      padding: 30px 0;
+      margin-top: 60px;
+      font-size: 0.95rem;
     }
 
-    @media (max-width: 600px) {
-      .store-title {
-        font-size: 2.2rem;
-      }
-      .navbar {
-        flex-direction: column;
-        gap: 15px;
-      }
+    @media (max-width: 768px) {
+      .nav-container { flex-direction: column; gap: 15px; }
+      .store-title { font-size: 2.5rem; }
     }
   </style>
 </head>
 <body>
-  <header class="site-cover">
+
+  <!-- غلاف المتجر -->
+  <header class="site-header">
     <div class="container">
       <h1 class="store-title">الرمادي لايز</h1>
-      <p class="store-subtitle">متجر إلكتروني بنكهة رمادية راقية</p>
-      <div class="cover-note">
-        📷 اسم ملف الغلاف: <strong>al-ramadi-lays-cover.jpg</strong> (ارفعه يدويًا)
-      </div>
+      <p class="store-subtitle">تجربة تسوق إلكترونية فاخرة وعصرية</p>
     </div>
   </header>
 
-  <div class="container">
-    <nav class="navbar">
+  <!-- شريط التنقل -->
+  <nav class="navbar">
+    <div class="container nav-container">
       <ul class="nav-links">
-        <li><a href="#" id="homeLink">🏠 الرئيسية</a></li>
-        <li><a href="#" id="productsLink">🛍️ المنتجات</a></li>
-        <li><a href="#" id="adminLink" class="hidden">⚙️ لوحة الإدارة</a></li>
+        <li><a href="#" id="navHome" class="active"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
+        <li><a href="#" id="navProducts"><i class="fa-solid fa-box-open"></i> المنتجات</a></li>
+        <li><a href="#" id="navAdmin" class="hidden"><i class="fa-solid fa-id-badge"></i> لوحة الإدارة</a></li>
       </ul>
-      <div class="user-area" id="userArea">
-        <span id="welcomeUser" style="font-weight:500;"></span>
-        <button class="btn btn-outline btn-sm" id="loginBtn">🔐 تسجيل الدخول</button>
-        <button class="btn btn-primary btn-sm" id="registerBtn">✨ حساب جديد</button>
-        <button class="btn btn-gray btn-sm hidden" id="logoutBtn">خروج</button>
+      <div class="user-actions">
+        <span id="userWelcome" style="font-weight: 600; color: var(--primary-color);"></span>
+        <button class="btn btn-outline" id="btnShowLogin"><i class="fa-solid fa-lock"></i> دخول</button>
+        <button class="btn btn-primary" id="btnShowRegister"><i class="fa-solid fa-user-plus"></i> حساب جديد</button>
+        <button class="btn btn-danger hidden" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i> خروج</button>
       </div>
-    </nav>
-  </div>
+    </div>
+  </nav>
 
   <main class="container">
-    <div id="authSection" class="auth-container">
-      <h2 id="formTitle" style="margin-bottom:20px; text-align:center;">تسجيل الدخول</h2>
+    
+    <!-- واجهة تسجيل الدخول وإنشاء الحساب -->
+    <section id="authSection" class="auth-card">
+      <h2 id="authTitle" style="text-align: center; margin-bottom: 25px; color: var(--primary-color);">تسجيل الدخول</h2>
+      <div id="authAlert"></div>
+      
       <div class="form-group">
-        <label>اسم المستخدم</label>
-        <input type="text" id="usernameInput" class="form-control" placeholder="أدخل اسم المستخدم">
-      </div>
-      <div class="form-group" id="emailGroup" style="display:none;">
-        <label>البريد الإلكتروني</label>
-        <input type="email" id="emailInput" class="form-control" placeholder="example@mail.com">
+        <label><i class="fa-solid fa-envelope"></i> البريد الإلكتروني</label>
+        <input type="email" id="authEmail" class="form-control" placeholder="name@example.com">
       </div>
       <div class="form-group">
-        <label>الرمز</label>
-        <input type="password" id="passwordInput" class="form-control" placeholder="الرمز السري">
+        <label><i class="fa-solid fa-key"></i> الرمز السري</label>
+        <input type="password" id="authPassword" class="form-control" placeholder="••••••••">
       </div>
-      <button class="btn btn-primary" id="submitAuth" style="width:100%;">دخول</button>
-      <p style="margin-top:15px; text-align:center; font-size:0.9rem;">
-        <span id="toggleText">ليس لديك حساب؟</span> 
-        <a href="#" id="toggleAuthLink" style="color:#2c3e50; font-weight:bold;">سجل الآن</a>
+      
+      <button class="btn btn-primary" id="btnAuthSubmit" style="width: 100%; justify-content: center;"></button>
+      
+      <p style="text-align: center; margin-top: 20px; font-size: 0.9rem;">
+        <span id="authToggleText">ليس لديك حساب؟</span>
+        <a href="#" id="linkToggleAuth" style="color: var(--accent-color); font-weight: bold; text-decoration: none;">سجل الآن</a>
       </p>
-      <div id="authMessage" style="margin-top:10px; text-align:center;"></div>
-    </div>
+    </section>
 
-    <div id="productsSection" class="section">
-      <h2 class="section-title">📦 أحدث المنتجات</h2>
-      <div id="productsContainer" class="products-grid"></div>
-      <div id="emptyProducts" style="text-align:center; padding:30px; color:#7f8c8d;">لا توجد منتجات بعد.</div>
-    </div>
+    <!-- قسم المنتجات الرئيسي -->
+    <section id="productsSection">
+      <h2 class="section-title">📦 المنتجات المتوفرة</h2>
+      <div id="productsLoading" style="text-align: center; padding: 40px; color: var(--text-muted);">
+        <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i> جاري تحميل المنتجات...
+      </div>
+      <div id="productsGrid" class="products-grid"></div>
+    </section>
 
-    <div id="adminDashboard" class="dashboard-panel hidden">
-      <h2 style="color:#2c3e50; margin-bottom:20px;">🛠️ لوحة تحكم الأدمن</h2>
-      <p>مرحباً أدمن <strong>3tx</strong>، يمكنك إضافة منتج جديد مع صورة.</p>
-      <div class="add-product-form">
-        <input type="text" id="productName" class="form-control" placeholder="اسم المنتج">
-        <input type="text" id="productPrice" class="form-control" placeholder="السعر (مثلاً 25 دينار)">
-        <textarea id="productDesc" class="form-control" rows="3" placeholder="وصف المنتج ..."></textarea>
+    <!-- لوحة تحكم الأدمن (مخفية تلقائياً) -->
+    <section id="adminSection" class="admin-panel hidden">
+      <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fa-solid fa-sliders"></i> لوحة التحكم للأدمن</h2>
+      
+      <div style="max-width: 600px; background: #f1f5f9; padding: 25px; border-radius: 12px;">
+        <h3 style="margin-bottom: 15px; font-size: 1.1rem;">➕ إضافة منتج جديد</h3>
         <div class="form-group">
-          <label>صورة المنتج</label>
-          <input type="file" id="productImageFile" accept="image/*" class="form-control" style="padding:8px;">
+          <input type="text" id="newProdName" class="form-control" placeholder="اسم المنتج">
         </div>
-        <button class="btn btn-primary" id="addProductBtn">➕ إضافة المنتج</button>
+        <div class="form-group">
+          <input type="text" id="newProdPrice" class="form-control" placeholder="السعر (مثال: 25,000 د.ع)">
+        </div>
+        <div class="form-group">
+          <textarea id="newProdDesc" class="form-control" rows="3" placeholder="وصف المنتج وتفاصيله..."></textarea>
+        </div>
+        <div class="form-group">
+          <label style="font-size: 0.85rem;">رابط صورة المنتج (أو اتركه فارغاً للصورة الافتراضية)</label>
+          <input type="text" id="newProdImg" class="form-control" placeholder="https://example.com/image.jpg">
+        </div>
+        <button class="btn btn-primary" id="btnSaveProduct"><i class="fa-solid fa-plus"></i> نشر المنتج في المتجر</button>
       </div>
-      <div style="margin-top:20px;">
-        <h3>المنتجات الحالية</h3>
-        <ul id="adminProductList" style="list-style:none; padding:0;"></ul>
+
+      <div style="margin-top: 35px;">
+        <h3 style="margin-bottom: 15px;">📋 إدارة المنتجات الحالية</h3>
+        <div id="adminProductsList"></div>
       </div>
-    </div>
+    </section>
+
   </main>
 
-  <footer class="container">
-    <p>© 2025 الرمادي لايز - جميع الحقوق محفوظة</p>
+  <footer>
+    <p>© 2026 الرمادي لايز - جميع الحقوق محفوظة لـ <strong>3tx</strong></p>
   </footer>
 
   <script>
-    // ==================== SUPABASE CONFIG ====================
-    const SUPABASE_URL = 'https://ydfdtlrcvkvgmigkaskz.supabase.co'
-    const SUPABASE_ANON_KEY = 'sb_publishable_BqBQSvJBxYzpbM3qod0idA_5tR248ci'
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    // ==================== إعدادات الاتصال بـ SUPABASE ====================
+    const SUPABASE_URL = 'https://ydfdtlrcvkvgmigkaskz.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_BqBQSvJBxYzpbM3qod0idA_5tR248ci';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // ==================== APP STATE ====================
-    let currentUser = null
-    let currentSession = null
-    let authMode = 'login'
+    // حالة التطبيق الحالية
+    let sessionUser = null;
+    let authMode = 'login'; // يمكن أن تكون 'login' أو 'register'
+    const ADMIN_EMAIL = '3tx@ramadi.com'; // قم بتغيير هذا الإيميل ليكون إيميل الأدمن الخاص بك لتظهر له لوحة التحكم
 
-    // ==================== DOM ELEMENTS ====================
-    const authSection = document.getElementById('authSection')
-    const formTitle = document.getElementById('formTitle')
-    const emailGroup = document.getElementById('emailGroup')
-    const usernameInput = document.getElementById('usernameInput')
-    const emailInput = document.getElementById('emailInput')
-    const passwordInput = document.getElementById('passwordInput')
-    const submitAuth = document.getElementById('submitAuth')
-    const toggleAuthLink = document.getElementById('toggleAuthLink')
-    const toggleText = document.getElementById('toggleText')
-    const authMessage = document.getElementById('authMessage')
-    const loginBtn = document.getElementById('loginBtn')
-    const registerBtn = document.getElementById('registerBtn')
-    const logoutBtn = document.getElementById('logoutBtn')
-    const welcomeUser = document.getElementById('welcomeUser')
-    const adminLink = document.getElementById('adminLink')
-    const adminDashboard = document.getElementById('adminDashboard')
-    const productsContainer = document.getElementById('productsContainer')
-    const emptyProducts = document.getElementById('emptyProducts')
-    const addProductBtn = document.getElementById('addProductBtn')
-    const productName = document.getElementById('productName')
-    const productPrice = document.getElementById('productPrice')
-    const productDesc = document.getElementById('productDesc')
-    const productImageFile = document.getElementById('productImageFile')
-    const adminProductList = document.getElementById('adminProductList')
+    // عناصر DOM
+    const authSection = document.getElementById('authSection');
+    const authTitle = document.getElementById('authTitle');
+    const authEmail = document.getElementById('authEmail');
+    const authPassword = document.getElementById('authPassword');
+    const btnAuthSubmit = document.getElementById('btnAuthSubmit');
+    const authToggleText = document.getElementById('authToggleText');
+    const linkToggleAuth = document.getElementById('linkToggleAuth');
+    const authAlert = document.getElementById('authAlert');
+    
+    const btnShowLogin = document.getElementById('btnShowLogin');
+    const btnShowRegister = document.getElementById('btnShowRegister');
+    const btnLogout = document.getElementById('btnLogout');
+    const userWelcome = document.getElementById('userWelcome');
+    
+    const navAdmin = document.getElementById('navAdmin');
+    const adminSection = document.getElementById('adminSection');
+    const productsGrid = document.getElementById('productsGrid');
+    const productsLoading = document.getElementById('productsLoading');
 
-    // ==================== SUPABASE SETUP ====================
-    async function setupDatabase() {
-      try {
-        // Create users table if not exists (using RPC or direct SQL)
-        const { error: usersError } = await supabase.rpc('create_users_table', {})
-        if (usersError) console.log('Users table might already exist:', usersError.message)
+    // ==================== وظائف التحكم بالـ UI ====================
+    function switchAuthMode(mode) {
+      authMode = mode;
+      authAlert.innerHTML = '';
+      authSection.classList.add('active');
+      authSection.scrollIntoView({ behavior: 'smooth' });
+
+      if (mode === 'login') {
+        authTitle.innerText = '🔐 تسجيل الدخول';
+        btnAuthSubmit.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> دخول مجاني';
+        authToggleText.innerText = 'ليس لديك حساب؟';
+        linkToggleAuth.innerText = 'سجل الآن';
+      } else {
+        authTitle.innerText = '✨ إنشاء حساب جديد';
+        btnAuthSubmit.innerHTML = '<i class="fa-solid fa-user-plus"></i> إكمال التسجيل';
+        authToggleText.innerText = 'لديك حساب بالفعل؟';
+        linkToggleAuth.innerText = 'تسجيل الدخول';
+      }
+    }
+
+    function updateAuthUI(user) {
+      sessionUser = user;
+      if (user) {
+        btnShowLogin.classList.add('hidden');
+        btnShowRegister.classList.add('hidden');
+        btnLogout.classList.remove('hidden');
+        authSection.classList.remove('active');
         
-        // Create products table if not exists
-        const { error: productsError } = await supabase.rpc('create_products_table', {})
-        if (productsError) console.log('Products table might already exist:', productsError.message)
-      } catch (e) {
-        console.log('Setup note:', e.message)
+        // التحقق مما إذا كان المستخدم هو الأدمن
+        if (user.email === ADMIN_EMAIL) {
+          userWelcome.innerHTML = `<span style="background:#2c3e50; color:white; padding:4px 10px; border-radius:12px; font-size:0.8rem;">أدمن</span> مرحباً، ${user.email}`;
+          navAdmin.classList.remove('hidden');
+          adminSection.classList.remove('hidden');
+          loadAdminProducts();
+        } else {
+          userWelcome.innerText = `👤 مرحباً، ${user.email.split('@')[0]}`;
+          navAdmin.classList.add('hidden');
+          adminSection.classList.add('hidden');
+        }
+      } else {
+        btnShowLogin.classList.remove('hidden');
+        btnShowRegister.classList.remove('hidden');
+        btnLogout.classList.add('hidden');
+        userWelcome.innerText = '';
+        navAdmin.classList.add('hidden');
+        adminSection.classList.add('hidden');
       }
     }
 
-    // ==================== AUTH FUNCTIONS ====================
-    async function checkSession() {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (session) {
-        currentSession = session
-        await fetchUserProfile(session.user.id)
-      }
+    function showAlert(msg, isSuccess = false) {
+      authAlert.innerHTML = `<div class="status-msg ${isSuccess ? 'msg-success' : 'msg-error'}">${msg}</div>`;
     }
 
-    async function fetchUserProfile(userId) {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single()
-      
-      if (data) {
-        currentUser = {
-          id: data.id,
-          username: data.username,
-          isAdmin: data.is_admin || false
+    // ==================== العمليات على البيانات (Supabase) ====================
+    
+    // تسجيل الدخول والإنشاء
+    btnAuthSubmit.addEventListener('click', async () => {
+      const email = authEmail.value.trim();
+      const password = authPassword.value.trim();
+
+      if (!email || !password) {
+        showAlert('الرجاء ملء جميع الحقول المتاحة.');
+        return;
+      }
+
+      btnAuthSubmit.disabled = true;
+      btnAuthSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري المعالجة...';
+
+      if (authMode === 'login') {
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) {
+          showAlert('خطأ: ' + error.message);
+        } else {
+          updateAuthUI(data.user);
+          showAlert('تم تسجيل الدخول بنجاح!', true);
+        }
+      } else {
+        const { data, error } = await supabase.auth.signUp({ email, password });
+        if (error) {
+          showAlert('خطأ: ' + error.message);
+        } else {
+          showAlert('تم إنشاء الحساب! يرجى مراجعة بريدك الإلكتروني لتفعيله.', true);
         }
       }
-      updateUI()
-    }
+      btnAuthSubmit.disabled = false;
+      switchAuthMode(authMode);
+    });
 
-    async function signUp(username, email, password) {
-      // First create auth user
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-        options: {
-          data: {
-            username: username
-          }
-        }
-      })
+    btnLogout.addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      updateAuthUI(null);
+    });
 
-      if (authError) throw authError
+    // جلب المنتجات للمتجر
+    async function fetchProducts() {
+      productsLoading.classList.remove('hidden');
+      productsGrid.innerHTML = '';
 
-      // Create profile
-      if (authData.user) {
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .insert([{
-            id: authData.user.id,
-            username: username,
-            email: email,
-            is_admin: false
-          }])
-        
-        if (profileError) throw profileError
-        
-        currentSession = authData.session
-        currentUser = {
-          id: authData.user.id,
-          username: username,
-          isAdmin: false
-        }
-        return true
-      }
-      return false
-    }
-
-    async function signIn(email, password) {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password
-      })
-
-      if (error) throw error
-
-      if (data.user) {
-        currentSession = data.session
-        await fetchUserProfile(data.user.id)
-        return true
-      }
-      return false
-    }
-
-    async function signOut() {
-      const { error } = await supabase.auth.signOut()
-      if (error) console.error('Logout error:', error)
-      currentUser = null
-      currentSession = null
-      updateUI()
-    }
-
-    // ==================== PRODUCTS FUNCTIONS ====================
-    async function uploadImage(file) {
-      const fileName = `${Date.now()}-${file.name}`
-      const { data, error } = await supabase.storage
-        .from('products')
-        .upload(fileName, file)
-
-      if (error) throw error
-
-      const { data: urlData } = supabase.storage
-        .from('products')
-        .getPublicUrl(fileName)
-
-      return urlData.publicUrl
-    }
-
-    async function addProduct(name, price, desc, imageFile) {
-      let imageUrl = ''
-      
-      if (imageFile) {
-        imageUrl = await uploadImage(imageFile)
-      }
-
-      const { data, error } = await supabase
-        .from('products')
-        .insert([{
-          name: name,
-          price: price,
-          description: desc,
-          image_url: imageUrl,
-          created_by: currentUser.id
-        }])
-
-      if (error) throw error
-      return data
-    }
-
-    async function loadProducts() {
-      const { data, error } = await supabase
+      const { data: products, error } = await supabase
         .from('products')
         .select('*')
-        .order('created_at', { ascending: false })
+        .order('created_at', { ascending: false });
+
+      productsLoading.classList.add('hidden');
 
       if (error) {
-        console.error('Load products error:', error)
-        return []
-      }
-      return data || []
-    }
-
-    async function deleteProduct(productId) {
-      const { error } = await supabase
-        .from('products')
-        .delete()
-        .eq('id', productId)
-
-      if (error) throw error
-    }
-
-    // ==================== UI FUNCTIONS ====================
-    function updateUI() {
-      const loggedIn = !!currentUser
-      const isAdmin = currentUser && currentUser.isAdmin
-
-      loginBtn.classList.toggle('hidden', loggedIn)
-      registerBtn.classList.toggle('hidden', loggedIn)
-      logoutBtn.classList.toggle('hidden', !loggedIn)
-      
-      if (loggedIn) {
-        welcomeUser.innerHTML = `👤 ${currentUser.username} ${isAdmin ? '<span class="admin-badge">أدمن</span>' : ''}`
-      } else {
-        welcomeUser.textContent = ''
+        productsGrid.innerHTML = '<p style="color:var(--accent-color);">فشل تحميل المنتجات، تأكد من إعداد الجداول.</p>';
+        return;
       }
 
-      adminLink.classList.toggle('hidden', !isAdmin)
-      adminDashboard.classList.toggle('hidden', !isAdmin)
-
-      if (loggedIn) {
-        authSection.classList.remove('active')
-      }
-
-      renderProducts()
-      if (isAdmin) {
-        renderAdminProducts()
-      }
-    }
-
-    async function renderProducts() {
-      const products = await loadProducts()
-      productsContainer.innerHTML = ''
-      
       if (products.length === 0) {
-        emptyProducts.style.display = 'block'
-      } else {
-        emptyProducts.style.display = 'none'
-        products.forEach(product => {
-          const card = document.createElement('div')
-          card.className = 'product-card'
-          card.innerHTML = `
-            <img src="${product.image_url || 'https://placehold.co/400x250/e9ecef/2c3e50?text=رمادي+لايز'}" 
-                 alt="${product.name}" 
-                 class="product-img" 
-                 onerror="this.src='https://placehold.co/400x250/e9ecef/2c3e50?text=صورة+غير+متوفرة'">
-            <div class="product-info">
-              <h3 class="product-title">${product.name}</h3>
-              <p class="product-desc">${product.description || 'بدون وصف'}</p>
-              <span class="product-price">${product.price}</span>
+        productsGrid.innerHTML = '<p style="color:var(--text-muted); text-align:center; grid-column: 1/-1;">لا توجد منتجات معروضة حالياً.</p>';
+        return;
+      }
+
+      products.forEach(p => {
+        const fallbackImg = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500';
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <img src="${p.image_url || fallbackImg}" class="product-img" alt="${p.name}" onerror="this.src='${fallbackImg}'">
+          <div class="product-body">
+            <h3 class="product-name">${p.name}</h3>
+            <p class="product-desc">${p.description || 'لا يوجد وصف متوفر لهذا المنتج الفاخر.'}</p>
+            <div class="product-footer">
+              <span class="product-price">${p.price}</span>
+              <button class="btn btn-primary btn-sm"><i class="fa-solid fa-cart-plus"></i> شراء</button>
             </div>
-          `
-          productsContainer.appendChild(card)
-        })
-      }
+          </div>
+        `;
+        productsGrid.appendChild(card);
+      });
     }
 
-    async function renderAdminProducts() {
-      const products = await loadProducts()
-      adminProductList.innerHTML = ''
-      
-      if (products.length === 0) {
-        adminProductList.innerHTML = '<li style="color:#7f8c8d;">لا توجد منتجات.</li>'
-        return
-      }
-      
-      products.forEach(product => {
-        const li = document.createElement('li')
-        li.style.cssText = 'display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #eee;'
-        li.innerHTML = `
-          <span>📌 ${product.name} - ${product.price}</span>
-          <button class="btn btn-sm btn-gray remove-product" data-id="${product.id}">🗑️ حذف</button>
-        `
-        adminProductList.appendChild(li)
-      })
-
-      document.querySelectorAll('.remove-product').forEach(btn => {
-        btn.addEventListener('click', async function() {
-          if (confirm('هل أنت متأكد من حذف هذا المنتج؟')) {
-            try {
-              await deleteProduct(this.dataset.id)
-              await renderProducts()
-              await renderAdminProducts()
-            } catch (error) {
-              alert('خطأ في حذف المنتج: ' + error.message)
-            }
-          }
-        })
-      })
-    }
-
-    function showMessage(message, type = 'error') {
-      authMessage.innerHTML = `<div class="message message-${type}">${message}</div>`
-    }
-
-    function resetAuthForm() {
-      usernameInput.value = ''
-      emailInput.value = ''
-      passwordInput.value = ''
-      authMessage.innerHTML = ''
-    }
-
-    function setAuthMode(mode) {
-      authMode = mode
-      if (mode === 'login') {
-        formTitle.textContent = 'تسجيل الدخول'
-        emailGroup.style.display = 'none'
-        submitAuth.textContent = '🔐 دخول'
-        toggleText.textContent = 'ليس لديك حساب؟'
-        toggleAuthLink.textContent = 'سجل الآن'
-      } else {
-        formTitle.textContent = 'إنشاء حساب جديد'
-        emailGroup.style.display = 'block'
-        submitAuth.textContent = '✨ تسجيل'
-        toggleText.textContent = 'لديك حساب بالفعل؟'
-        toggleAuthLink.textContent = 'تسجيل الدخول'
-      }
-      resetAuthForm()
-      authSection.classList.add('active')
-    }
-
-    // ==================== EVENT LISTENERS ====================
-    loginBtn.addEventListener('click', () => setAuthMode('login'))
-    registerBtn.addEventListener('click', () => setAuthMode('register'))
-    
-    toggleAuthLink.addEventListener('click', (e) => {
-      e.preventDefault()
-      setAuthMode(authMode === 'login' ? 'register' : 'login')
-    })
-
-    submitAuth.addEventListener('click', async () => {
-      const username = usernameInput.value.trim()
-      const password = passwordInput.value.trim()
-      const email = emailInput.value.trim()
-
-      if (!password) {
-        showMessage('الرمز مطلوب')
-        return
-      }
-
-      submitAuth.disabled = true
-      submitAuth.innerHTML = '<span class="loading-spinner"></span> جاري المعالجة...'
-
-      try {
-        if (authMode === 'login') {
-          // For login, we need email - use a default format if not provided
-          const loginEmail = email || `${username}@ramadi.com`
-          await signIn(loginEmail, password)
-          authSection.classList.remove('active')
-          updateUI()
-          resetAuthForm()
-          showMessage('تم تسجيل الدخول بنجاح', 'success')
-        } else {
-          if (!email) {
-            showMessage('البريد الإلكتروني مطلوب للتسجيل')
-            return
-          }
-          if (!username) {
-            showMessage('اسم المستخدم مطلوب')
-            return
-          }
-          await signUp(username, email, password)
-          authSection.classList.remove('active')
-          updateUI()
-          resetAuthForm()
-          showMessage('تم إنشاء الحساب بنجاح! يرجى تأكيد بريدك الإلكتروني', 'success')
-        }
-      } catch (error) {
-        showMessage('خطأ: ' + error.message)
-      } finally {
-        submitAuth.disabled = false
-        submitAuth.innerHTML = authMode === 'login' ? '🔐 دخول' : '✨ تسجيل'
-      }
-    })
-
-    logoutBtn.addEventListener('click', () => signOut())
-
-    addProductBtn.addEventListener('click', async () => {
-      const name = productName.value.trim()
-      const price = productPrice.value.trim()
-      const desc = productDesc.value.trim()
-      const imageFile = productImageFile.files[0]
+    // إضافة منتج جديد (أدمن)
+    document.getElementById('btnSaveProduct').addEventListener('click', async () => {
+      const name = document.getElementById('newProdName').value.trim();
+      const price = document.getElementById('newProdPrice').value.trim();
+      const description = document.getElementById('newProdDesc').value.trim();
+      const image_url = document.getElementById('newProdImg').value.trim();
 
       if (!name || !price) {
-        alert('اسم المنتج والسعر مطلوبان')
-        return
+        alert('الاسم والسعر مطلوبان لإضافة المنتج.');
+        return;
       }
 
-      addProductBtn.disabled = true
-      addProductBtn.innerHTML = '<span class="loading-spinner"></span> جاري الإضافة...'
+      const { error } = await supabase.from('products').insert([{ name, price, description, image_url }]);
 
-      try {
-        await addProduct(name, price, desc, imageFile)
-        productName.value = ''
-        productPrice.value = ''
-        productDesc.value = ''
-        productImageFile.value = ''
-        await renderProducts()
-        await renderAdminProducts()
-        alert('تمت إضافة المنتج بنجاح!')
-      } catch (error) {
-        alert('خطأ في إضافة المنتج: ' + error.message)
-      } finally {
-        addProductBtn.disabled = false
-        addProductBtn.innerHTML = '➕ إضافة المنتج'
+      if (error) {
+        alert('حدث خطأ أثناء الحفظ: ' + error.message);
+      } else {
+        alert('تم نشر المنتج بنجاح في المتجر!');
+        document.getElementById('newProdName').value = '';
+        document.getElementById('newProdPrice').value = '';
+        document.getElementById('newProdDesc').value = '';
+        document.getElementById('newProdImg').value = '';
+        fetchProducts();
+        loadAdminProducts();
       }
-    })
+    });
 
-    document.getElementById('homeLink').addEventListener('click', (e) => {
-      e.preventDefault()
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    })
+    // عرض قائمة الحذف للأدمن
+    async function loadAdminProducts() {
+      const listDiv = document.getElementById('adminProductsList');
+      listDiv.innerHTML = 'جاري التحميل...';
 
-    document.getElementById('productsLink').addEventListener('click', (e) => {
-      e.preventDefault()
-      document.getElementById('productsSection').scrollIntoView({ behavior: 'smooth' })
-    })
-
-    adminLink.addEventListener('click', (e) => {
-      e.preventDefault()
-      if (currentUser && currentUser.isAdmin) {
-        adminDashboard.scrollIntoView({ behavior: 'smooth' })
-      }
-    })
-
-    // ==================== INITIALIZATION ====================
-    async function init() {
-      await setupDatabase()
-      await checkSession()
-      updateUI()
+      const { data: products } = await supabase.from('products').select('id, name, price');
       
-      // Listen for auth changes
-      supabase.auth.onAuthStateChange(async (event, session) => {
-        if (event === 'SIGNED_IN' && session) {
-          currentSession = session
-          await fetchUserProfile(session.user.id)
-        } else if (event === 'SIGNED_OUT') {
-          currentUser = null
-          currentSession = null
-          updateUI()
-        }
-      })
+      if (!products || products.length === 0) {
+        listDiv.innerHTML = '<p>لا توجد منتجات لحذفها.</p>';
+        return;
+      }
+
+      listDiv.innerHTML = '';
+      products.forEach(p => {
+        const item = document.createElement('div');
+        item.style.cssText = 'display:flex; justify-content:space-between; padding:10px; background:#fff; margin-bottom:5px; border-radius:6px; box-shadow:0 2px 4px rgba(0,0,0,0.05);';
+        item.innerHTML = `
+          <span><strong>${p.name}</strong> (${p.price})</span>
+          <button class="btn btn-danger" style="padding:4px 10px; font-size:0.8rem;" onclick="deleteProduct('${p.id}')"><i class="fa-solid fa-trash"></i> حذف</button>
+        `;
+        listDiv.appendChild(item);
+      });
     }
 
-    init()
+    async function deleteProduct(id) {
+      if (confirm('هل أنت متأكد من رغبتك في حذف هذا المنتج نهائياً؟')) {
+        await supabase.from('products').delete().eq('id', id);
+        fetchProducts();
+        loadAdminProducts();
+      }
+    }
+
+    // ==================== أزرار التنقل والتحميل الأولي ====================
+    btnShowLogin.addEventListener('click', () => switchAuthMode('login'));
+    btnShowRegister.addEventListener('click', () => switchAuthMode('register'));
+    linkToggleAuth.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchAuthMode(authMode === 'login' ? 'register' : 'login');
+    });
+
+    document.getElementById('navHome').addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'}); });
+    document.getElementById('navProducts').addEventListener('click', (e) => { e.preventDefault(); document.getElementById('productsSection').scrollIntoView({behavior: 'smooth'}); });
+    navAdmin.addEventListener('click', (e) => { e.preventDefault(); adminSection.scrollIntoView({behavior: 'smooth'}); });
+
+    // الفحص التلقائي للمستخدم الحالي عند فتح الصفحة
+    async function initApp() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        updateAuthUI(session.user);
+      } else {
+        updateAuthUI(null);
+      }
+      fetchProducts();
+    }
+
+    initApp();
   </script>
 </body>
 </html>

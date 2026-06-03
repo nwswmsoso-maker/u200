@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>الرمادي لايز | متجر فاخر</title>
-  <link rel="icon" href="al-ramadi-lays-cover.jpg" type="image/jpeg">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
@@ -21,6 +20,7 @@
       --text-muted: #888;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
     body {
       font-family:'Tajawal',sans-serif;
       background:var(--black); color:var(--text);
@@ -29,67 +29,67 @@
     body::before {
       content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
       background:
-        radial-gradient(ellipse 60% 50% at 80% 10%, rgba(247,0,110,0.12) 0%,transparent 60%),
-        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(247,0,110,0.08) 0%,transparent 55%);
+        radial-gradient(ellipse 60% 50% at 80% 10%, rgba(247,0,110,0.10) 0%,transparent 60%),
+        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(247,0,110,0.07) 0%,transparent 55%);
     }
     .container { max-width:1100px; margin:0 auto; padding:0 20px; position:relative; z-index:1; }
 
-    /* غلاف */
+    /* ══ غلاف ══ */
     .cover-wrapper { position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
-    .cover-img { width:100%; height:340px; object-fit:cover; filter:brightness(0.4) saturate(0.7); display:block; }
+    .cover-img { width:100%; height:300px; object-fit:cover; filter:brightness(0.35) saturate(0.6); display:block; }
     .cover-overlay {
       position:absolute; inset:0;
-      background: linear-gradient(135deg,rgba(247,0,110,0.15) 0%,transparent 60%),
-                  linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 50%);
-      display:flex; align-items:flex-end; justify-content:center; padding-bottom:36px;
+      background: linear-gradient(135deg,rgba(247,0,110,0.12) 0%,transparent 60%),
+                  linear-gradient(to top,rgba(0,0,0,0.90) 0%,transparent 55%);
+      display:flex; align-items:flex-end; justify-content:center; padding-bottom:32px;
     }
     .store-title {
-      font-size:3.2rem; font-weight:900; text-align:center;
+      font-size:3rem; font-weight:900; text-align:center;
       background:linear-gradient(90deg,#fff 20%,var(--pink-light) 100%);
       -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
     }
-    .store-subtitle { font-size:1rem; color:#ccc; font-weight:300; margin-top:8px; letter-spacing:2px; text-align:center; }
+    .store-subtitle { font-size:.95rem; color:#bbb; font-weight:300; margin-top:8px; letter-spacing:3px; text-align:center; }
 
-    /* ناف */
+    /* ══ ناف ══ */
     .navbar {
-      background:rgba(17,17,17,0.92); backdrop-filter:blur(20px);
-      border-bottom:1px solid var(--border); padding:14px 0;
+      background:rgba(14,14,14,0.95); backdrop-filter:blur(24px);
+      border-bottom:1px solid var(--border); padding:13px 0;
       position:sticky; top:0; z-index:200;
     }
-    .nav-container { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+    .nav-container { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }
     .brand-logo {
-      font-weight:800; font-size:1.2rem;
+      font-weight:900; font-size:1.15rem;
       background:linear-gradient(90deg,#fff,var(--pink-light));
       -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
     }
-    .nav-buttons { display:flex; gap:8px; }
-    .user-welcome-text { font-size:.9rem; color:var(--pink-light); font-weight:600; display:flex; align-items:center; gap:6px; }
+    .nav-buttons { display:flex; gap:8px; flex-wrap:wrap; }
+    .user-welcome-text { font-size:.88rem; color:var(--pink-light); font-weight:700; display:flex; align-items:center; gap:6px; }
 
-    /* أزرار */
+    /* ══ أزرار ══ */
     .btn {
-      padding:9px 20px; border:none; border-radius:8px;
-      font-family:'Tajawal',sans-serif; font-weight:700; font-size:.88rem; cursor:pointer;
-      display:inline-flex; align-items:center; gap:6px; transition:all .25s;
+      padding:8px 18px; border:none; border-radius:8px;
+      font-family:'Tajawal',sans-serif; font-weight:700; font-size:.85rem; cursor:pointer;
+      display:inline-flex; align-items:center; gap:6px; transition:all .22s;
     }
-    .btn-pink { background:linear-gradient(135deg,var(--pink),var(--pink-light)); color:#fff; box-shadow:0 4px 18px var(--pink-glow); }
-    .btn-pink:hover { transform:translateY(-2px); box-shadow:0 8px 28px var(--pink-glow); }
+    .btn-pink { background:linear-gradient(135deg,var(--pink),var(--pink-light)); color:#fff; box-shadow:0 4px 16px var(--pink-glow); }
+    .btn-pink:hover { transform:translateY(-2px); box-shadow:0 8px 26px var(--pink-glow); }
     .btn-outline { background:transparent; border:1.5px solid var(--pink); color:var(--pink-light); }
     .btn-outline:hover { background:var(--pink-dim); }
     .btn-ghost { background:rgba(255,255,255,0.06); color:var(--text-muted); border:1px solid rgba(255,255,255,0.08); }
     .btn-ghost:hover { background:rgba(255,255,255,0.1); color:#fff; }
     .hidden { display:none !important; }
 
-    /* نافذة Auth */
+    /* ══ Auth نافذة ══ */
     .auth-overlay {
       position:fixed; inset:0; z-index:500;
-      background:rgba(0,0,0,0.78); backdrop-filter:blur(8px);
+      background:rgba(0,0,0,0.80); backdrop-filter:blur(10px);
       display:flex; align-items:center; justify-content:center;
       opacity:0; pointer-events:none; transition:opacity .3s;
     }
     .auth-overlay.open { opacity:1; pointer-events:all; }
     .auth-modal {
       background:var(--dark2); border:1px solid var(--border); border-radius:20px;
-      padding:38px 34px; width:100%; max-width:400px; position:relative;
+      padding:36px 32px; width:100%; max-width:400px; position:relative;
       box-shadow:0 30px 80px rgba(0,0,0,0.7),0 0 60px var(--pink-glow);
       transform:translateY(30px); transition:transform .35s cubic-bezier(.34,1.56,.64,1);
     }
@@ -100,224 +100,255 @@
       width:30px; height:30px; border-radius:50%; cursor:pointer;
       display:flex; align-items:center; justify-content:center; transition:all .2s;
     }
-    .auth-close:hover { background:rgba(255,255,255,0.12); color:#fff; }
+    .auth-close:hover { background:rgba(255,255,255,0.14); color:#fff; }
     .auth-icon {
-      width:60px; height:60px; border-radius:50%; margin:0 auto 16px;
+      width:58px; height:58px; border-radius:50%; margin:0 auto 14px;
       background:linear-gradient(135deg,var(--pink),var(--pink-light));
       display:flex; align-items:center; justify-content:center;
-      font-size:1.4rem; color:#fff; box-shadow:0 8px 25px var(--pink-glow);
+      font-size:1.35rem; color:#fff; box-shadow:0 8px 24px var(--pink-glow);
     }
-    .auth-modal h2 { text-align:center; font-size:1.4rem; font-weight:800; margin-bottom:5px; color:#fff; }
-    .auth-sub { text-align:center; font-size:.85rem; color:var(--text-muted); margin-bottom:22px; }
-
-    .form-group { margin-bottom:14px; }
-    .form-group label { display:block; margin-bottom:6px; font-size:.88rem; font-weight:600; color:#ccc; }
+    .auth-modal h2 { text-align:center; font-size:1.35rem; font-weight:800; margin-bottom:4px; color:#fff; }
+    .auth-sub { text-align:center; font-size:.83rem; color:var(--text-muted); margin-bottom:20px; }
+    .form-group { margin-bottom:13px; }
+    .form-group label { display:block; margin-bottom:5px; font-size:.86rem; font-weight:600; color:#ccc; }
     .form-control {
       width:100%; padding:11px 15px;
       background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1);
       border-radius:10px; color:#fff;
-      font-family:'Tajawal',sans-serif; font-size:.95rem; transition:all .25s;
+      font-family:'Tajawal',sans-serif; font-size:.95rem; transition:all .22s;
       direction:ltr; text-align:right;
     }
-    .form-control::placeholder { color:rgba(255,255,255,0.25); }
+    .form-control::placeholder { color:rgba(255,255,255,0.22); }
     .form-control:focus { outline:none; border-color:var(--pink); background:rgba(247,0,110,0.06); box-shadow:0 0 0 3px var(--pink-glow); }
-
-    /* OTP boxes */
-    .otp-row { display:flex; gap:10px; justify-content:center; margin:16px 0; }
+    .otp-row { display:flex; gap:9px; justify-content:center; margin:14px 0; }
     .otp-box {
-      width:46px; height:54px; border-radius:10px; text-align:center;
-      font-size:1.5rem; font-weight:800; color:#fff; direction:ltr;
-      background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.15);
-      transition:all .2s; padding:0;
+      width:44px; height:52px; border-radius:10px; text-align:center;
+      font-size:1.4rem; font-weight:800; color:#fff; direction:ltr;
+      background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.15); transition:all .2s; padding:0;
     }
     .otp-box:focus { outline:none; border-color:var(--pink); background:rgba(247,0,110,0.08); box-shadow:0 0 0 3px var(--pink-glow); }
-
     .btn-auth {
       width:100%; padding:13px; margin-top:8px;
       background:linear-gradient(135deg,var(--pink),var(--pink-light));
       color:#fff; border:none; border-radius:10px;
       font-family:'Tajawal',sans-serif; font-size:1rem; font-weight:800;
-      cursor:pointer; transition:all .25s; box-shadow:0 6px 22px var(--pink-glow);
+      cursor:pointer; transition:all .22s; box-shadow:0 6px 20px var(--pink-glow);
     }
-    .btn-auth:hover { transform:translateY(-2px); box-shadow:0 10px 30px var(--pink-glow); }
+    .btn-auth:hover { transform:translateY(-2px); box-shadow:0 10px 28px var(--pink-glow); }
     .btn-auth:disabled { opacity:.6; cursor:not-allowed; transform:none; }
-    .auth-switch { text-align:center; margin-top:16px; font-size:.85rem; color:var(--text-muted); }
+    .auth-switch { text-align:center; margin-top:14px; font-size:.83rem; color:var(--text-muted); }
     .auth-switch span { color:var(--pink-light); cursor:pointer; font-weight:700; text-decoration:underline; }
-    .auth-msg { padding:10px 14px; border-radius:8px; font-size:.88rem; margin-bottom:12px; display:none; }
+    .auth-msg { padding:10px 14px; border-radius:8px; font-size:.86rem; margin-bottom:11px; display:none; }
     .auth-msg.error  { background:rgba(231,76,60,.15); border:1px solid rgba(231,76,60,.3); color:#e74c3c; }
     .auth-msg.success{ background:rgba(39,174,96,.12); border:1px solid rgba(39,174,96,.25); color:#2ecc71; }
-
-    /* ملاحظة OTP */
     .otp-note {
       background:rgba(247,0,110,0.08); border:1px solid rgba(247,0,110,0.2);
-      border-radius:10px; padding:12px 14px; margin-bottom:14px;
-      font-size:.82rem; color:#ddd; line-height:1.7; text-align:center;
+      border-radius:10px; padding:11px 13px; margin-bottom:13px;
+      font-size:.8rem; color:#ddd; line-height:1.7; text-align:center;
     }
     .otp-note strong { color:var(--pink-light); }
 
-    /* منتجات */
-    .section-head { display:flex; align-items:center; gap:10px; font-size:1.5rem; font-weight:800; color:#fff; margin:40px 0 22px; }
+    /* ══════════════════════════════════
+       شبكة المنتجات — مربعات منظمة
+    ══════════════════════════════════ */
+    .section-head {
+      display:flex; align-items:center; gap:10px;
+      font-size:1.4rem; font-weight:800; color:#fff;
+      margin:36px 0 20px; padding-bottom:14px;
+      border-bottom:1px solid var(--border);
+    }
     .section-head span { color:var(--pink); }
-    .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:24px; margin-bottom:60px; }
+
+    /* شبكة 2 عمود على موبايل، 3 على ديسكتوب */
+    .products-grid {
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:16px;
+      margin-bottom:60px;
+    }
+    @media(min-width:700px) {
+      .products-grid { grid-template-columns:repeat(3, 1fr); gap:20px; }
+    }
+    @media(min-width:960px) {
+      .products-grid { grid-template-columns:repeat(4, 1fr); gap:22px; }
+    }
+
     .product-card {
-      background:var(--dark2); border:1px solid rgba(255,255,255,0.05);
-      border-radius:16px; overflow:hidden; display:flex; flex-direction:column;
-      transition:all .3s;
+      background:#161616;
+      border:1px solid rgba(255,255,255,0.07);
+      border-radius:14px; overflow:hidden;
+      display:flex; flex-direction:column;
+      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+      position:relative;
     }
-    .product-card:hover { transform:translateY(-7px); border-color:var(--border); box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 30px var(--pink-glow); }
-    .product-img { width:100%; height:220px; object-fit:cover; filter:brightness(.9); transition:filter .3s; }
-    .product-card:hover .product-img { filter:brightness(1); }
-    .product-body { padding:18px; display:flex; flex-direction:column; flex-grow:1; }
-    .product-name { font-size:1.05rem; font-weight:800; color:#fff; margin-bottom:6px; }
-    .product-desc { font-size:.85rem; color:var(--text-muted); flex-grow:1; margin-bottom:14px; line-height:1.7; }
-    .product-footer { display:flex; justify-content:space-between; align-items:center; padding-top:14px; border-top:1px solid rgba(255,255,255,.06); }
-    .product-price { font-size:1.15rem; font-weight:900; color:var(--pink-light); }
+    .product-card:hover {
+      transform:translateY(-5px);
+      border-color:rgba(247,0,110,0.35);
+      box-shadow:0 16px 40px rgba(0,0,0,.55), 0 0 28px rgba(247,0,110,0.12);
+    }
+
+    /* صورة مربعة دائماً */
+    .product-img-wrap {
+      position:relative;
+      width:100%;
+      padding-top:100%; /* نسبة 1:1 */
+      overflow:hidden;
+      background:#111;
+    }
+    .product-img {
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit:cover;
+      transition:transform .45s ease;
+    }
+    .product-card:hover .product-img { transform:scale(1.07); }
+    .product-img-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%);
+    }
+
+    .product-body {
+      padding:13px 13px 14px;
+      display:flex; flex-direction:column; flex-grow:1;
+    }
+    .product-name {
+      font-size:.95rem; font-weight:800; color:#fff;
+      margin-bottom:4px; line-height:1.4;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .product-desc {
+      font-size:.78rem; color:var(--text-muted);
+      margin-bottom:10px; line-height:1.6;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+    }
+    .product-footer {
+      display:flex; justify-content:space-between; align-items:center;
+      padding-top:10px; border-top:1px solid rgba(255,255,255,.06);
+      margin-top:auto; gap:8px; flex-wrap:wrap;
+    }
+    .product-price {
+      font-size:1rem; font-weight:900;
+      background:linear-gradient(90deg,var(--pink),var(--pink-light));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      white-space:nowrap;
+    }
     .btn-order {
-      padding:7px 16px; border:none; border-radius:7px;
+      padding:7px 13px; border:none; border-radius:8px;
       background:linear-gradient(135deg,var(--pink),var(--pink-light));
-      color:#fff; font-family:'Tajawal',sans-serif; font-size:.82rem; font-weight:700;
-      cursor:pointer; transition:all .25s; display:flex; align-items:center; gap:5px;
-      box-shadow:0 4px 14px var(--pink-glow);
+      color:#fff; font-family:'Tajawal',sans-serif; font-size:.78rem; font-weight:800;
+      cursor:pointer; transition:all .22s; display:flex; align-items:center; gap:5px;
+      box-shadow:0 3px 12px var(--pink-glow); text-decoration:none; white-space:nowrap;
     }
-    .btn-order:hover { transform:scale(1.05); }
-    .empty-state { grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--text-muted); }
-    .empty-state i { font-size:3rem; color:rgba(247,0,110,0.3); margin-bottom:12px; display:block; }
+    .btn-order:hover { transform:scale(1.05); box-shadow:0 6px 18px var(--pink-glow); }
 
-    /* أدمن */
-    .admin-panel { background:var(--dark2); border:1px solid var(--border); border-radius:18px; padding:28px; margin-bottom:40px; display:none; }
-    .admin-panel h2 { font-size:1.2rem; font-weight:800; color:var(--pink-light); margin-bottom:22px; }
-    .admin-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-    .admin-box { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:20px; }
-    .admin-box h3 { font-size:.95rem; font-weight:700; color:#ddd; margin-bottom:16px; }
-    .admin-row { display:flex; justify-content:space-between; align-items:center; padding:10px 12px; background:rgba(255,255,255,.04); border-radius:8px; margin-bottom:8px; font-size:.85rem; color:#ccc; }
-    .btn-del { padding:4px 10px; background:rgba(231,76,60,.18); border:1px solid rgba(231,76,60,.3); color:#e74c3c; border-radius:6px; font-size:.75rem; font-family:'Tajawal',sans-serif; cursor:pointer; font-weight:700; transition:all .2s; display:inline-flex; align-items:center; gap:4px; }
-    .btn-del:hover { background:rgba(231,76,60,.3); }
+    .empty-state { grid-column:1/-1; text-align:center; padding:50px 20px; color:var(--text-muted); }
+    .empty-state i { font-size:2.8rem; color:rgba(247,0,110,0.3); margin-bottom:12px; display:block; }
 
-    /* رفع صورة */
+    /* ══ أدمن ══ */
+    .admin-panel {
+      background:var(--dark2); border:1px solid var(--border);
+      border-radius:18px; padding:26px; margin-bottom:36px; display:none;
+    }
+    .admin-panel h2 { font-size:1.15rem; font-weight:800; color:var(--pink-light); margin-bottom:20px; }
+    .admin-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    @media(max-width:650px) { .admin-grid { grid-template-columns:1fr; } }
+    .admin-box { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:18px; }
+    .admin-box h3 { font-size:.92rem; font-weight:700; color:#ddd; margin-bottom:14px; }
+    .admin-row {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:10px 12px; background:rgba(255,255,255,.04);
+      border-radius:8px; margin-bottom:8px; font-size:.83rem; color:#ccc;
+    }
+    .btn-del {
+      padding:4px 10px; background:rgba(231,76,60,.18); border:1px solid rgba(231,76,60,.3);
+      color:#e74c3c; border-radius:6px; font-size:.74rem; font-family:'Tajawal',sans-serif;
+      cursor:pointer; font-weight:700; transition:all .2s; display:inline-flex; align-items:center; gap:4px;
+    }
+    .btn-del:hover { background:rgba(231,76,60,.32); }
+
+    /* ══ رفع صورة ══ */
     .img-upload-area {
       border:2px dashed rgba(247,0,110,0.35); border-radius:10px;
-      padding:0; text-align:center; cursor:pointer; transition:all .25s;
-      position:relative; overflow:hidden; margin-bottom:12px; min-height:120px;
-      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+      padding:0; text-align:center; cursor:pointer; transition:all .22s;
+      position:relative; overflow:hidden; margin-bottom:10px; min-height:110px;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px;
     }
     .img-upload-area:hover { border-color:var(--pink); background:var(--pink-dim); }
     .img-upload-area input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
-    .img-upload-area .upload-icon { font-size:2rem; color:var(--pink); pointer-events:none; }
-    .img-upload-area .upload-text { font-size:.85rem; color:var(--text-muted); pointer-events:none; }
-    .img-preview-box {
-      width:100%; height:160px; object-fit:cover;
-      border-radius:8px; display:none; border:2px solid var(--border);
-    }
-    .img-size-info { font-size:.75rem; color:var(--text-muted); margin-top:4px; }
+    .img-upload-area .upload-icon { font-size:1.8rem; color:var(--pink); pointer-events:none; }
+    .img-upload-area .upload-text { font-size:.82rem; color:var(--text-muted); pointer-events:none; }
+    .img-preview-box { width:100%; height:150px; object-fit:cover; border-radius:8px; display:none; border:2px solid var(--border); }
+    .img-size-info { font-size:.73rem; color:var(--text-muted); margin-top:3px; }
 
-    /* نافذة قص الصورة */
+    /* ══════════════════════════════════════════
+       نافذة القص — مع دعم القص الحر الكامل
+    ══════════════════════════════════════════ */
     .crop-overlay {
       position:fixed; inset:0; z-index:600;
-      background:rgba(0,0,0,0.92); backdrop-filter:blur(10px);
+      background:rgba(0,0,0,0.94); backdrop-filter:blur(12px);
       display:flex; align-items:center; justify-content:center;
       opacity:0; pointer-events:none; transition:opacity .3s;
     }
     .crop-overlay.open { opacity:1; pointer-events:all; }
     .crop-modal {
       background:var(--dark2); border:1px solid var(--border); border-radius:20px;
-      padding:24px; width:95%; max-width:480px;
-      box-shadow:0 30px 80px rgba(0,0,0,0.8),0 0 40px var(--pink-glow);
+      padding:22px; width:95%; max-width:500px;
+      box-shadow:0 30px 80px rgba(0,0,0,0.85),0 0 40px var(--pink-glow);
     }
     .crop-modal h3 { font-size:1rem; font-weight:800; color:#fff; margin-bottom:12px; text-align:center; }
     .crop-canvas-wrap {
-      position:relative; border-radius:12px; background:#111;
-      margin-bottom:14px; border:1px solid var(--border);
-      overflow:hidden; touch-action:none; cursor:move;
+      position:relative; border-radius:12px; background:#0d0d0d;
+      margin-bottom:12px; border:1px solid var(--border);
+      overflow:hidden; touch-action:none;
+      /* الكرسر يتغير حسب الوضع */
     }
+    .crop-canvas-wrap.mode-move  { cursor:move; }
+    .crop-canvas-wrap.mode-draw  { cursor:crosshair; }
+    .crop-canvas-wrap.mode-resize-nw { cursor:nw-resize; }
+    .crop-canvas-wrap.mode-resize-ne { cursor:ne-resize; }
+    .crop-canvas-wrap.mode-resize-sw { cursor:sw-resize; }
+    .crop-canvas-wrap.mode-resize-se { cursor:se-resize; }
     #cropCanvas { display:block; width:100%; }
-    .crop-controls { display:flex; gap:10px; align-items:center; margin-bottom:12px; }
-    .crop-controls label { font-size:.8rem; color:var(--text-muted); white-space:nowrap; }
+
+    .crop-controls { display:flex; gap:10px; align-items:center; margin-bottom:10px; }
+    .crop-controls label { font-size:.78rem; color:var(--text-muted); white-space:nowrap; }
     .crop-controls input[type=range] { flex:1; accent-color:var(--pink); }
-    .ratio-btns { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+
+    .ratio-btns { display:flex; gap:7px; margin-bottom:12px; flex-wrap:wrap; }
     .ratio-btn {
-      padding:5px 14px; border-radius:6px; border:1.5px solid rgba(255,255,255,0.12);
+      padding:5px 12px; border-radius:6px; border:1.5px solid rgba(255,255,255,0.12);
       background:transparent; color:#aaa; font-family:'Tajawal',sans-serif;
-      font-size:.8rem; cursor:pointer; transition:all .2s;
+      font-size:.78rem; cursor:pointer; transition:all .2s;
     }
     .ratio-btn.active { border-color:var(--pink); color:var(--pink-light); background:var(--pink-dim); }
+    .crop-hint { font-size:.75rem; color:var(--text-muted); text-align:center; margin-bottom:8px; }
+    .crop-hint.free-mode { color:var(--pink-light); }
     .crop-actions { display:flex; gap:10px; }
     .crop-actions button { flex:1; }
 
-    /* بطاقات المنتجات المحسّنة */
-    .products-grid {
-      display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-      gap:28px; margin-bottom:60px;
-    }
-    .product-card {
-      background:linear-gradient(145deg,#1e1e1e,#161616);
-      border:1px solid rgba(255,255,255,0.06);
-      border-radius:20px; overflow:hidden; display:flex; flex-direction:column;
-      transition:all .35s cubic-bezier(.25,.8,.25,1); position:relative;
-    }
-    .product-card::before {
-      content:''; position:absolute; inset:0; border-radius:20px; z-index:0;
-      background:linear-gradient(135deg,rgba(247,0,110,0.06),transparent);
-      opacity:0; transition:opacity .3s; pointer-events:none;
-    }
-    .product-card:hover::before { opacity:1; }
-    .product-card:hover {
-      transform:translateY(-10px);
-      border-color:rgba(247,0,110,0.3);
-      box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(247,0,110,0.15);
-    }
-    .product-img-wrap { position:relative; overflow:hidden; }
-    .product-img {
-      width:100%; height:240px; object-fit:cover;
-      transition:transform .5s cubic-bezier(.25,.8,.25,1); display:block;
-    }
-    .product-card:hover .product-img { transform:scale(1.06); }
-    .product-img-overlay {
-      position:absolute; inset:0;
-      background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,transparent 55%);
-    }
-    .product-body { padding:20px; display:flex; flex-direction:column; flex-grow:1; position:relative; z-index:1; }
-    .product-name { font-size:1.1rem; font-weight:900; color:#fff; margin-bottom:8px; line-height:1.4; }
-    .product-desc {
-      font-size:.85rem; color:var(--text-muted); flex-grow:1; margin-bottom:16px; line-height:1.8;
-      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
-    }
-    .product-footer {
-      display:flex; justify-content:space-between; align-items:center;
-      padding-top:16px; border-top:1px solid rgba(255,255,255,.07); gap:10px;
-    }
-    .product-price {
-      font-size:1.2rem; font-weight:900;
-      background:linear-gradient(90deg,var(--pink),var(--pink-light));
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-    }
-    .btn-order {
-      padding:9px 18px; border:none; border-radius:10px;
-      background:linear-gradient(135deg,var(--pink),var(--pink-light));
-      color:#fff; font-family:'Tajawal',sans-serif; font-size:.85rem; font-weight:800;
-      cursor:pointer; transition:all .25s; display:flex; align-items:center; gap:6px;
-      box-shadow:0 4px 16px var(--pink-glow); white-space:nowrap;
-    }
-    .btn-order:hover { transform:scale(1.06); box-shadow:0 8px 24px var(--pink-glow); }
-
-    /* toast */
+    /* ══ Toast ══ */
     .toast {
-      position:fixed; bottom:28px; right:28px; z-index:9999;
+      position:fixed; bottom:26px; right:26px; z-index:9999;
       background:var(--dark2); border:1px solid var(--border); color:#fff;
-      padding:14px 20px; border-radius:12px; font-size:.9rem; font-weight:600;
-      box-shadow:0 10px 30px rgba(0,0,0,.5),0 0 20px var(--pink-glow);
+      padding:13px 18px; border-radius:12px; font-size:.88rem; font-weight:600;
+      box-shadow:0 10px 28px rgba(0,0,0,.5),0 0 18px var(--pink-glow);
       transform:translateY(80px); opacity:0; transition:all .35s cubic-bezier(.34,1.56,.64,1);
-      display:flex; align-items:center; gap:10px; max-width:320px;
+      display:flex; align-items:center; gap:9px; max-width:300px;
     }
     .toast.show { transform:translateY(0); opacity:1; }
     .toast i { color:var(--pink-light); }
 
-    footer { text-align:center; padding:26px; background:var(--dark2); border-top:1px solid var(--border); color:var(--text-muted); font-size:.85rem; }
+    footer {
+      text-align:center; padding:24px;
+      background:var(--dark2); border-top:1px solid var(--border);
+      color:var(--text-muted); font-size:.83rem;
+    }
     footer span { color:var(--pink); }
 
-    @media(max-width:650px) {
-      .admin-grid { grid-template-columns:1fr; }
+    @media(max-width:480px) {
       .store-title { font-size:2.2rem; }
-      .auth-modal { padding:26px 18px; margin:16px; }
+      .auth-modal { padding:24px 16px; margin:12px; }
+      .product-name { font-size:.88rem; }
     }
   </style>
 </head>
@@ -352,8 +383,6 @@
 <div class="auth-overlay" id="authOverlay">
   <div class="auth-modal">
     <button class="auth-close" id="authClose"><i class="fa-solid fa-xmark"></i></button>
-
-    <!-- خطوة 1: بريد + رمز -->
     <div id="step1">
       <div class="auth-icon" id="authIcon"><i class="fa-solid fa-unlock-keyhole"></i></div>
       <h2 id="authTitle">تسجيل الدخول</h2>
@@ -372,18 +401,11 @@
         مو عندك حساب؟ <span id="switchLink">سجل الآن</span>
       </div>
     </div>
-
-    <!-- خطوة 2: OTP رقمي 6 خانات -->
     <div id="step2" style="display:none;">
       <div class="auth-icon"><i class="fa-solid fa-shield-halved"></i></div>
       <h2>كود التحقق</h2>
       <p class="auth-sub" id="otpEmail">راجع بريدك الإلكتروني</p>
-
-      <div class="otp-note">
-        📩 وصلك <strong>كود مكون من 6 أرقام</strong> على بريدك<br>
-        ادخله هنا مباشرةً — لا تحتاج تفتح أي رابط
-      </div>
-
+      <div class="otp-note">📩 وصلك <strong>كود مكون من 6 أرقام</strong> على بريدك<br>ادخله هنا مباشرةً</div>
       <div class="auth-msg" id="otpMsg"></div>
       <div class="otp-row">
         <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
@@ -393,18 +415,13 @@
         <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
         <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
       </div>
-
-      <!-- أو لصق الكود كاملاً -->
       <div class="form-group" style="margin-top:8px;">
-        <label style="font-size:.8rem; color:var(--text-muted);">أو الصق الكود مباشرة هنا:</label>
+        <label style="font-size:.78rem; color:var(--text-muted);">أو الصق الكود هنا:</label>
         <input type="text" id="otpPaste" class="form-control" maxlength="6"
-               placeholder="123456" inputmode="numeric" style="text-align:center; font-size:1.3rem; letter-spacing:8px; font-weight:800;">
+               placeholder="123456" inputmode="numeric" style="text-align:center;font-size:1.2rem;letter-spacing:8px;font-weight:800;">
       </div>
-
       <button class="btn-auth" id="btnVerifyOtp"><i class="fa-solid fa-check"></i> تأكيد الكود</button>
-      <div class="auth-switch" style="margin-top:14px;">
-        ما وصلك كود؟ <span id="resendOtp">إعادة الإرسال</span>
-      </div>
+      <div class="auth-switch" style="margin-top:13px;">ما وصلك كود؟ <span id="resendOtp">إعادة الإرسال</span></div>
     </div>
   </div>
 </div>
@@ -421,22 +438,16 @@
         <div class="form-group"><input type="text" id="pName"  class="form-control" placeholder="اسم المنتج"></div>
         <div class="form-group"><input type="text" id="pPrice" class="form-control" placeholder="السعر (مثال: 25,000 د.ع)"></div>
         <div class="form-group"><input type="text" id="pDesc"  class="form-control" placeholder="وصف المنتج"></div>
-
-        <!-- رفع صورة مبسط - Base64 مباشر -->
         <div class="form-group">
-          <label><i class="fa-solid fa-image"></i> صورة المنتج <span class="img-size-info">(PNG, JPG — حتى 2MB)</span></label>
-
-          <!-- منطقة السحب والإفلات -->
+          <label><i class="fa-solid fa-image"></i> صورة المنتج <span class="img-size-info">(PNG, JPG — حتى 5MB)</span></label>
           <div class="img-upload-area" id="uploadArea">
             <input type="file" id="pImgFile" accept="image/*">
             <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
             <div class="upload-text">اضغط هنا أو اسحب الصورة</div>
           </div>
-          <!-- معاينة بعد الاختيار -->
           <img id="imgPreview" class="img-preview-box" alt="معاينة الصورة">
-          <div id="imgInfo" style="font-size:.78rem; color:var(--text-muted); margin-top:4px; display:none;"></div>
+          <div id="imgInfo" style="font-size:.76rem;color:var(--text-muted);margin-top:4px;display:none;"></div>
         </div>
-
         <button class="btn-auth" id="btnPublish"><i class="fa-solid fa-cloud-arrow-up"></i> نشر المنتج</button>
       </div>
       <div class="admin-box">
@@ -449,31 +460,32 @@
   <!-- منتجات -->
   <div class="section-head"><span><i class="fa-solid fa-bag-shopping"></i></span> أحدث المعروضات</div>
   <div class="products-grid" id="mainProductsGrid">
-    <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i>جاري جلب المنتجات...</div>
+    <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><br>جاري جلب المنتجات...</div>
   </div>
 
 </main>
 
-<!-- نافذة قص الصورة -->
+<!-- نافذة قص الصورة — مع قص حر كامل -->
 <div class="crop-overlay" id="cropOverlay">
   <div class="crop-modal">
     <h3><i class="fa-solid fa-crop-simple" style="color:var(--pink);"></i> اضبط الصورة</h3>
-    <div class="ratio-btns">
-      <button class="ratio-btn active" onclick="setRatio(1,1)">مربع ١:١</button>
-      <button class="ratio-btn" onclick="setRatio(4,3)">٤:٣</button>
-      <button class="ratio-btn" onclick="setRatio(16,9)">١٦:٩</button>
-      <button class="ratio-btn" onclick="setRatio(3,4)">٣:٤ عمودي</button>
-      <button class="ratio-btn" onclick="setRatio(0,0)">حر</button>
+    <div class="ratio-btns" id="ratioBtns">
+      <button class="ratio-btn active" data-w="1"  data-h="1">مربع ١:١</button>
+      <button class="ratio-btn"        data-w="4"  data-h="3">٤:٣</button>
+      <button class="ratio-btn"        data-w="16" data-h="9">١٦:٩</button>
+      <button class="ratio-btn"        data-w="3"  data-h="4">٣:٤ عمودي</button>
+      <button class="ratio-btn"        data-w="0"  data-h="0">✏️ حر</button>
     </div>
-    <div class="crop-canvas-wrap" id="cropWrap">
+    <p class="crop-hint" id="cropHint">اسحب الإطار لتحريكه • اسحب الزوايا لتغيير الحجم</p>
+    <div class="crop-canvas-wrap mode-move" id="cropWrap">
       <canvas id="cropCanvas"></canvas>
     </div>
     <div class="crop-controls">
       <label><i class="fa-solid fa-magnifying-glass"></i> تكبير</label>
-      <input type="range" id="zoomSlider" min="1" max="3" step="0.01" value="1">
+      <input type="range" id="zoomSlider" min="1" max="4" step="0.01" value="1">
     </div>
     <div class="crop-actions">
-      <button class="btn-auth" style="background:rgba(255,255,255,0.07);color:#aaa;box-shadow:none;" onclick="cancelCrop()">إلغاء</button>
+      <button class="btn-auth" style="background:rgba(255,255,255,0.07);color:#aaa;box-shadow:none;" id="btnCancelCrop">إلغاء</button>
       <button class="btn-auth" id="btnApplyCrop"><i class="fa-solid fa-check"></i> تطبيق القص</button>
     </div>
   </div>
@@ -483,519 +495,657 @@
 <div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i><span id="toastMsg"></span></div>
 
 <script>
-  /* ══ Supabase ══ */
-  const SB_URL = 'https://dmswefvziqgxfkybozrh.supabase.co';
-  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtc3dlZnZ6aXFneGZreWJvenJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NjU4NzcsImV4cCI6MjA5NjA0MTg3N30.RHNLapCj0oMbLjjhuShvyPMPFTP2WskyTpWxhGC5xdM';
-  const sb = window.supabase.createClient(SB_URL, SB_KEY);
+/* ══ Supabase ══ */
+const SB_URL = 'https://dmswefvziqgxfkybozrh.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtc3dlZnZ6aXFneGZreWJvenJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NjU4NzcsImV4cCI6MjA5NjA0MTg3N30.RHNLapCj0oMbLjjhuShvyPMPFTP2WskyTpWxhGC5xdM';
+const sb = window.supabase.createClient(SB_URL, SB_KEY);
 
-  const ADMIN_EMAIL      = '3tx@ramadi.com';
-  const LOCAL_ADMIN_USER = '3tx';
-  const LOCAL_ADMIN_PASS = '123456';
-  let   localAdminActive = false;
-  let   authMode         = 'login';
-  let   pendingEmail     = '';
-  let   base64ImageData  = '';   /* ← الصورة المحولة */
+const ADMIN_EMAIL      = '3tx@ramadi.com';
+const LOCAL_ADMIN_USER = '3tx';
+const LOCAL_ADMIN_PASS = '123456';
+let   localAdminActive = false;
+let   authMode         = 'login';
+let   pendingEmail     = '';
+let   base64ImageData  = '';
 
-  /* ══ Toast ══ */
-  function showToast(msg, isErr = false) {
-    const t = document.getElementById('toast');
-    t.querySelector('i').className = isErr ? 'fa-solid fa-circle-exclamation' : 'fa-solid fa-circle-check';
-    t.querySelector('i').style.color = isErr ? '#e74c3c' : '#f7006e';
-    document.getElementById('toastMsg').textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 3500);
+/* ══ Toast ══ */
+function showToast(msg, isErr=false) {
+  const t = document.getElementById('toast');
+  t.querySelector('i').className = isErr ? 'fa-solid fa-circle-exclamation' : 'fa-solid fa-circle-check';
+  t.querySelector('i').style.color = isErr ? '#e74c3c' : '#f7006e';
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+/* ═══════════════════════════════════════════════════
+   قص الصورة — محسّن مع قص حر كامل
+   ▸ القص الحر: اسحب الزوايا/الحواف لتغيير الحجم
+   ▸ نسب ثابتة: الإطار يتحرك فقط
+═══════════════════════════════════════════════════ */
+const fileInput  = document.getElementById('pImgFile');
+const imgPreview = document.getElementById('imgPreview');
+const imgInfo    = document.getElementById('imgInfo');
+const uploadArea = document.getElementById('uploadArea');
+const canvas     = document.getElementById('cropCanvas');
+const ctx        = canvas.getContext('2d');
+const cropWrap   = document.getElementById('cropWrap');
+
+let cropImg = new Image();
+let isFreeMode  = false;   // وضع القص الحر
+let cropRatioW  = 1;
+let cropRatioH  = 1;
+let zoomLevel   = 1;
+
+// إطار القص (بإحداثيات الـ canvas)
+let cx = 0, cy = 0, cw = 0, ch = 0;
+
+// حالة السحب
+const HANDLE_SIZE = 14;  // حجم منطقة الزاوية للسحب
+let dragMode = null;     // 'move' | 'resize-nw' | 'resize-ne' | 'resize-sw' | 'resize-se' | null
+let dragStartX, dragStartY;
+let dragOriginCx, dragOriginCy, dragOriginCw, dragOriginCh;
+
+/* ══ نسب الأبعاد ══ */
+document.getElementById('ratioBtns').addEventListener('click', e => {
+  const btn = e.target.closest('.ratio-btn');
+  if (!btn) return;
+  document.querySelectorAll('.ratio-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const w = parseInt(btn.dataset.w);
+  const h = parseInt(btn.dataset.h);
+  isFreeMode = (w === 0);
+  cropRatioW = isFreeMode ? 1 : w;
+  cropRatioH = isFreeMode ? 1 : h;
+
+  const hint = document.getElementById('cropHint');
+  if (isFreeMode) {
+    hint.textContent = '✏️ وضع حر — اسحب الزوايا لتغيير الحجم';
+    hint.className = 'crop-hint free-mode';
+  } else {
+    hint.textContent = 'اسحب الإطار لتحريكه • الحجم ثابت على النسبة المختارة';
+    hint.className = 'crop-hint';
   }
+  initCrop();
+});
 
-  /* ══════════════════════════════
-     رفع الصورة - محوّل Base64
-     لا يحتاج Storage أو أي إعداد
-  ══════════════════════════════ */
-  /* ══════════════════════════════
-     قص الصورة وتعديل الحجم
-  ══════════════════════════════ */
-  const fileInput   = document.getElementById('pImgFile');
-  const imgPreview  = document.getElementById('imgPreview');
-  const imgInfo     = document.getElementById('imgInfo');
-  const uploadArea  = document.getElementById('uploadArea');
+/* ══ فتح نافذة القص ══ */
+fileInput.addEventListener('change', () => { if (fileInput.files[0]) openCrop(fileInput.files[0]); });
 
-  let cropImg = new Image();
-  let cropRatioW = 1, cropRatioH = 1, cropFree = false;
-  let cropX = 0, cropY = 0, cropW = 0, cropH = 0;
-  let isDragging = false, dragStartX, dragStartY, dragOriginX, dragOriginY;
-  let zoomLevel = 1;
-  const canvas = document.getElementById('cropCanvas');
-  const ctx = canvas.getContext('2d');
+uploadArea.addEventListener('dragover',  e => { e.preventDefault(); uploadArea.style.borderColor='var(--pink)'; });
+uploadArea.addEventListener('dragleave', () => { uploadArea.style.borderColor=''; });
+uploadArea.addEventListener('drop', e => {
+  e.preventDefault(); uploadArea.style.borderColor='';
+  const f = e.dataTransfer.files[0];
+  if (f && f.type.startsWith('image/')) openCrop(f);
+  else showToast('يرجى اختيار ملف صورة', true);
+});
 
-  fileInput.addEventListener('change', () => { if(fileInput.files[0]) openCrop(fileInput.files[0]); });
-
-  uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.style.borderColor='var(--pink)'; });
-  uploadArea.addEventListener('dragleave', () => { uploadArea.style.borderColor=''; });
-  uploadArea.addEventListener('drop', e => {
-    e.preventDefault(); uploadArea.style.borderColor='';
-    const f = e.dataTransfer.files[0];
-    if(f && f.type.startsWith('image/')) openCrop(f);
-    else showToast('يرجى اختيار ملف صورة', true);
-  });
-
-  function openCrop(file) {
-    if(file.size > 5*1024*1024) { showToast('الصورة كبيرة — الحد 5MB', true); return; }
-    const reader = new FileReader();
-    reader.onload = e => {
-      cropImg = new Image();
-      cropImg.onload = () => {
-        zoomLevel = 1;
-        document.getElementById('zoomSlider').value = 1;
-        initCrop();
-        document.getElementById('cropOverlay').classList.add('open');
-      };
-      cropImg.src = e.target.result;
+function openCrop(file) {
+  if (file.size > 5*1024*1024) { showToast('الصورة كبيرة — الحد 5MB', true); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    cropImg = new Image();
+    cropImg.onload = () => {
+      zoomLevel = 1;
+      document.getElementById('zoomSlider').value = 1;
+      isFreeMode = false;
+      cropRatioW = 1; cropRatioH = 1;
+      document.querySelectorAll('.ratio-btn').forEach((b,i)=>b.classList.toggle('active', i===0));
+      document.getElementById('cropHint').textContent = 'اسحب الإطار لتحريكه • اسحب الزوايا لتغيير الحجم';
+      document.getElementById('cropHint').className = 'crop-hint';
+      initCrop();
+      document.getElementById('cropOverlay').classList.add('open');
     };
-    reader.readAsDataURL(file);
+    cropImg.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function initCrop() {
+  const maxW = Math.min(cropWrap.clientWidth || 450, 450);
+  const scale = maxW / cropImg.width;
+  canvas.width  = Math.round(cropImg.width  * scale);
+  canvas.height = Math.round(cropImg.height * scale);
+
+  if (isFreeMode) {
+    cw = canvas.width  * 0.75;
+    ch = canvas.height * 0.75;
+  } else {
+    const ratio = cropRatioW / cropRatioH;
+    cw = Math.min(canvas.width  * 0.85, canvas.height * 0.85 * ratio);
+    ch = cw / ratio;
+    if (ch > canvas.height * 0.85) { ch = canvas.height * 0.85; cw = ch * ratio; }
+  }
+  cw = Math.round(cw); ch = Math.round(ch);
+  cx = Math.round((canvas.width  - cw) / 2);
+  cy = Math.round((canvas.height - ch) / 2);
+  drawCrop();
+}
+
+function drawCrop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // رسم الصورة مع الزوم
+  ctx.save();
+  ctx.translate(canvas.width/2, canvas.height/2);
+  ctx.scale(zoomLevel, zoomLevel);
+  ctx.translate(-canvas.width/2, -canvas.height/2);
+  ctx.drawImage(cropImg, 0, 0, canvas.width, canvas.height);
+  ctx.restore();
+
+  // تعتيم خارج الإطار
+  ctx.fillStyle = 'rgba(0,0,0,0.58)';
+  ctx.fillRect(0,  0,               canvas.width, cy);
+  ctx.fillRect(0,  cy+ch,           canvas.width, canvas.height-cy-ch);
+  ctx.fillRect(0,  cy,              cx,            ch);
+  ctx.fillRect(cx+cw, cy,           canvas.width-cx-cw, ch);
+
+  // إطار
+  ctx.strokeStyle = '#ff4d9e'; ctx.lineWidth = 2;
+  ctx.strokeRect(cx, cy, cw, ch);
+
+  // خطوط الثلث
+  ctx.strokeStyle = 'rgba(255,255,255,0.22)'; ctx.lineWidth = 1;
+  for (let i=1; i<3; i++) {
+    ctx.beginPath(); ctx.moveTo(cx+cw*i/3, cy); ctx.lineTo(cx+cw*i/3, cy+ch); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, cy+ch*i/3); ctx.lineTo(cx+cw, cy+ch*i/3); ctx.stroke();
   }
 
-  function initCrop() {
-    const wrap = document.getElementById('cropWrap');
-    const maxW = Math.min(wrap.clientWidth || 420, 420);
-    const scale = maxW / cropImg.width;
-    canvas.width  = Math.round(cropImg.width  * scale);
-    canvas.height = Math.round(cropImg.height * scale);
-    if(!cropFree) {
-      const side = Math.min(canvas.width, canvas.height) * 0.8;
-      cropW = side / (cropRatioW / cropRatioH > 1 ? 1 : cropRatioW/cropRatioH);
-      cropH = cropW * (cropRatioH / cropRatioW);
-      if(cropH > canvas.height * 0.9) { cropH = canvas.height * 0.9; cropW = cropH * cropRatioW/cropRatioH; }
-      cropW = Math.min(cropW, canvas.width * 0.9);
+  // مقابض الزوايا (في وضع الحر تكون مرئية أكثر)
+  const hs = HANDLE_SIZE;
+  const handles = getHandles();
+  handles.forEach(h => {
+    ctx.fillStyle = '#ff4d9e';
+    ctx.beginPath();
+    ctx.roundRect(h.x - hs/2, h.y - hs/2, hs, hs, 3);
+    ctx.fill();
+  });
+}
+
+function getHandles() {
+  return [
+    { id:'nw', x:cx,    y:cy    },
+    { id:'ne', x:cx+cw, y:cy    },
+    { id:'sw', x:cx,    y:cy+ch },
+    { id:'se', x:cx+cw, y:cy+ch },
+  ];
+}
+
+function getHandleAt(x, y) {
+  const hs = HANDLE_SIZE + 4;
+  return getHandles().find(h => Math.abs(x-h.x)<hs && Math.abs(y-h.y)<hs);
+}
+
+function isInsideBox(x, y) {
+  return x>cx && x<cx+cw && y>cy && y<cy+ch;
+}
+
+/* ══ إحداثيات الماوس/اللمس نسبة إلى الـ canvas ══ */
+function getCanvasXY(e) {
+  const r = canvas.getBoundingClientRect();
+  const scaleX = canvas.width  / r.width;
+  const scaleY = canvas.height / r.height;
+  const src = e.touches ? e.touches[0] : e;
+  return {
+    x: (src.clientX - r.left) * scaleX,
+    y: (src.clientY - r.top)  * scaleY
+  };
+}
+
+function onPointerDown(e) {
+  e.preventDefault();
+  const {x, y} = getCanvasXY(e);
+  dragStartX = x; dragStartY = y;
+  dragOriginCx = cx; dragOriginCy = cy;
+  dragOriginCw = cw; dragOriginCh = ch;
+
+  const handle = getHandleAt(x, y);
+  if (handle) {
+    dragMode = 'resize-' + handle.id;
+  } else if (isInsideBox(x, y)) {
+    dragMode = 'move';
+  } else if (isFreeMode) {
+    // رسم إطار جديد في وضع الحر
+    dragMode = 'draw';
+    cx = x; cy = y; cw = 0; ch = 0;
+  } else {
+    dragMode = null;
+  }
+}
+
+function onPointerMove(e) {
+  if (!dragMode) {
+    // تغيير شكل الكرسر
+    const {x,y} = getCanvasXY(e);
+    const handle = getHandleAt(x,y);
+    if (handle) {
+      cropWrap.className = `crop-canvas-wrap mode-resize-${handle.id}`;
+    } else if (isInsideBox(x,y)) {
+      cropWrap.className = 'crop-canvas-wrap mode-move';
     } else {
-      cropW = canvas.width * 0.8; cropH = canvas.height * 0.8;
+      cropWrap.className = `crop-canvas-wrap ${isFreeMode ? 'mode-draw' : 'mode-move'}`;
     }
-    cropX = (canvas.width  - cropW) / 2;
-    cropY = (canvas.height - cropH) / 2;
-    drawCrop();
+    return;
   }
+  e.preventDefault();
+  const {x,y} = getCanvasXY(e);
+  const dx = x - dragStartX;
+  const dy = y - dragStartY;
 
-  function drawCrop() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.save();
-    ctx.translate(canvas.width/2, canvas.height/2);
-    ctx.scale(zoomLevel, zoomLevel);
-    ctx.translate(-canvas.width/2, -canvas.height/2);
-    ctx.drawImage(cropImg, 0, 0, canvas.width, canvas.height);
-    ctx.restore();
-    /* تعتيم خارج منطقة القص */
-    ctx.fillStyle = 'rgba(0,0,0,0.55)';
-    ctx.fillRect(0,0,canvas.width,cropY);
-    ctx.fillRect(0,cropY+cropH,canvas.width,canvas.height-cropY-cropH);
-    ctx.fillRect(0,cropY,cropX,cropH);
-    ctx.fillRect(cropX+cropW,cropY,canvas.width-cropX-cropW,cropH);
-    /* إطار */
-    ctx.strokeStyle = 'var(--pink-light)'; ctx.lineWidth = 2;
-    ctx.strokeRect(cropX, cropY, cropW, cropH);
-    /* خطوط ثلثية */
-    ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 1;
-    for(let i=1;i<3;i++){
-      ctx.beginPath(); ctx.moveTo(cropX+cropW*i/3,cropY); ctx.lineTo(cropX+cropW*i/3,cropY+cropH); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(cropX,cropY+cropH*i/3); ctx.lineTo(cropX+cropW,cropY+cropH*i/3); ctx.stroke();
-    }
-  }
+  if (dragMode === 'move') {
+    cx = Math.max(0, Math.min(canvas.width-cw,  dragOriginCx + dx));
+    cy = Math.max(0, Math.min(canvas.height-ch, dragOriginCy + dy));
 
-  /* زوم */
-  document.getElementById('zoomSlider').addEventListener('input', function() {
-    zoomLevel = parseFloat(this.value); drawCrop();
-  });
+  } else if (dragMode === 'draw') {
+    // رسم إطار جديد
+    cx = Math.min(dragStartX, x);
+    cy = Math.min(dragStartY, y);
+    cw = Math.abs(x - dragStartX);
+    ch = Math.abs(y - dragStartY);
+    // تأكد أن الإطار داخل الـ canvas
+    cx = Math.max(0, cx);
+    cy = Math.max(0, cy);
+    if (cx+cw > canvas.width)  cw = canvas.width  - cx;
+    if (cy+ch > canvas.height) ch = canvas.height - cy;
 
-  /* سحب منطقة القص */
-  canvas.addEventListener('mousedown', e => startDrag(e.offsetX, e.offsetY));
-  canvas.addEventListener('mousemove', e => { if(isDragging) doDrag(e.offsetX, e.offsetY); });
-  canvas.addEventListener('mouseup',   () => isDragging=false);
-  canvas.addEventListener('mouseleave',() => isDragging=false);
-
-  canvas.addEventListener('touchstart', e => { e.preventDefault(); const t=e.touches[0]; const r=canvas.getBoundingClientRect(); startDrag(t.clientX-r.left, t.clientY-r.top); }, {passive:false});
-  canvas.addEventListener('touchmove',  e => { e.preventDefault(); const t=e.touches[0]; const r=canvas.getBoundingClientRect(); if(isDragging) doDrag(t.clientX-r.left, t.clientY-r.top); }, {passive:false});
-  canvas.addEventListener('touchend',   () => isDragging=false);
-
-  function startDrag(x,y) {
-    if(x>=cropX&&x<=cropX+cropW&&y>=cropY&&y<=cropY+cropH) {
-      isDragging=true; dragStartX=x; dragStartY=y; dragOriginX=cropX; dragOriginY=cropY;
-    }
-  }
-  function doDrag(x,y) {
-    cropX = Math.max(0, Math.min(canvas.width-cropW,  dragOriginX + (x-dragStartX)));
-    cropY = Math.max(0, Math.min(canvas.height-cropH, dragOriginY + (y-dragStartY)));
-    drawCrop();
-  }
-
-  window.setRatio = function(w,h) {
-    cropFree = (w===0);
-    cropRatioW = w||1; cropRatioH = h||1;
-    document.querySelectorAll('.ratio-btn').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-    initCrop();
-  };
-
-  window.cancelCrop = function() {
-    document.getElementById('cropOverlay').classList.remove('open');
-    fileInput.value='';
-  };
-
-  document.getElementById('btnApplyCrop').addEventListener('click', () => {
-    /* رسم المنطقة المقصوصة بجودة عالية */
-    const out = document.createElement('canvas');
-    const scaleX = cropImg.width  / (canvas.width  / zoomLevel);
-    const scaleY = cropImg.height / (canvas.height / zoomLevel);
-    const srcX = (cropX / zoomLevel) * scaleX;
-    const srcY = (cropY / zoomLevel) * scaleY;
-    const srcW = (cropW / zoomLevel) * scaleX;
-    const srcH = (cropH / zoomLevel) * scaleY;
-    out.width = Math.round(srcW); out.height = Math.round(srcH);
-    const octx = out.getContext('2d');
-    octx.drawImage(cropImg, srcX, srcY, srcW, srcH, 0, 0, out.width, out.height);
-    base64ImageData = out.toDataURL('image/jpeg', 0.88);
-    /* معاينة */
-    imgPreview.src = base64ImageData;
-    imgPreview.style.display = 'block';
-    uploadArea.style.display = 'none';
-    imgInfo.style.display = 'block';
-    imgInfo.innerHTML = `✓ تم القص بنجاح — ${out.width}×${out.height}px
-      <span style="color:var(--pink);cursor:pointer;margin-right:8px;" onclick="resetImage()">تغيير ✕</span>`;
-    document.getElementById('cropOverlay').classList.remove('open');
-  });
-
-  window.resetImage = function() {
-    base64ImageData = '';
-    imgPreview.style.display = 'none'; imgPreview.src = '';
-    uploadArea.style.display = 'flex';
-    imgInfo.style.display = 'none'; fileInput.value = '';
-  };
-
-  /* ══ OTP boxes — تنقل تلقائي ══ */
-  const otpBoxes = document.querySelectorAll('.otp-box');
-  otpBoxes.forEach((box, i) => {
-    box.addEventListener('input', () => {
-      box.value = box.value.replace(/\D/g,'').slice(-1);
-      syncOtpPaste();
-      if (box.value && i < otpBoxes.length - 1) otpBoxes[i+1].focus();
-    });
-    box.addEventListener('keydown', e => {
-      if (e.key === 'Backspace' && !box.value && i > 0) otpBoxes[i-1].focus();
-    });
-    box.addEventListener('paste', e => {
-      e.preventDefault();
-      const text = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g,'');
-      if (text.length >= 6) {
-        [...otpBoxes].forEach((b,j) => b.value = text[j] || '');
-        document.getElementById('otpPaste').value = text.slice(0,6);
-        otpBoxes[5].focus();
-      }
-    });
-  });
-
-  /* مزامنة حقل اللصق مع الصناديق */
-  document.getElementById('otpPaste').addEventListener('input', function() {
-    const v = this.value.replace(/\D/g,'').slice(0,6);
-    this.value = v;
-    [...otpBoxes].forEach((b,j) => b.value = v[j] || '');
-  });
-
-  function syncOtpPaste() {
-    document.getElementById('otpPaste').value = [...otpBoxes].map(b=>b.value).join('');
-  }
-
-  function getOtpCode() {
-    const fromPaste = document.getElementById('otpPaste').value.replace(/\D/g,'');
-    const fromBoxes = [...otpBoxes].map(b=>b.value).join('');
-    return fromPaste.length === 6 ? fromPaste : fromBoxes;
-  }
-
-  /* ══ فتح نافذة Auth ══ */
-  function openAuth(mode) {
-    authMode = mode;
-    document.getElementById('step1').style.display = 'block';
-    document.getElementById('step2').style.display = 'none';
-    document.getElementById('authMsg').style.display = 'none';
-    document.getElementById('authEmail').value    = '';
-    document.getElementById('authPassword').value = '';
-
-    if (mode === 'login') {
-      document.getElementById('authIcon').innerHTML    = '<i class="fa-solid fa-unlock-keyhole"></i>';
-      document.getElementById('authTitle').textContent  = 'تسجيل الدخول';
-      document.getElementById('authSub').textContent    = 'أدخل بياناتك للوصول لمتجرك';
-      document.getElementById('btnAuthSubmit').textContent = 'دخول للمتجر';
-      document.getElementById('authSwitch').innerHTML   = 'مو عندك حساب؟ <span id="switchLink">سجل الآن</span>';
+  } else if (dragMode === 'resize-se') {
+    if (isFreeMode) {
+      cw = Math.max(20, Math.min(canvas.width-cx,  dragOriginCw + dx));
+      ch = Math.max(20, Math.min(canvas.height-cy, dragOriginCh + dy));
     } else {
-      document.getElementById('authIcon').innerHTML    = '<i class="fa-solid fa-user-plus"></i>';
-      document.getElementById('authTitle').textContent  = 'حساب جديد';
-      document.getElementById('authSub').textContent    = 'أنشئ حسابك وابدأ التسوق';
-      document.getElementById('btnAuthSubmit').textContent = 'إنشاء الحساب';
-      document.getElementById('authSwitch').innerHTML   = 'عندك حساب؟ <span id="switchLink">سجل دخولك</span>';
+      const ratio = cropRatioW / cropRatioH;
+      cw = Math.max(20, Math.min(canvas.width-cx,  canvas.height-cy, Math.min(dragOriginCw + dx, (dragOriginCh + dy)*ratio)));
+      ch = cw / ratio;
     }
-    document.getElementById('switchLink').onclick = () => openAuth(mode === 'login' ? 'register' : 'login');
-    document.getElementById('authOverlay').classList.add('open');
+  } else if (dragMode === 'resize-sw') {
+    if (isFreeMode) {
+      const newW = Math.max(20, Math.min(dragOriginCx + dragOriginCw, dragOriginCw - dx));
+      cx = dragOriginCx + dragOriginCw - newW;
+      cw = newW;
+      ch = Math.max(20, Math.min(canvas.height-cy, dragOriginCh + dy));
+    } else {
+      const ratio = cropRatioW / cropRatioH;
+      const newW = Math.max(20, dragOriginCw - dx);
+      cw = Math.min(newW, dragOriginCx + dragOriginCw, (canvas.height-cy)*ratio);
+      ch = cw / ratio;
+      cx = dragOriginCx + dragOriginCw - cw;
+    }
+  } else if (dragMode === 'resize-ne') {
+    if (isFreeMode) {
+      cw = Math.max(20, Math.min(canvas.width-cx, dragOriginCw + dx));
+      const newH = Math.max(20, dragOriginCh - dy);
+      ch = Math.min(newH, dragOriginCy + dragOriginCh);
+      cy = dragOriginCy + dragOriginCh - ch;
+    } else {
+      const ratio = cropRatioW / cropRatioH;
+      cw = Math.max(20, Math.min(canvas.width-cx, dragOriginCw + dx));
+      ch = cw / ratio;
+      cy = dragOriginCy + dragOriginCh - ch;
+      if (cy < 0) { cy=0; ch=dragOriginCy+dragOriginCh; cw=ch*ratio; }
+    }
+  } else if (dragMode === 'resize-nw') {
+    if (isFreeMode) {
+      const newW = Math.max(20, dragOriginCw - dx);
+      const newH = Math.max(20, dragOriginCh - dy);
+      cx = dragOriginCx + dragOriginCw - Math.min(newW, dragOriginCx+dragOriginCw);
+      cy = dragOriginCy + dragOriginCh - Math.min(newH, dragOriginCy+dragOriginCh);
+      cw = dragOriginCx + dragOriginCw - cx;
+      ch = dragOriginCy + dragOriginCh - cy;
+    } else {
+      const ratio = cropRatioW / cropRatioH;
+      const newW = Math.max(20, dragOriginCw - dx);
+      cw = Math.min(newW, dragOriginCx+dragOriginCw, (dragOriginCy+dragOriginCh)*ratio);
+      ch = cw / ratio;
+      cx = dragOriginCx + dragOriginCw - cw;
+      cy = dragOriginCy + dragOriginCh - ch;
+    }
   }
 
-  document.getElementById('btnShowLogin').onclick    = () => openAuth('login');
-  document.getElementById('btnShowRegister').onclick = () => openAuth('register');
-  document.getElementById('authClose').onclick       = () => document.getElementById('authOverlay').classList.remove('open');
-  document.getElementById('authOverlay').addEventListener('click', e => {
-    if (e.target === document.getElementById('authOverlay'))
+  drawCrop();
+}
+
+function onPointerUp() { dragMode = null; }
+
+// أحداث الماوس
+canvas.addEventListener('mousedown',  onPointerDown);
+canvas.addEventListener('mousemove',  onPointerMove);
+canvas.addEventListener('mouseup',    onPointerUp);
+canvas.addEventListener('mouseleave', onPointerUp);
+
+// أحداث اللمس
+canvas.addEventListener('touchstart', onPointerDown, {passive:false});
+canvas.addEventListener('touchmove',  onPointerMove, {passive:false});
+canvas.addEventListener('touchend',   onPointerUp);
+
+// زوم
+document.getElementById('zoomSlider').addEventListener('input', function() {
+  zoomLevel = parseFloat(this.value); drawCrop();
+});
+
+/* ══ تطبيق القص — يحفظ المنطقة المقصوصة فقط ══ */
+document.getElementById('btnApplyCrop').addEventListener('click', () => {
+  if (cw < 5 || ch < 5) { showToast('حدد منطقة أكبر', true); return; }
+
+  const out  = document.createElement('canvas');
+  // إيجاد الإحداثيات الحقيقية بالنسبة للصورة الأصلية
+  const scaleX = cropImg.width  / (canvas.width  / zoomLevel);
+  const scaleY = cropImg.height / (canvas.height / zoomLevel);
+  const srcX = (cx / zoomLevel) * scaleX;
+  const srcY = (cy / zoomLevel) * scaleY;
+  const srcW = (cw / zoomLevel) * scaleX;
+  const srcH = (ch / zoomLevel) * scaleY;
+
+  out.width  = Math.round(Math.min(srcW, cropImg.width));
+  out.height = Math.round(Math.min(srcH, cropImg.height));
+  out.getContext('2d').drawImage(cropImg, srcX, srcY, srcW, srcH, 0, 0, out.width, out.height);
+
+  base64ImageData = out.toDataURL('image/jpeg', 0.90);
+
+  // معاينة
+  imgPreview.src = base64ImageData;
+  imgPreview.style.display = 'block';
+  uploadArea.style.display = 'none';
+  imgInfo.style.display = 'block';
+  imgInfo.innerHTML = `✓ تم القص — ${out.width}×${out.height}px
+    <span style="color:var(--pink);cursor:pointer;margin-right:8px;" onclick="resetImage()">تغيير ✕</span>`;
+  document.getElementById('cropOverlay').classList.remove('open');
+  showToast('تم قص الصورة بنجاح ✓');
+});
+
+document.getElementById('btnCancelCrop').addEventListener('click', () => {
+  document.getElementById('cropOverlay').classList.remove('open');
+  fileInput.value = '';
+});
+
+window.resetImage = function() {
+  base64ImageData = '';
+  imgPreview.style.display = 'none'; imgPreview.src = '';
+  uploadArea.style.display = 'flex';
+  imgInfo.style.display = 'none'; fileInput.value = '';
+};
+
+/* ══ OTP boxes ══ */
+const otpBoxes = document.querySelectorAll('.otp-box');
+otpBoxes.forEach((box, i) => {
+  box.addEventListener('input', () => {
+    box.value = box.value.replace(/\D/g,'').slice(-1);
+    syncOtpPaste();
+    if (box.value && i < otpBoxes.length-1) otpBoxes[i+1].focus();
+  });
+  box.addEventListener('keydown', e => {
+    if (e.key==='Backspace' && !box.value && i>0) otpBoxes[i-1].focus();
+  });
+  box.addEventListener('paste', e => {
+    e.preventDefault();
+    const text = (e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'');
+    if (text.length>=6) {
+      [...otpBoxes].forEach((b,j) => b.value = text[j]||'');
+      document.getElementById('otpPaste').value = text.slice(0,6);
+      otpBoxes[5].focus();
+    }
+  });
+});
+document.getElementById('otpPaste').addEventListener('input', function() {
+  const v = this.value.replace(/\D/g,'').slice(0,6);
+  this.value = v;
+  [...otpBoxes].forEach((b,j) => b.value = v[j]||'');
+});
+function syncOtpPaste() {
+  document.getElementById('otpPaste').value = [...otpBoxes].map(b=>b.value).join('');
+}
+function getOtpCode() {
+  const fromPaste = document.getElementById('otpPaste').value.replace(/\D/g,'');
+  const fromBoxes = [...otpBoxes].map(b=>b.value).join('');
+  return fromPaste.length===6 ? fromPaste : fromBoxes;
+}
+
+/* ══ Auth ══ */
+function openAuth(mode) {
+  authMode = mode;
+  document.getElementById('step1').style.display = 'block';
+  document.getElementById('step2').style.display = 'none';
+  document.getElementById('authMsg').style.display = 'none';
+  document.getElementById('authEmail').value = '';
+  document.getElementById('authPassword').value = '';
+  if (mode === 'login') {
+    document.getElementById('authIcon').innerHTML  = '<i class="fa-solid fa-unlock-keyhole"></i>';
+    document.getElementById('authTitle').textContent = 'تسجيل الدخول';
+    document.getElementById('authSub').textContent   = 'أدخل بياناتك للوصول لمتجرك';
+    document.getElementById('btnAuthSubmit').textContent = 'دخول للمتجر';
+    document.getElementById('authSwitch').innerHTML  = 'مو عندك حساب؟ <span id="switchLink">سجل الآن</span>';
+  } else {
+    document.getElementById('authIcon').innerHTML  = '<i class="fa-solid fa-user-plus"></i>';
+    document.getElementById('authTitle').textContent = 'حساب جديد';
+    document.getElementById('authSub').textContent   = 'أنشئ حسابك وابدأ التسوق';
+    document.getElementById('btnAuthSubmit').textContent = 'إنشاء الحساب';
+    document.getElementById('authSwitch').innerHTML  = 'عندك حساب؟ <span id="switchLink">سجل دخولك</span>';
+  }
+  document.getElementById('switchLink').onclick = () => openAuth(mode==='login' ? 'register' : 'login');
+  document.getElementById('authOverlay').classList.add('open');
+}
+document.getElementById('btnShowLogin').onclick    = () => openAuth('login');
+document.getElementById('btnShowRegister').onclick = () => openAuth('register');
+document.getElementById('authClose').onclick       = () => document.getElementById('authOverlay').classList.remove('open');
+document.getElementById('authOverlay').addEventListener('click', e => {
+  if (e.target===document.getElementById('authOverlay'))
+    document.getElementById('authOverlay').classList.remove('open');
+});
+
+document.getElementById('btnAuthSubmit').addEventListener('click', async () => {
+  const email    = document.getElementById('authEmail').value.trim();
+  const password = document.getElementById('authPassword').value.trim();
+  const btn      = document.getElementById('btnAuthSubmit');
+  document.getElementById('authMsg').style.display = 'none';
+  if (!email || !password) { showAuthMsg('يرجى كتابة البريد والرمز السري!', true); return; }
+  btn.disabled = true; btn.textContent = 'جاري التحقق...';
+  try {
+    if (email===LOCAL_ADMIN_USER && password===LOCAL_ADMIN_PASS) {
+      localAdminActive = true;
       document.getElementById('authOverlay').classList.remove('open');
-  });
-
-  /* ══ الدخول / التسجيل ══ */
-  document.getElementById('btnAuthSubmit').addEventListener('click', async () => {
-    const email    = document.getElementById('authEmail').value.trim();
-    const password = document.getElementById('authPassword').value.trim();
-    const btn      = document.getElementById('btnAuthSubmit');
-
-    document.getElementById('authMsg').style.display = 'none';
-    if (!email || !password) { showAuthMsg('يرجى كتابة البريد والرمز السري!', true); return; }
-
-    btn.disabled = true; btn.textContent = 'جاري التحقق...';
-
-    try {
-      /* أدمن محلي */
-      if (email === LOCAL_ADMIN_USER && password === LOCAL_ADMIN_PASS) {
-        localAdminActive = true;
-        document.getElementById('authOverlay').classList.remove('open');
-        handleSession({ email: ADMIN_EMAIL });
-        showToast('أهلاً أدمن! 👑');
-        return;
-      }
-
-      if (authMode === 'login') {
-        const { data, error } = await sb.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        document.getElementById('authOverlay').classList.remove('open');
-        handleSession(data.user);
-        showToast('أهلاً بك! تم الدخول بنجاح ✓');
-
-      } else {
-        /* تسجيل مباشر بدون تأكيد إيميل */
-        const { data, error } = await sb.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: null }
-        });
-        if (error) throw error;
-        document.getElementById('authOverlay').classList.remove('open');
-        handleSession(data.user);
-        showToast('مبارك! تم إنشاء حسابك ✓');
-      }
-
-    } catch (err) {
-      const map = {
-        'Invalid login credentials': 'البريد أو الرمز غلط!',
-        'User already registered':   'هذا البريد مسجل، جرب تسجيل الدخول.',
-        'Email not confirmed':        'بريدك غير مؤكد. تحقق من الإيميل.',
-      };
-      showAuthMsg(map[err.message] || err.message, true);
-    } finally {
-      btn.disabled = false;
-      btn.textContent = authMode === 'login' ? 'دخول للمتجر' : 'إنشاء الحساب';
+      handleSession({ email:ADMIN_EMAIL });
+      showToast('أهلاً أدمن! 👑');
+      return;
     }
-  });
-
-  function showOtpStep(email) {
-    document.getElementById('step1').style.display = 'none';
-    document.getElementById('step2').style.display = 'block';
-    document.getElementById('otpEmail').textContent = `كودك يصل على: ${email}`;
-    [...otpBoxes].forEach(b => b.value = '');
-    document.getElementById('otpPaste').value = '';
-    otpBoxes[0].focus();
-  }
-
-  /* ══ تأكيد OTP ══ */
-  document.getElementById('btnVerifyOtp').addEventListener('click', async () => {
-    const token = getOtpCode();
-    const btn   = document.getElementById('btnVerifyOtp');
-    const msg   = document.getElementById('otpMsg');
-
-    msg.style.display = 'none';
-    if (token.length < 6) {
-      msg.textContent = 'أدخل الكود المكون من 6 أرقام!';
-      msg.className = 'auth-msg error'; msg.style.display = 'block'; return;
-    }
-
-    btn.disabled = true; btn.textContent = 'جاري التحقق...';
-    try {
-      const { data, error } = await sb.auth.verifyOtp({
-        email: pendingEmail,
-        token,
-        type: 'signup'
-      });
+    if (authMode==='login') {
+      const {data,error} = await sb.auth.signInWithPassword({email,password});
       if (error) throw error;
       document.getElementById('authOverlay').classList.remove('open');
       handleSession(data.user);
-      showToast('مبارك! تم تأكيد حسابك ✓');
-    } catch (err) {
-      msg.textContent = 'الكود غلط أو منتهي الصلاحية. اضغط "إعادة الإرسال" وحاول ثاني.';
-      msg.className = 'auth-msg error'; msg.style.display = 'block';
-    } finally {
-      btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-check"></i> تأكيد الكود';
-    }
-  });
-
-  /* إعادة إرسال OTP */
-  document.getElementById('resendOtp').addEventListener('click', async () => {
-    if (!pendingEmail) return;
-    document.getElementById('resendOtp').textContent = 'جاري الإرسال...';
-    await sb.auth.resend({ type: 'signup', email: pendingEmail });
-    showToast('تم إعادة إرسال الكود ✓');
-    document.getElementById('resendOtp').textContent = 'إعادة الإرسال';
-  });
-
-  /* Enter في حقل الرمز */
-  document.getElementById('authPassword').addEventListener('keypress', e => {
-    if (e.key === 'Enter') document.getElementById('btnAuthSubmit').click();
-  });
-
-  function showAuthMsg(msg, isErr) {
-    const el = document.getElementById('authMsg');
-    el.textContent = msg;
-    el.className = 'auth-msg ' + (isErr ? 'error' : 'success');
-    el.style.display = 'block';
-  }
-
-  /* ══ خروج ══ */
-  document.getElementById('btnLogout').addEventListener('click', async () => {
-    if (localAdminActive) { localAdminActive = false; }
-    else { await sb.auth.signOut(); }
-    handleSession(null);
-    showToast('تم تسجيل الخروج');
-  });
-
-  /* ══ جلسة ══ */
-  function handleSession(user) {
-    const welcome  = document.getElementById('userWelcome');
-    const btnLogin = document.getElementById('btnShowLogin');
-    const btnReg   = document.getElementById('btnShowRegister');
-    const btnOut   = document.getElementById('btnLogout');
-    const admin    = document.getElementById('adminPanel');
-
-    if (user) {
-      welcome.style.display = 'flex';
-      btnLogin.classList.add('hidden'); btnReg.classList.add('hidden');
-      btnOut.classList.remove('hidden');
-      if (user.email === ADMIN_EMAIL) {
-        welcome.innerHTML = '<i class="fa-solid fa-crown"></i> أهلاً، الأدمن';
-        admin.style.display = 'block'; loadAdminList();
-      } else {
-        welcome.innerHTML = '<i class="fa-solid fa-user"></i> أهلاً بك';
-        admin.style.display = 'none';
-      }
+      showToast('أهلاً بك! تم الدخول بنجاح ✓');
     } else {
-      welcome.style.display = 'none';
-      btnLogin.classList.remove('hidden'); btnReg.classList.remove('hidden');
-      btnOut.classList.add('hidden'); admin.style.display = 'none';
-    }
-  }
-
-  /* ══════════════════════════════════
-     نشر منتج — الصورة تُحفظ كـ Base64
-     لا يحتاج Supabase Storage أبداً
-  ══════════════════════════════════ */
-  document.getElementById('btnPublish').addEventListener('click', async () => {
-    const name  = document.getElementById('pName').value.trim();
-    const price = document.getElementById('pPrice').value.trim();
-    const desc  = document.getElementById('pDesc').value.trim();
-    const btn   = document.getElementById('btnPublish');
-
-    if (!name || !price) { showToast('اسم المنتج والسعر مطلوبان!', true); return; }
-
-    btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري الحفظ...';
-
-    try {
-      const { error } = await sb.from('products').insert([{
-        name,
-        price,
-        description: desc,
-        image_url: base64ImageData || ''   /* Base64 مباشرة في قاعدة البيانات */
-      }]);
+      const {data,error} = await sb.auth.signUp({email,password,options:{emailRedirectTo:null}});
       if (error) throw error;
-
-      showToast('تم نشر المنتج بنجاح ✓');
-      ['pName','pPrice','pDesc'].forEach(id => document.getElementById(id).value = '');
-      resetImage();
-      loadProducts(); loadAdminList();
-    } catch (err) {
-      showToast('فشل النشر: ' + err.message, true);
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> نشر المنتج';
+      document.getElementById('authOverlay').classList.remove('open');
+      handleSession(data.user);
+      showToast('مبارك! تم إنشاء حسابك ✓');
     }
-  });
-
-  /* ══ جلب منتجات ══ */
-  async function loadProducts() {
-    const grid = document.getElementById('mainProductsGrid');
-    grid.innerHTML = '<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i>جاري الجلب...</div>';
-    const { data, error } = await sb.from('products').select('*').order('created_at', { ascending: false });
-    if (error) {
-      grid.innerHTML = '<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i>تأكد من إعداد جدول products في Supabase.</div>';
-      return;
-    }
-    if (!data.length) {
-      grid.innerHTML = '<div class="empty-state"><i class="fa-solid fa-box-open"></i>لا توجد منتجات حالياً</div>';
-      return;
-    }
-    const DEF = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500';
-    grid.innerHTML = '';
-    data.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'product-card';
-      const igMsg = encodeURIComponent(`مرحبا، أريد طلب: ${p.name} - السعر: ${p.price}`);
-      const igLink = `https://ig.me/m/4.2nr?text=${igMsg}`;
-      card.innerHTML = `
-        <div class="product-img-wrap">
-          <img src="${p.image_url || DEF}" class="product-img" alt="${p.name}"
-               onerror="this.src='${DEF}'">
-          <div class="product-img-overlay"></div>
-        </div>
-        <div class="product-body">
-          <div class="product-name">${p.name}</div>
-          <div class="product-desc">${p.description || 'لا توجد تفاصيل إضافية.'}</div>
-          <div class="product-footer">
-            <span class="product-price">${p.price}</span>
-            <a href="${igLink}" target="_blank" class="btn-order">
-              <i class="fa-brands fa-instagram"></i> اطلب الآن
-            </a>
-          </div>
-        </div>`;
-      grid.appendChild(card);
-    });
+  } catch(err) {
+    const map = {
+      'Invalid login credentials':'البريد أو الرمز غلط!',
+      'User already registered':'هذا البريد مسجل، جرب تسجيل الدخول.',
+      'Email not confirmed':'بريدك غير مؤكد. تحقق من الإيميل.',
+    };
+    showAuthMsg(map[err.message]||err.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = authMode==='login' ? 'دخول للمتجر' : 'إنشاء الحساب';
   }
+});
 
-  /* ══ قائمة أدمن ══ */
-  async function loadAdminList() {
-    const el = document.getElementById('adminProductsControl');
-    el.innerHTML = '<div style="color:var(--text-muted);font-size:.85rem;">جاري التحميل...</div>';
-    const { data } = await sb.from('products').select('id,name,price').order('created_at',{ascending:false});
-    if (!data?.length) {
-      el.innerHTML = '<div style="color:var(--text-muted);font-size:.85rem;">لا توجد منتجات</div>';
-      return;
-    }
-    el.innerHTML = '';
-    data.forEach(p => {
-      const row = document.createElement('div');
-      row.className = 'admin-row';
-      row.innerHTML = `<span>📦 <strong>${p.name}</strong><br><small>${p.price}</small></span>
-        <button class="btn-del" onclick="deleteProduct('${p.id}')"><i class="fa-solid fa-trash"></i> حذف</button>`;
-      el.appendChild(row);
-    });
+document.getElementById('btnVerifyOtp').addEventListener('click', async () => {
+  const token = getOtpCode();
+  const btn   = document.getElementById('btnVerifyOtp');
+  const msg   = document.getElementById('otpMsg');
+  msg.style.display = 'none';
+  if (token.length<6) {
+    msg.textContent='أدخل الكود المكون من 6 أرقام!';
+    msg.className='auth-msg error'; msg.style.display='block'; return;
   }
+  btn.disabled=true; btn.textContent='جاري التحقق...';
+  try {
+    const {data,error} = await sb.auth.verifyOtp({email:pendingEmail,token,type:'signup'});
+    if (error) throw error;
+    document.getElementById('authOverlay').classList.remove('open');
+    handleSession(data.user);
+    showToast('مبارك! تم تأكيد حسابك ✓');
+  } catch {
+    msg.textContent='الكود غلط أو منتهي الصلاحية.';
+    msg.className='auth-msg error'; msg.style.display='block';
+  } finally {
+    btn.disabled=false; btn.innerHTML='<i class="fa-solid fa-check"></i> تأكيد الكود';
+  }
+});
 
-  window.deleteProduct = async id => {
-    if (!confirm('حذف هذا المنتج نهائياً؟')) return;
-    await sb.from('products').delete().eq('id', id);
-    showToast('تم حذف المنتج');
+document.getElementById('resendOtp').addEventListener('click', async () => {
+  if (!pendingEmail) return;
+  document.getElementById('resendOtp').textContent='جاري الإرسال...';
+  await sb.auth.resend({type:'signup',email:pendingEmail});
+  showToast('تم إعادة إرسال الكود ✓');
+  document.getElementById('resendOtp').textContent='إعادة الإرسال';
+});
+
+document.getElementById('authPassword').addEventListener('keypress', e => {
+  if (e.key==='Enter') document.getElementById('btnAuthSubmit').click();
+});
+
+function showAuthMsg(msg, isErr) {
+  const el = document.getElementById('authMsg');
+  el.textContent = msg;
+  el.className = 'auth-msg '+(isErr?'error':'success');
+  el.style.display = 'block';
+}
+
+document.getElementById('btnLogout').addEventListener('click', async () => {
+  if (localAdminActive) { localAdminActive=false; }
+  else { await sb.auth.signOut(); }
+  handleSession(null);
+  showToast('تم تسجيل الخروج');
+});
+
+/* ══ جلسة ══ */
+function handleSession(user) {
+  const welcome  = document.getElementById('userWelcome');
+  const btnLogin = document.getElementById('btnShowLogin');
+  const btnReg   = document.getElementById('btnShowRegister');
+  const btnOut   = document.getElementById('btnLogout');
+  const admin    = document.getElementById('adminPanel');
+  if (user) {
+    welcome.style.display='flex';
+    btnLogin.classList.add('hidden'); btnReg.classList.add('hidden');
+    btnOut.classList.remove('hidden');
+    if (user.email===ADMIN_EMAIL) {
+      welcome.innerHTML='<i class="fa-solid fa-crown"></i> أهلاً، الأدمن';
+      admin.style.display='block'; loadAdminList();
+    } else {
+      welcome.innerHTML='<i class="fa-solid fa-user"></i> أهلاً بك';
+      admin.style.display='none';
+    }
+  } else {
+    welcome.style.display='none';
+    btnLogin.classList.remove('hidden'); btnReg.classList.remove('hidden');
+    btnOut.classList.add('hidden'); admin.style.display='none';
+  }
+}
+
+/* ══ نشر منتج ══ */
+document.getElementById('btnPublish').addEventListener('click', async () => {
+  const name  = document.getElementById('pName').value.trim();
+  const price = document.getElementById('pPrice').value.trim();
+  const desc  = document.getElementById('pDesc').value.trim();
+  const btn   = document.getElementById('btnPublish');
+  if (!name||!price) { showToast('اسم المنتج والسعر مطلوبان!', true); return; }
+  btn.disabled=true; btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> جاري الحفظ...';
+  try {
+    const {error} = await sb.from('products').insert([{
+      name, price, description:desc,
+      image_url: base64ImageData || ''
+    }]);
+    if (error) throw error;
+    showToast('تم نشر المنتج بنجاح ✓');
+    ['pName','pPrice','pDesc'].forEach(id=>document.getElementById(id).value='');
+    resetImage();
     loadProducts(); loadAdminList();
-  };
+  } catch(err) {
+    showToast('فشل النشر: '+err.message, true);
+  } finally {
+    btn.disabled=false;
+    btn.innerHTML='<i class="fa-solid fa-cloud-arrow-up"></i> نشر المنتج';
+  }
+});
 
-  /* ══ تشغيل ══ */
-  (async () => {
-    const { data } = await sb.auth.getSession();
-    handleSession(data.session?.user || null);
-    loadProducts();
-  })();
+/* ══ جلب منتجات ══ */
+async function loadProducts() {
+  const grid = document.getElementById('mainProductsGrid');
+  grid.innerHTML = '<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><br>جاري الجلب...</div>';
+  const {data,error} = await sb.from('products').select('*').order('created_at',{ascending:false});
+  if (error) {
+    grid.innerHTML = '<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><br>تأكد من إعداد جدول products في Supabase.</div>';
+    return;
+  }
+  if (!data.length) {
+    grid.innerHTML = '<div class="empty-state"><i class="fa-solid fa-box-open"></i><br>لا توجد منتجات حالياً</div>';
+    return;
+  }
+  const DEF = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500';
+  grid.innerHTML = '';
+  data.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    const igMsg  = encodeURIComponent(`مرحبا، أريد طلب: ${p.name} - السعر: ${p.price}`);
+    const igLink = `https://ig.me/m/4.2nr?text=${igMsg}`;
+    card.innerHTML = `
+      <div class="product-img-wrap">
+        <img src="${p.image_url||DEF}" class="product-img" alt="${p.name}"
+             onerror="this.src='${DEF}'" loading="lazy">
+        <div class="product-img-overlay"></div>
+      </div>
+      <div class="product-body">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.description||'لا توجد تفاصيل إضافية.'}</div>
+        <div class="product-footer">
+          <span class="product-price">${p.price}</span>
+          <a href="${igLink}" target="_blank" class="btn-order">
+            <i class="fa-brands fa-instagram"></i> اطلب
+          </a>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+/* ══ قائمة أدمن ══ */
+async function loadAdminList() {
+  const el = document.getElementById('adminProductsControl');
+  el.innerHTML='<div style="color:var(--text-muted);font-size:.83rem;">جاري التحميل...</div>';
+  const {data} = await sb.from('products').select('id,name,price').order('created_at',{ascending:false});
+  if (!data?.length) {
+    el.innerHTML='<div style="color:var(--text-muted);font-size:.83rem;">لا توجد منتجات</div>';
+    return;
+  }
+  el.innerHTML='';
+  data.forEach(p => {
+    const row = document.createElement('div');
+    row.className='admin-row';
+    row.innerHTML=`<span>📦 <strong>${p.name}</strong><br><small>${p.price}</small></span>
+      <button class="btn-del" onclick="deleteProduct('${p.id}')"><i class="fa-solid fa-trash"></i> حذف</button>`;
+    el.appendChild(row);
+  });
+}
+
+window.deleteProduct = async id => {
+  if (!confirm('حذف هذا المنتج نهائياً؟')) return;
+  await sb.from('products').delete().eq('id',id);
+  showToast('تم حذف المنتج');
+  loadProducts(); loadAdminList();
+};
+
+/* ══ تشغيل ══ */
+(async () => {
+  const {data} = await sb.auth.getSession();
+  handleSession(data.session?.user||null);
+  loadProducts();
+})();
 </script>
 </body>
 </html>

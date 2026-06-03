@@ -3,573 +3,696 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الرمادي لايز | المتجر الإلكتروني الفخم</title>
-  
+  <title>الرمادي لايز | متجر فاخر</title>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --primary-color: #2c3e50;
-      --secondary-color: #34495e;
-      --accent-color: #7f8c8d;
-      --bg-color: #f8f9fa;
-      --card-bg: #ffffff;
-      --text-main: #2d3436;
-      --text-muted: #636e72;
+      --pink:       #f7006e;
+      --pink-light: #ff4d9e;
+      --pink-glow:  rgba(247,0,110,0.25);
+      --pink-dim:   rgba(247,0,110,0.08);
+      --black:      #0a0a0a;
+      --dark:       #111111;
+      --dark2:      #1a1a1a;
+      --dark3:      #222222;
+      --border:     rgba(247,0,110,0.18);
+      --text:       #f0f0f0;
+      --text-muted: #888;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; }
 
     body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      line-height: 1.6;
+      font-family: 'Tajawal', sans-serif;
+      background: var(--black);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px;
+    /* ─── خلفية متحركة ─── */
+    body::before {
+      content:'';
+      position:fixed; inset:0; z-index:0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 10%, rgba(247,0,110,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(247,0,110,0.08) 0%, transparent 55%);
+      pointer-events:none;
     }
 
-    /* غلاف المتجر الفاخر */
+    .container { max-width:1100px; margin:0 auto; padding:0 20px; position:relative; z-index:1; }
+
+    /* ─── الغلاف ─── */
     .cover-wrapper {
-      text-align: center;
-      margin-bottom: 25px;
-      background: #fff;
-      border-radius: 0 0 20px 20px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      position:relative; overflow:hidden;
+      border-bottom: 1px solid var(--border);
     }
-
     .cover-img {
-      width: 100%;
-      height: 320px;
-      object-fit: cover;
+      width:100%; height:340px; object-fit:cover;
+      filter: brightness(0.4) saturate(0.7);
+      display:block;
     }
-
-    .brand-section {
-      padding: 20px 10px;
+    .cover-overlay {
+      position:absolute; inset:0;
+      background: linear-gradient(135deg, rgba(247,0,110,0.15) 0%, transparent 60%),
+                  linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%);
+      display:flex; align-items:flex-end; justify-content:center;
+      padding-bottom:36px;
     }
-
+    .brand-section { text-align:center; }
     .store-title {
-      font-size: 2.8rem;
-      font-weight: 800;
-      color: var(--primary-color);
-      margin-bottom: 5px;
+      font-size:3.2rem; font-weight:900;
+      background: linear-gradient(90deg, #fff 20%, var(--pink-light) 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      letter-spacing:-1px; line-height:1;
     }
-
     .store-subtitle {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      font-weight: 400;
+      font-size:1rem; color:#ccc; font-weight:300;
+      margin-top:8px; letter-spacing:2px;
     }
 
-    /* شريط التنقل المتطور */
+    /* ─── شريط التنقل ─── */
     .navbar {
-      background: var(--card-bg);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      padding: 15px 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-radius: 12px;
-      margin-bottom: 30px;
+      background: rgba(17,17,17,0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding:14px 0;
+      position:sticky; top:0; z-index:200;
     }
-
     .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
+      display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
     }
-
+    .brand-logo {
+      font-weight:800; font-size:1.2rem;
+      background: linear-gradient(90deg, #fff, var(--pink-light));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .nav-buttons { display:flex; gap:8px; }
     .user-welcome-text {
-      font-weight: 600;
-      color: var(--primary-color);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-size:0.9rem; color:var(--pink-light); font-weight:600;
+      display:flex; align-items:center; gap:6px;
     }
 
-    .nav-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    /* الأزرار الاحترافية */
+    /* ─── أزرار ─── */
     .btn {
-      padding: 10px 22px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      padding:9px 20px; border:none; border-radius:8px;
+      font-family:'Tajawal',sans-serif;
+      font-weight:700; font-size:0.88rem; cursor:pointer;
+      display:inline-flex; align-items:center; gap:6px;
+      transition:all .25s ease;
     }
-
-    .btn-primary {
-      background: var(--primary-color);
-      color: white;
+    .btn-pink {
+      background: linear-gradient(135deg, var(--pink), var(--pink-light));
+      color:#fff;
+      box-shadow: 0 4px 18px var(--pink-glow);
     }
-
-    .btn-primary:hover {
-      background: var(--secondary-color);
-      transform: translateY(-2px);
-    }
+    .btn-pink:hover { transform:translateY(-2px); box-shadow:0 8px 28px var(--pink-glow); }
 
     .btn-outline {
-      background: transparent;
-      border: 2px solid var(--primary-color);
-      color: var(--primary-color);
+      background:transparent; border:1.5px solid var(--pink);
+      color:var(--pink-light);
+    }
+    .btn-outline:hover { background:var(--pink-dim); }
+
+    .btn-ghost {
+      background:rgba(255,255,255,0.06); color:var(--text-muted);
+      border:1px solid rgba(255,255,255,0.08);
+    }
+    .btn-ghost:hover { background:rgba(255,255,255,0.1); color:#fff; }
+
+    .hidden { display:none !important; }
+
+    /* ─── واجهة التسجيل / الدخول ─── */
+    .auth-overlay {
+      position:fixed; inset:0; z-index:500;
+      background:rgba(0,0,0,0.75); backdrop-filter:blur(8px);
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; pointer-events:none;
+      transition:opacity .3s ease;
+    }
+    .auth-overlay.open { opacity:1; pointer-events:all; }
+
+    .auth-modal {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius:20px;
+      padding:40px 36px;
+      width:100%; max-width:400px;
+      position:relative;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 60px var(--pink-glow);
+      transform:translateY(30px);
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+    }
+    .auth-overlay.open .auth-modal { transform:translateY(0); }
+
+    .auth-close {
+      position:absolute; top:16px; left:16px;
+      background:rgba(255,255,255,0.06); border:none;
+      color:#aaa; width:30px; height:30px; border-radius:50%;
+      cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center;
+      transition:all .2s;
+    }
+    .auth-close:hover { background:rgba(255,255,255,0.12); color:#fff; }
+
+    .auth-icon {
+      width:60px; height:60px; border-radius:50%; margin:0 auto 18px;
+      background: linear-gradient(135deg, var(--pink), var(--pink-light));
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.4rem; color:#fff;
+      box-shadow: 0 8px 25px var(--pink-glow);
+    }
+    .auth-modal h2 {
+      text-align:center; font-size:1.4rem; font-weight:800; margin-bottom:6px; color:#fff;
+    }
+    .auth-modal .auth-sub {
+      text-align:center; font-size:0.85rem; color:var(--text-muted); margin-bottom:28px;
     }
 
-    .btn-outline:hover {
-      background: var(--primary-color);
-      color: white;
-    }
-
-    .btn-danger {
-      background: #e74c3c;
-      color: white;
-    }
-
-    .btn-danger:hover {
-      background: #c0392b;
-    }
-
-    /* صناديق واجهة الدخول والحساب الجديد */
-    .auth-card {
-      background: var(--card-bg);
-      max-width: 420px;
-      margin: 30px auto 50px;
-      padding: 35px;
-      border-radius: 16px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-      display: none;
-      border-top: 4px solid var(--primary-color);
-    }
-
-    .auth-card.active {
-      display: block;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
+    .form-group { margin-bottom:16px; }
     .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: var(--primary-color);
-      font-size: 0.95rem;
+      display:block; margin-bottom:7px; font-size:0.88rem;
+      font-weight:600; color:#ccc;
     }
-
     .form-control {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid #e2e8f0;
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: all 0.3s ease;
+      width:100%; padding:12px 16px;
+      background:rgba(255,255,255,0.05);
+      border:1.5px solid rgba(255,255,255,0.1);
+      border-radius:10px; color:#fff;
+      font-family:'Tajawal',sans-serif; font-size:0.95rem;
+      transition:all .25s ease;
+      direction:ltr; text-align:right;
     }
-
+    .form-control::placeholder { color:rgba(255,255,255,0.25); }
     .form-control:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+      outline:none; border-color:var(--pink);
+      background:rgba(247,0,110,0.06);
+      box-shadow: 0 0 0 3px var(--pink-glow);
     }
 
-    /* شبكة عرض المنتجات */
-    .section-headline {
-      font-size: 1.8rem;
-      margin-bottom: 25px;
-      color: var(--primary-color);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .btn-auth {
+      width:100%; padding:13px; margin-top:8px;
+      background: linear-gradient(135deg, var(--pink), var(--pink-light));
+      color:#fff; border:none; border-radius:10px;
+      font-family:'Tajawal',sans-serif; font-size:1rem; font-weight:800;
+      cursor:pointer; transition:all .25s ease;
+      box-shadow: 0 6px 22px var(--pink-glow);
     }
+    .btn-auth:hover { transform:translateY(-2px); box-shadow:0 10px 30px var(--pink-glow); }
+    .btn-auth:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+
+    .auth-switch {
+      text-align:center; margin-top:18px; font-size:0.85rem; color:var(--text-muted);
+    }
+    .auth-switch span {
+      color:var(--pink-light); cursor:pointer; font-weight:700; text-decoration:underline;
+    }
+
+    .auth-msg {
+      padding:10px 14px; border-radius:8px; font-size:0.88rem;
+      margin-bottom:14px; display:none;
+    }
+    .auth-msg.error { background:rgba(231,76,60,0.15); border:1px solid rgba(231,76,60,0.3); color:#e74c3c; }
+    .auth-msg.success { background:rgba(39,174,96,0.12); border:1px solid rgba(39,174,96,0.25); color:#2ecc71; }
+
+    /* ─── شبكة المنتجات ─── */
+    .section-head {
+      display:flex; align-items:center; gap:10px;
+      font-size:1.5rem; font-weight:800; color:#fff;
+      margin:40px 0 24px;
+    }
+    .section-head span { color:var(--pink); }
 
     .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 30px;
-      margin-bottom: 60px;
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
+      gap:24px; margin-bottom:60px;
     }
 
     .product-card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.03);
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid rgba(0,0,0,0.04);
+      background:var(--dark2);
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius:16px; overflow:hidden;
+      display:flex; flex-direction:column;
+      transition:all .3s ease;
+      position:relative;
     }
-
     .product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      transform:translateY(-7px);
+      border-color:var(--border);
+      box-shadow:0 20px 50px rgba(0,0,0,0.5), 0 0 30px var(--pink-glow);
     }
-
     .product-img {
-      width: 100%;
-      height: 230px;
-      object-fit: cover;
+      width:100%; height:220px; object-fit:cover;
+      filter:brightness(0.9);
+      transition:filter .3s;
     }
+    .product-card:hover .product-img { filter:brightness(1); }
 
-    .product-body {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .product-name {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin-bottom: 8px;
-    }
-
-    .product-desc {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 15px;
-      flex-grow: 1;
-    }
-
+    .product-body { padding:18px; display:flex; flex-direction:column; flex-grow:1; }
+    .product-name { font-size:1.05rem; font-weight:800; color:#fff; margin-bottom:6px; }
+    .product-desc { font-size:0.85rem; color:var(--text-muted); flex-grow:1; margin-bottom:14px; line-height:1.7; }
     .product-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: auto;
-      padding-top: 15px;
-      border-top: 1px dashed #edf2f7;
+      display:flex; justify-content:space-between; align-items:center;
+      padding-top:14px; border-top:1px solid rgba(255,255,255,0.06);
     }
-
     .product-price {
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: var(--primary-color);
+      font-size:1.15rem; font-weight:900;
+      color:var(--pink-light);
     }
+    .btn-order {
+      padding:7px 16px; border:none; border-radius:7px;
+      background: linear-gradient(135deg, var(--pink), var(--pink-light));
+      color:#fff; font-family:'Tajawal',sans-serif; font-size:0.82rem; font-weight:700;
+      cursor:pointer; transition:all .25s;
+      display:flex; align-items:center; gap:5px;
+      box-shadow:0 4px 14px var(--pink-glow);
+    }
+    .btn-order:hover { transform:scale(1.05); }
 
-    /* لوحة تحكم الإدارة للأدمن */
+    .empty-state {
+      grid-column:1/-1; text-align:center;
+      padding:60px 20px; color:var(--text-muted);
+    }
+    .empty-state i { font-size:3rem; color:rgba(247,0,110,0.3); margin-bottom:12px; display:block; }
+
+    /* ─── لوحة الأدمن ─── */
     .admin-panel {
-      background: #f1f5f9;
-      padding: 30px;
-      border-radius: 16px;
-      margin-bottom: 40px;
-      border: 1px solid #cbd5e1;
-      display: none;
+      background:var(--dark2);
+      border:1px solid var(--border);
+      border-radius:18px; padding:28px;
+      margin-bottom:40px; display:none;
     }
+    .admin-panel h2 { font-size:1.2rem; font-weight:800; color:var(--pink-light); margin-bottom:22px; }
+    .admin-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
 
-    .admin-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
+    .admin-box {
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.07);
+      border-radius:12px; padding:20px;
     }
+    .admin-box h3 { font-size:0.95rem; font-weight:700; color:#ddd; margin-bottom:16px; }
 
-    @media (max-width: 768px) {
-      .admin-grid { grid-template-columns: 1fr; }
-      .store-title { font-size: 2.2rem; }
+    .admin-row {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:10px 12px; background:rgba(255,255,255,0.04);
+      border-radius:8px; margin-bottom:8px;
+      font-size:0.85rem; color:#ccc;
     }
+    .btn-del {
+      padding:4px 10px; background:rgba(231,76,60,0.18); border:1px solid rgba(231,76,60,0.3);
+      color:#e74c3c; border-radius:6px; font-size:0.75rem; font-family:'Tajawal',sans-serif;
+      cursor:pointer; font-weight:700; transition:all .2s;
+      display:inline-flex; align-items:center; gap:4px;
+    }
+    .btn-del:hover { background:rgba(231,76,60,0.3); }
 
-    .hidden { display: none !important; }
+    /* ─── Footer ─── */
+    footer {
+      text-align:center; padding:28px 20px;
+      background:var(--dark2); border-top:1px solid var(--border);
+      color:var(--text-muted); font-size:0.85rem;
+    }
+    footer span { color:var(--pink); }
+
+    /* ─── Toast ─── */
+    .toast {
+      position:fixed; bottom:28px; right:28px; z-index:9999;
+      background:var(--dark2); border:1px solid var(--border);
+      color:#fff; padding:14px 20px; border-radius:12px;
+      font-size:0.9rem; font-weight:600;
+      box-shadow:0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--pink-glow);
+      transform:translateY(80px); opacity:0; transition:all .35s cubic-bezier(.34,1.56,.64,1);
+      display:flex; align-items:center; gap:10px; max-width:300px;
+    }
+    .toast.show { transform:translateY(0); opacity:1; }
+    .toast i { color:var(--pink-light); }
+
+    @media(max-width:650px) {
+      .admin-grid { grid-template-columns:1fr; }
+      .store-title { font-size:2.2rem; }
+      .auth-modal { padding:28px 20px; margin:16px; }
+    }
   </style>
 </head>
 <body>
 
-  <header class="container cover-wrapper">
-    <img src="al-ramadi-lays-cover.jpg" alt="غلاف متجر الرمادي لايز" class="cover-img" onerror="this.src='https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200';">
+<!-- ════ الغلاف ════ -->
+<div class="cover-wrapper">
+  <img src="al-ramadi-lays-cover.jpg" alt="غلاف المتجر" class="cover-img"
+       onerror="this.src='https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1400';">
+  <div class="cover-overlay">
     <div class="brand-section">
       <h1 class="store-title">الرمادي لايز</h1>
-      <p class="store-subtitle">متجر إلكتروني بنكهة رمادية راقية وعصرية</p>
+      <p class="store-subtitle">✦ متجر إلكتروني فاخر ✦</p>
     </div>
-  </header>
+  </div>
+</div>
 
-  <main class="container">
-    
-    <nav class="navbar">
-      <div class="container nav-container">
-        <div class="user-welcome-text" id="userWelcome"></div>
-        <div class="nav-buttons">
-          <button class="btn btn-outline" id="btnShowLogin"><i class="fa-solid fa-unlock-keyhole"></i> دخول</button>
-          <button class="btn btn-primary" id="btnShowRegister"><i class="fa-solid fa-user-plus"></i> حساب جديد</button>
-          <button class="btn btn-danger hidden" id="btnLogout"><i class="fa-solid fa-arrow-right-from-bracket"></i> خروج</button>
-        </div>
+<!-- ════ شريط التنقل ════ -->
+<nav class="navbar">
+  <div class="container nav-container">
+    <div class="brand-logo">✦ الرمادي لايز</div>
+    <div id="userWelcome" class="user-welcome-text" style="display:none;"></div>
+    <div class="nav-buttons">
+      <button class="btn btn-outline" id="btnShowLogin"><i class="fa-solid fa-unlock-keyhole"></i> دخول</button>
+      <button class="btn btn-pink" id="btnShowRegister"><i class="fa-solid fa-user-plus"></i> حساب جديد</button>
+      <button class="btn btn-ghost hidden" id="btnLogout"><i class="fa-solid fa-arrow-right-from-bracket"></i> خروج</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ════ نافذة الدخول / التسجيل ════ -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <button class="auth-close" id="authClose"><i class="fa-solid fa-xmark"></i></button>
+
+    <div class="auth-icon" id="authIcon"><i class="fa-solid fa-unlock-keyhole"></i></div>
+    <h2 id="authTitle">تسجيل الدخول</h2>
+    <p class="auth-sub" id="authSub">أدخل بياناتك للوصول لمتجرك</p>
+
+    <div class="auth-msg" id="authMsg"></div>
+
+    <div class="form-group">
+      <label><i class="fa-solid fa-envelope"></i> البريد الإلكتروني</label>
+      <input type="email" id="authEmail" class="form-control" placeholder="example@mail.com">
+    </div>
+    <div class="form-group">
+      <label><i class="fa-solid fa-lock"></i> الرمز السري</label>
+      <input type="password" id="authPassword" class="form-control" placeholder="••••••••">
+    </div>
+
+    <button class="btn-auth" id="btnAuthSubmit">دخول</button>
+
+    <div class="auth-switch" id="authSwitch">
+      مو عندك حساب؟ <span id="switchLink">سجل الآن</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════ المحتوى الرئيسي ════ -->
+<main class="container">
+
+  <!-- لوحة الأدمن -->
+  <div class="admin-panel" id="adminPanel">
+    <h2><i class="fa-solid fa-screwdriver-wrench"></i> لوحة الإدارة</h2>
+    <div class="admin-grid">
+      <div class="admin-box">
+        <h3>➕ إضافة منتج جديد</h3>
+        <div class="form-group"><input type="text" id="pName" class="form-control" placeholder="اسم المنتج"></div>
+        <div class="form-group"><input type="text" id="pPrice" class="form-control" placeholder="السعر (مثال: 25,000 د.ع)"></div>
+        <div class="form-group"><input type="text" id="pDesc" class="form-control" placeholder="وصف المنتج"></div>
+        <div class="form-group"><input type="text" id="pImg" class="form-control" placeholder="رابط الصورة (اختياري)"></div>
+        <button class="btn-auth" id="btnPublish"><i class="fa-solid fa-cloud-arrow-up"></i> نشر المنتج</button>
       </div>
-    </nav>
-
-    <section class="auth-card" id="authCard">
-      <h2 id="authTitle" style="text-align: center; margin-bottom: 25px; color: var(--primary-color);">تسجيل الدخول</h2>
-      
-      <div class="form-group">
-        <label><i class="fa-solid fa-envelope"></i> البريد الإلكتروني</label>
-        <input type="email" id="authEmail" class="form-control" placeholder="example@mail.com">
+      <div class="admin-box">
+        <h3>📋 المنتجات الحالية</h3>
+        <div id="adminProductsControl" style="max-height:300px; overflow-y:auto;"></div>
       </div>
-      <div class="form-group">
-        <label><i class="fa-solid fa-lock"></i> الرمز السري</label>
-        <input type="password" id="authPassword" class="form-control" placeholder="••••••••">
-      </div>
-      
-      <button class="btn btn-primary" id="btnAuthSubmit" style="width: 100%; justify-content: center;"></button>
-    </section>
+    </div>
+  </div>
 
-    <section class="admin-panel" id="adminPanel">
-      <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fa-solid fa-screwdriver-wrench"></i> لوحة الإدارة (أهلاً أدمن 3tx)</h2>
-      
-      <div class="admin-grid">
-        <div style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-          <h3 style="margin-bottom: 15px; font-size: 1.1rem; color: var(--primary-color);">➕ إضافة منتج جديد</h3>
-          <div class="form-group"><input type="text" id="pName" class="form-control" placeholder="اسم المنتج"></div>
-          <div class="form-group"><input type="text" id="pPrice" class="form-control" placeholder="السعر (مثال: 25,000 د.ع)"></div>
-          <div class="form-group"><input type="text" id="pDesc" class="form-control" placeholder="وصف وتفاصيل المنتج"></div>
-          <div class="form-group"><input type="text" id="pImg" class="form-control" placeholder="رابط صورة المنتج (اختياري)"></div>
-          <button class="btn btn-primary" id="btnPublish" style="width: 100%; justify-content: center;"><i class="fa-solid fa-cloud-arrow-up"></i> نشر المنتج الآن</button>
-        </div>
-        
-        <div style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-          <h3 style="margin-bottom: 15px; font-size: 1.1rem; color: var(--primary-color);">📋 المنتجات الحالية</h3>
-          <div id="adminProductsControl" style="max-height: 280px; overflow-y: auto;"></div>
-        </div>
-      </div>
-    </section>
+  <!-- شبكة المنتجات -->
+  <div class="section-head"><span><i class="fa-solid fa-bag-shopping"></i></span> أحدث المعروضات</div>
+  <div class="products-grid" id="mainProductsGrid">
+    <div class="empty-state">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      جاري جلب المنتجات...
+    </div>
+  </div>
 
-    <section>
-      <h2 class="section-headline"><i class="fa-solid fa-bag-shopping"></i> أحدث المعروضات</h2>
-      <div class="products-grid" id="mainProductsGrid">
-        <p style="text-align: center; grid-column: 1/-1; color: var(--text-muted);">جاري جلب المنتجات الفاخرة...</p>
-      </div>
-    </section>
+</main>
 
-  </main>
+<footer>
+  © 2026 <span>الرمادي لايز</span> — جميع الحقوق محفوظة
+</footer>
 
-  <footer style="text-align: center; padding: 30px; margin-top: 50px; background: var(--primary-color); color: #fff; border-radius: 16px 16px 0 0;">
-    <p>© 2026 متجر الرمادي لايز - جميع الحقوق محفوظة</p>
-  </footer>
+<div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i><span id="toastMsg"></span></div>
 
-  <script>
-    // الإعدادات المحدثة والمربوطة بمشروعك الجديد تلقائياً
-    const SUPABASE_URL = 'https://dmswefvziqgxfkybozrh.supabase.co';
-    const SUPABASE_ANON_KEY = 'EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtc3dlZnZ6aXFneGZreWJvenJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NjU4NzcsImV4cCI6MjA5NjA0MTg3N30.RHNLapCj0oMbLjjhuShvyPMPFTP2WskyTpWxhGC5xdM';
-    
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+<script>
+  /* ══════════ إعدادات Supabase ══════════ */
+  const SUPABASE_URL  = 'https://dmswefvziqgxfkybozrh.supabase.co';
+  const SUPABASE_KEY  = 'EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtc3dlZnZ6aXFneGZreWJvenJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NjU4NzcsImV4cCI6MjA5NjA0MTg3N30.RHNLapCj0oMbLjjhuShvyPMPFTP2WskyTpWxhGC5xdM';
+  const ADMIN_EMAIL   = '3tx@ramadi.com';
+  const LOCAL_ADMIN_USER  = '3tx';
+  const LOCAL_ADMIN_PASS  = '11';
+  let   localAdminActive  = false;
 
-    let authMode = 'login';
-    const ADMIN_EMAIL = '3tx@ramadi.com'; // حساب الأدمن الخاص بك
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // ربط العناصر
-    const authCard = document.getElementById('authCard');
-    const authTitle = document.getElementById('authTitle');
-    const authEmail = document.getElementById('authEmail');
-    const authPassword = document.getElementById('authPassword');
-    const btnAuthSubmit = document.getElementById('btnAuthSubmit');
-    const userWelcome = document.getElementById('userWelcome');
-    const btnShowLogin = document.getElementById('btnShowLogin');
-    const btnShowRegister = document.getElementById('btnShowRegister');
-    const btnLogout = document.getElementById('btnLogout');
-    const adminPanel = document.getElementById('adminPanel');
-    const mainProductsGrid = document.getElementById('mainProductsGrid');
-    const adminProductsControl = document.getElementById('adminProductsControl');
+  /* ══════════ Toast ══════════ */
+  function showToast(msg, isError = false) {
+    const t  = document.getElementById('toast');
+    const tm = document.getElementById('toastMsg');
+    t.querySelector('i').className = isError
+      ? 'fa-solid fa-circle-exclamation'
+      : 'fa-solid fa-circle-check';
+    t.querySelector('i').style.color = isError ? '#e74c3c' : '#f7006e';
+    tm.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
 
-    // فتح النوافذ
-    btnShowLogin.onclick = () => {
-      authMode = 'login';
-      authTitle.innerText = '🔐 تسجيل الدخول للعملاء';
-      btnAuthSubmit.innerText = 'دخول للمتجر';
-      authCard.classList.add('active');
-      authCard.scrollIntoView({ behavior: 'smooth' });
-    };
+  /* ══════════ نافذة الدخول ══════════ */
+  let authMode = 'login';
 
-    btnShowRegister.onclick = () => {
-      authMode = 'register';
-      authTitle.innerText = '✨ فتح حساب فخم جديد';
-      btnAuthSubmit.innerText = 'تأكيد التسجيل';
-      authCard.classList.add('active');
-      authCard.scrollIntoView({ behavior: 'smooth' });
-    };
+  const overlay   = document.getElementById('authOverlay');
+  const authIcon  = document.getElementById('authIcon');
+  const authTitle = document.getElementById('authTitle');
+  const authSub   = document.getElementById('authSub');
+  const authMsg   = document.getElementById('authMsg');
+  const authEmail = document.getElementById('authEmail');
+  const authPwd   = document.getElementById('authPassword');
+  const btnSubmit = document.getElementById('btnAuthSubmit');
+  const switchLink= document.getElementById('switchLink');
+  const authSwitch= document.getElementById('authSwitch');
 
-    // الدخول والتسجيل الفعلي
-    btnAuthSubmit.onclick = async () => {
-      const email = authEmail.value.trim();
-      const password = authPassword.value.trim();
+  function openAuth(mode) {
+    authMode = mode;
+    authMsg.style.display = 'none';
+    authEmail.value = '';
+    authPwd.value   = '';
 
-      if (!email || !password) {
-        alert('يرجى كتابة البريد الإلكتروني والرمز السري!');
+    if (mode === 'login') {
+      authIcon.innerHTML  = '<i class="fa-solid fa-unlock-keyhole"></i>';
+      authTitle.textContent = 'تسجيل الدخول';
+      authSub.textContent   = 'أدخل بياناتك للوصول لمتجرك';
+      btnSubmit.textContent = 'دخول للمتجر';
+      authSwitch.innerHTML  = 'مو عندك حساب؟ <span id="switchLink">سجل الآن</span>';
+    } else {
+      authIcon.innerHTML  = '<i class="fa-solid fa-user-plus"></i>';
+      authTitle.textContent = 'حساب جديد';
+      authSub.textContent   = 'أنشئ حسابك وابدأ التسوق';
+      btnSubmit.textContent = 'تأكيد التسجيل';
+      authSwitch.innerHTML  = 'عندك حساب؟ <span id="switchLink">سجل دخولك</span>';
+    }
+
+    document.getElementById('switchLink').onclick = () =>
+      openAuth(mode === 'login' ? 'register' : 'login');
+
+    overlay.classList.add('open');
+  }
+
+  document.getElementById('btnShowLogin').onclick    = () => openAuth('login');
+  document.getElementById('btnShowRegister').onclick = () => openAuth('register');
+  document.getElementById('authClose').onclick       = () => overlay.classList.remove('open');
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+
+  /* ══════════ تسجيل الدخول / الإنشاء ══════════ */
+  btnSubmit.addEventListener('click', async () => {
+    const email    = authEmail.value.trim();
+    const password = authPwd.value.trim();
+
+    authMsg.style.display = 'none';
+
+    if (!email || !password) {
+      showAuthMsg('يرجى كتابة البريد والرمز السري!', true); return;
+    }
+    if (password.length < 6) {
+      showAuthMsg('الرمز السري يجب أن يكون 6 أحرف فأكثر!', true); return;
+    }
+
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = 'جاري التحقق...';
+
+    try {
+      // ── تحقق محلي للأدمن ──
+      if (email === LOCAL_ADMIN_USER && password === LOCAL_ADMIN_PASS) {
+        localAdminActive = true;
+        overlay.classList.remove('open');
+        handleSession({ email: ADMIN_EMAIL, isLocalAdmin: true });
+        showToast('أهلاً أدمن! تم الدخول بنجاح 👑');
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = 'دخول للمتجر';
         return;
       }
 
-      btnAuthSubmit.disabled = true;
-      btnAuthSubmit.innerText = 'جاري التحقق الآمن...';
-
-      try {
-        if (authMode === 'login') {
-          const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-          if (error) throw error;
-          alert('أهلاً بك! تم تسجيل الدخول بنجاح.');
-          handleUserSession(data.user);
-        } else {
-          const { data, error } = await supabase.auth.signUp({ email, password });
-          if (error) throw error;
-          alert('مبارك الحساب الجديد! تم التسجيل والتشغيل بنجاح.');
-          handleUserSession(data.user);
-        }
-        authEmail.value = '';
-        authPassword.value = '';
-      } catch (err) {
-        alert('تنبيه: ' + err.message);
-      } finally {
-        btnAuthSubmit.disabled = false;
-        btnAuthSubmit.innerText = authMode === 'login' ? 'دخول للمتجر' : 'تأكيد التسجيل';
-      }
-    };
-
-    // خروج الحساب
-    btnLogout.onclick = async () => {
-      await supabase.auth.signOut();
-      handleUserSession(null);
-      alert('تم تسجيل الخروج بنجاح. ننتظر زيارتك القادمة!');
-    };
-
-    // التحكم بالهوية والصلاحيات
-    function handleUserSession(user) {
-      if (user) {
-        authCard.classList.remove('active');
-        btnShowLogin.classList.add('hidden');
-        btnShowRegister.classList.add('hidden');
-        btnLogout.classList.remove('hidden');
-        
-        if (user.email === ADMIN_EMAIL) {
-          userWelcome.innerHTML = `<span>👑 لوحة الإدارة الفاخرة مفعلة</span>`;
-          adminPanel.style.display = 'block';
-          loadAdminControlList();
-        } else {
-          userWelcome.innerHTML = `<span>👤 أهلاً بك، عميلنا الراقي</span>`;
-          adminPanel.style.display = 'none';
-        }
+      let user;
+      if (authMode === 'login') {
+        const { data, error } = await sb.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        user = data.user;
       } else {
-        userWelcome.innerText = '';
-        btnShowLogin.classList.remove('hidden');
-        btnShowRegister.classList.remove('hidden');
-        btnLogout.classList.add('hidden');
-        adminPanel.style.display = 'none';
-      }
-    }
-
-    // جلب المنتجات للمتجر
-    async function loadShopProducts() {
-      try {
-        const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: false });
+        const { data, error } = await sb.auth.signUp({ email, password });
         if (error) throw error;
-
-        mainProductsGrid.innerHTML = '';
-        if (data.length === 0) {
-          mainProductsGrid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; color: var(--text-muted);">لا توجد معروضات في المتجر حالياً.</p>';
-          return;
-        }
-
-        data.forEach(p => {
-          const defaultImg = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500';
-          const card = document.createElement('div');
-          card.className = 'product-card';
-          card.innerHTML = `
-            <img src="${p.image_url || defaultImg}" class="product-img" alt="${p.name}" onerror="this.src='${defaultImg}'">
-            <div class="product-body">
-              <h3 class="product-name">${p.name}</h3>
-              <p class="product-desc">${p.description || 'لا توجد تفاصيل إضافية لهذا المنتج حالياً.'}</p>
-              <div class="product-footer">
-                <span class="product-price">${p.price}</span>
-                <button class="btn btn-primary" style="padding: 6px 14px; font-size: 0.8rem;"><i class="fa-solid fa-basket-shopping"></i> طلب</button>
-              </div>
-            </div>
-          `;
-          mainProductsGrid.appendChild(card);
-        });
-      } catch (err) {
-        mainProductsGrid.innerHTML = `<p style="color: red; text-align: center; grid-column: 1/-1;">خطأ اتصال: تأكد من إلغاء قفل الـ RLS وإنشاء الجدول بداخل المشروع الجديد.</p>`;
+        user = data.user;
       }
+
+      overlay.classList.remove('open');
+      handleSession(user);
+      showToast(authMode === 'login' ? 'أهلاً بك! تم الدخول بنجاح ✓' : 'مبارك! تم إنشاء حسابك ✓');
+
+    } catch (err) {
+      const errMap = {
+        'Invalid login credentials': 'البريد أو الرمز السري غلط!',
+        'User already registered':   'هذا البريد مسجل مسبقاً، جرب تسجيل الدخول.',
+        'Email not confirmed':        'يرجى تأكيد بريدك الإلكتروني أولاً.',
+      };
+      showAuthMsg(errMap[err.message] || err.message, true);
+    } finally {
+      btnSubmit.disabled = false;
+      btnSubmit.textContent = authMode === 'login' ? 'دخول للمتجر' : 'تأكيد التسجيل';
+    }
+  });
+
+  /* إدخال Enter */
+  authPwd.addEventListener('keypress', e => { if (e.key === 'Enter') btnSubmit.click(); });
+
+  function showAuthMsg(msg, isError) {
+    authMsg.textContent = msg;
+    authMsg.className   = 'auth-msg ' + (isError ? 'error' : 'success');
+    authMsg.style.display = 'block';
+  }
+
+  /* ══════════ الخروج ══════════ */
+  document.getElementById('btnLogout').addEventListener('click', async () => {
+    if (localAdminActive) {
+      localAdminActive = false;
+      handleSession(null);
+    } else {
+      await sb.auth.signOut();
+      handleSession(null);
+    }
+    showToast('تم تسجيل الخروج بنجاح');
+  });
+
+  /* ══════════ إدارة الجلسة ══════════ */
+  function handleSession(user) {
+    const welcome   = document.getElementById('userWelcome');
+    const btnLogin  = document.getElementById('btnShowLogin');
+    const btnReg    = document.getElementById('btnShowRegister');
+    const btnOut    = document.getElementById('btnLogout');
+    const adminPnl  = document.getElementById('adminPanel');
+
+    if (user) {
+      welcome.style.display = 'flex';
+      btnLogin.classList.add('hidden');
+      btnReg.classList.add('hidden');
+      btnOut.classList.remove('hidden');
+
+      if (user.email === ADMIN_EMAIL) {
+        welcome.innerHTML = '<i class="fa-solid fa-crown"></i> أهلاً، الأدمن';
+        adminPnl.style.display = 'block';
+        loadAdminList();
+      } else {
+        welcome.innerHTML = '<i class="fa-solid fa-user"></i> أهلاً بك';
+        adminPnl.style.display = 'none';
+      }
+    } else {
+      welcome.style.display = 'none';
+      btnLogin.classList.remove('hidden');
+      btnReg.classList.remove('hidden');
+      btnOut.classList.add('hidden');
+      adminPnl.style.display = 'none';
+    }
+  }
+
+  /* ══════════ جلب المنتجات ══════════ */
+  async function loadProducts() {
+    const grid = document.getElementById('mainProductsGrid');
+    grid.innerHTML = '<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i>جاري الجلب...</div>';
+
+    const { data, error } = await sb.from('products').select('*').order('created_at', { ascending: false });
+
+    if (error) {
+      grid.innerHTML = '<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i>تأكد من إعداد جدول products في Supabase.</div>';
+      return;
+    }
+    if (!data.length) {
+      grid.innerHTML = '<div class="empty-state"><i class="fa-solid fa-box-open"></i>لا توجد منتجات حالياً</div>';
+      return;
     }
 
-    // نشر منتج جديد (أدمن)
-    document.getElementById('btnPublish').onclick = async () => {
-      const name = document.getElementById('pName').value.trim();
-      const price = document.getElementById('pPrice').value.trim();
-      const description = document.getElementById('pDesc').value.trim();
-      const image_url = document.getElementById('pImg').value.trim();
+    const DEFAULT = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500';
+    grid.innerHTML = '';
+    data.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <img src="${p.image_url || DEFAULT}" class="product-img" alt="${p.name}"
+             onerror="this.src='${DEFAULT}'">
+        <div class="product-body">
+          <div class="product-name">${p.name}</div>
+          <div class="product-desc">${p.description || 'لا توجد تفاصيل إضافية.'}</div>
+          <div class="product-footer">
+            <span class="product-price">${p.price}</span>
+            <button class="btn-order"><i class="fa-solid fa-basket-shopping"></i> طلب</button>
+          </div>
+        </div>`;
+      grid.appendChild(card);
+    });
+  }
 
-      if (!name || !price) {
-        alert('اسم المنتج وتحديد السعر حقول إجبارية!');
-        return;
-      }
+  /* ══════════ نشر منتج (أدمن) ══════════ */
+  document.getElementById('btnPublish').addEventListener('click', async () => {
+    const name  = document.getElementById('pName').value.trim();
+    const price = document.getElementById('pPrice').value.trim();
+    const desc  = document.getElementById('pDesc').value.trim();
+    const img   = document.getElementById('pImg').value.trim();
 
-      try {
-        const { error } = await supabase.from('products').insert([{ name, price, description, image_url }]);
-        if (error) throw error;
+    if (!name || !price) { showToast('اسم المنتج والسعر مطلوبان!', true); return; }
 
-        alert('تم نشر وإدراج المنتج في المتجر الفخم بنجاح!');
-        document.getElementById('pName').value = '';
-        document.getElementById('pPrice').value = '';
-        document.getElementById('pDesc').value = '';
-        document.getElementById('pImg').value = '';
-        
-        loadShopProducts();
-        loadAdminControlList();
-      } catch (err) {
-        alert('فشل النشر: ' + err.message);
-      }
-    };
+    const { error } = await sb.from('products').insert([{ name, price, description: desc, image_url: img }]);
+    if (error) { showToast('فشل النشر: ' + error.message, true); return; }
 
-    // عرض قائمة المنتجات مع زر الحذف للأدمن
-    async function loadAdminControlList() {
-      adminProductsControl.innerHTML = 'جاري جلب القائمة...';
-      const { data } = await supabase.from('products').select('id, name, price');
-      
-      if (!data || data.length === 0) {
-        adminProductsControl.innerHTML = '<p style="font-size:0.9rem; color:var(--text-muted);">لا توجد منتجات مسجلة للحذف.</p>';
-        return;
-      }
+    showToast('تم نشر المنتج بنجاح ✓');
+    ['pName','pPrice','pDesc','pImg'].forEach(id => document.getElementById(id).value = '');
+    loadProducts(); loadAdminList();
+  });
 
-      adminProductsControl.innerHTML = '';
-      data.forEach(p => {
-        const row = document.createElement('div');
-        row.style.cssText = 'display:flex; justify-content:space-between; align-items:center; padding:10px; background:#f8fafc; border-bottom:1px solid #e2e8f0; margin-bottom:5px; border-radius:6px;';
-        row.innerHTML = `
-          <span style="font-size:0.9rem;">📦 <strong>${p.name}</strong> (${p.price})</span>
-          <button class="btn btn-danger" style="padding:4px 8px; font-size:0.75rem;" onclick="fireDeleteProduct('${p.id}')"><i class="fa-solid fa-trash-can"></i> حذف</button>
-        `;
-        adminProductsControl.appendChild(row);
-      });
-    }
+  /* ══════════ قائمة أدمن للحذف ══════════ */
+  async function loadAdminList() {
+    const el = document.getElementById('adminProductsControl');
+    el.innerHTML = 'جاري التحميل...';
+    const { data } = await sb.from('products').select('id,name,price');
+    if (!data?.length) { el.innerHTML = '<div style="color:var(--text-muted);font-size:.85rem;">لا توجد منتجات</div>'; return; }
+    el.innerHTML = '';
+    data.forEach(p => {
+      const row = document.createElement('div');
+      row.className = 'admin-row';
+      row.innerHTML = `<span>📦 <strong>${p.name}</strong> — ${p.price}</span>
+        <button class="btn-del" onclick="deleteProduct('${p.id}')"><i class="fa-solid fa-trash"></i> حذف</button>`;
+      el.appendChild(row);
+    });
+  }
 
-    window.fireDeleteProduct = async (id) => {
-      if (confirm('هل أنت متأكد من رغبتك بحذف هذا المنتج نهائياً من المتجر؟')) {
-        await supabase.from('products').delete().eq('id', id);
-        loadShopProducts();
-        loadAdminControlList();
-      }
-    };
+  window.deleteProduct = async id => {
+    if (!confirm('حذف هذا المنتج نهائياً؟')) return;
+    await sb.from('products').delete().eq('id', id);
+    showToast('تم حذف المنتج');
+    loadProducts(); loadAdminList();
+  };
 
-    // التشغيل المبدئي للسيستم
-    async function startSystem() {
-      const { data } = await supabase.auth.getSession();
-      handleUserSession(data.session ? data.session.user : null);
-      loadShopProducts();
-    }
-
-    startSystem();
-  </script>
+  /* ══════════ تشغيل ══════════ */
+  (async () => {
+    const { data } = await sb.auth.getSession();
+    handleSession(data.session?.user || null);
+    loadProducts();
+  })();
+</script>
 </body>
 </html>

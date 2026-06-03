@@ -543,17 +543,16 @@
         showToast('أهلاً بك! تم الدخول بنجاح ✓');
 
       } else {
-        /* تسجيل → OTP رقمي يوصل للإيميل */
+        /* تسجيل مباشر بدون تأكيد إيميل */
         const { data, error } = await sb.auth.signUp({
           email,
           password,
-          options: {
-            emailRedirectTo: undefined   /* بدون رابط — سيرسل OTP فقط */
-          }
+          options: { emailRedirectTo: null }
         });
         if (error) throw error;
-        pendingEmail = email;
-        showOtpStep(email);
+        document.getElementById('authOverlay').classList.remove('open');
+        handleSession(data.user);
+        showToast('مبارك! تم إنشاء حسابك ✓');
       }
 
     } catch (err) {

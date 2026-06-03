@@ -379,7 +379,7 @@
 
     <div class="form-group">
       <label><i class="fa-solid fa-envelope"></i> البريد الإلكتروني</label>
-      <input type="email" id="authEmail" class="form-control" placeholder="example@mail.com">
+      <input type="text" id="authEmail" class="form-control" placeholder="example@mail.com">
     </div>
     <div class="form-group">
       <label><i class="fa-solid fa-lock"></i> الرمز السري</label>
@@ -436,10 +436,10 @@
 <script>
   /* ══════════ إعدادات Supabase ══════════ */
   const SUPABASE_URL  = 'https://dmswefvziqgxfkybozrh.supabase.co';
-  const SUPABASE_KEY  = 'EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtc3dlZnZ6aXFneGZreWJvenJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NjU4NzcsImV4cCI6MjA5NjA0MTg3N30.RHNLapCj0oMbLjjhuShvyPMPFTP2WskyTpWxhGC5xdM';
+  const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtc3dlZnZ6aXFneGZreWJvenJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NjU4NzcsImV4cCI6MjA5NjA0MTg3N30.RHNLapCj0oMbLjjhuShvyPMPFTP2WskyTpWxhGC5xdM';
   const ADMIN_EMAIL   = '3tx@ramadi.com';
   const LOCAL_ADMIN_USER  = '3tx';
-  const LOCAL_ADMIN_PASS  = '11';
+  const LOCAL_ADMIN_PASS  = '123456';
   let   localAdminActive  = false;
 
   const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -511,9 +511,6 @@
 
     if (!email || !password) {
       showAuthMsg('يرجى كتابة البريد والرمز السري!', true); return;
-    }
-    if (password.length < 6) {
-      showAuthMsg('الرمز السري يجب أن يكون 6 أحرف فأكثر!', true); return;
     }
 
     btnSubmit.disabled = true;

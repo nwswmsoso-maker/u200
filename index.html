@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>الرمادي لايز | المتجر الإلكتروني</title>
-  <!-- اسم الغلاف (Cover) المقترح للموقع: al-ramadi-lays-cover.jpg -->
-  <!-- تقدر ترفع الغلاف يدويًا على جت هاب وتحط الرابط بدل الصورة الافتراضية -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     * {
       margin: 0;
@@ -20,7 +19,6 @@
       line-height: 1.6;
     }
 
-    /* container */
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -81,7 +79,6 @@
       z-index: 2;
     }
 
-    /* navigation */
     .navbar {
       background: white;
       box-shadow: 0 2px 10px rgba(0,0,0,0.08);
@@ -166,7 +163,6 @@
       font-size: 0.8rem;
     }
 
-    /* cards & sections */
     .section {
       margin: 40px 0;
     }
@@ -233,7 +229,6 @@
       flex: 1;
     }
 
-    /* auth forms (modal style) */
     .auth-container {
       background: white;
       border-radius: 20px;
@@ -302,6 +297,37 @@
       max-width: 500px;
     }
 
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .message {
+      padding: 10px;
+      border-radius: 8px;
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    .message-error {
+      background: #ffeaa7;
+      color: #d63031;
+    }
+
+    .message-success {
+      background: #dfe6e9;
+      color: #00b894;
+    }
+
     footer {
       margin-top: 60px;
       padding: 25px;
@@ -323,18 +349,16 @@
   </style>
 </head>
 <body>
-  <!-- غلاف الموقع (الهيدر) -->
   <header class="site-cover">
     <div class="container">
       <h1 class="store-title">الرمادي لايز</h1>
       <p class="store-subtitle">متجر إلكتروني بنكهة رمادية راقية</p>
       <div class="cover-note">
-        📷 اسم ملف الغلاف المقترح: <strong>al-ramadi-lays-cover.jpg</strong> (ارفعه يدويًا)
+        📷 اسم ملف الغلاف: <strong>al-ramadi-lays-cover.jpg</strong> (ارفعه يدويًا)
       </div>
     </div>
   </header>
 
-  <!-- شريط التنقل -->
   <div class="container">
     <nav class="navbar">
       <ul class="nav-links">
@@ -351,9 +375,7 @@
     </nav>
   </div>
 
-  <!-- المحتوى الرئيسي -->
   <main class="container">
-    <!-- نماذج تسجيل الدخول والتسجيل -->
     <div id="authSection" class="auth-container">
       <h2 id="formTitle" style="margin-bottom:20px; text-align:center;">تسجيل الدخول</h2>
       <div class="form-group">
@@ -373,27 +395,26 @@
         <span id="toggleText">ليس لديك حساب؟</span> 
         <a href="#" id="toggleAuthLink" style="color:#2c3e50; font-weight:bold;">سجل الآن</a>
       </p>
-      <div id="authMessage" style="margin-top:10px; color:#c0392b; text-align:center;"></div>
+      <div id="authMessage" style="margin-top:10px; text-align:center;"></div>
     </div>
 
-    <!-- عرض المنتجات (للمستخدمين) -->
     <div id="productsSection" class="section">
       <h2 class="section-title">📦 أحدث المنتجات</h2>
-      <div id="productsContainer" class="products-grid">
-        <!-- المنتجات تُعرض هنا ديناميكيًا -->
-      </div>
-      <div id="emptyProducts" style="text-align:center; padding:30px; color:#7f8c8d;">لا توجد منتجات بعد. أضف منتجات من لوحة الإدارة.</div>
+      <div id="productsContainer" class="products-grid"></div>
+      <div id="emptyProducts" style="text-align:center; padding:30px; color:#7f8c8d;">لا توجد منتجات بعد.</div>
     </div>
 
-    <!-- لوحة الإدارة (خاصة بالأدمن) -->
     <div id="adminDashboard" class="dashboard-panel hidden">
       <h2 style="color:#2c3e50; margin-bottom:20px;">🛠️ لوحة تحكم الأدمن</h2>
-      <p>مرحبًا أدمن <strong>3tx</strong>، يمكنك إضافة منتج جديد مع صورة.</p>
+      <p>مرحباً أدمن <strong>3tx</strong>، يمكنك إضافة منتج جديد مع صورة.</p>
       <div class="add-product-form">
         <input type="text" id="productName" class="form-control" placeholder="اسم المنتج">
         <input type="text" id="productPrice" class="form-control" placeholder="السعر (مثلاً 25 دينار)">
         <textarea id="productDesc" class="form-control" rows="3" placeholder="وصف المنتج ..."></textarea>
-        <input type="url" id="productImage" class="form-control" placeholder="رابط الصورة (URL)">
+        <div class="form-group">
+          <label>صورة المنتج</label>
+          <input type="file" id="productImageFile" accept="image/*" class="form-control" style="padding:8px;">
+        </div>
         <button class="btn btn-primary" id="addProductBtn">➕ إضافة المنتج</button>
       </div>
       <div style="margin-top:20px;">
@@ -404,279 +425,451 @@
   </main>
 
   <footer class="container">
-    <p>© 2025 الرمادي لايز - جميع الحقوق محفوظة. غلاف الموقع: al-ramadi-lays-cover.jpg</p>
+    <p>© 2025 الرمادي لايز - جميع الحقوق محفوظة</p>
   </footer>
 
   <script>
-    (function() {
-      // ---------- بيانات الأدمن الثابتة ----------
-      const ADMIN_USERNAME = "3tx";
-      const ADMIN_PASSWORD = "11";
+    // ==================== SUPABASE CONFIG ====================
+    const SUPABASE_URL = 'https://ydfdtlrcvkvgmigkaskz.supabase.co'
+    const SUPABASE_ANON_KEY = 'sb_publishable_BqBQSvJBxYzpbM3qod0idA_5tR248ci'
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-      // ---------- حالة التطبيق ----------
-      let currentUser = null; // { username, isAdmin }
-      let usersDB = JSON.parse(localStorage.getItem('ramadi_users')) || [];
-      let productsDB = JSON.parse(localStorage.getItem('ramadi_products')) || [];
+    // ==================== APP STATE ====================
+    let currentUser = null
+    let currentSession = null
+    let authMode = 'login'
 
-      // تأكد من وجود مستخدم الأدمن في قاعدة المستخدمين المحلية
-      if (!usersDB.some(u => u.username === ADMIN_USERNAME)) {
-        usersDB.push({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD, isAdmin: true });
-        localStorage.setItem('ramadi_users', JSON.stringify(usersDB));
-      }
+    // ==================== DOM ELEMENTS ====================
+    const authSection = document.getElementById('authSection')
+    const formTitle = document.getElementById('formTitle')
+    const emailGroup = document.getElementById('emailGroup')
+    const usernameInput = document.getElementById('usernameInput')
+    const emailInput = document.getElementById('emailInput')
+    const passwordInput = document.getElementById('passwordInput')
+    const submitAuth = document.getElementById('submitAuth')
+    const toggleAuthLink = document.getElementById('toggleAuthLink')
+    const toggleText = document.getElementById('toggleText')
+    const authMessage = document.getElementById('authMessage')
+    const loginBtn = document.getElementById('loginBtn')
+    const registerBtn = document.getElementById('registerBtn')
+    const logoutBtn = document.getElementById('logoutBtn')
+    const welcomeUser = document.getElementById('welcomeUser')
+    const adminLink = document.getElementById('adminLink')
+    const adminDashboard = document.getElementById('adminDashboard')
+    const productsContainer = document.getElementById('productsContainer')
+    const emptyProducts = document.getElementById('emptyProducts')
+    const addProductBtn = document.getElementById('addProductBtn')
+    const productName = document.getElementById('productName')
+    const productPrice = document.getElementById('productPrice')
+    const productDesc = document.getElementById('productDesc')
+    const productImageFile = document.getElementById('productImageFile')
+    const adminProductList = document.getElementById('adminProductList')
 
-      // حفظ المنتجات في localStorage
-      function saveProducts() {
-        localStorage.setItem('ramadi_products', JSON.stringify(productsDB));
-      }
-
-      // ---------- عناصر DOM ----------
-      const authSection = document.getElementById('authSection');
-      const formTitle = document.getElementById('formTitle');
-      const emailGroup = document.getElementById('emailGroup');
-      const usernameInput = document.getElementById('usernameInput');
-      const emailInput = document.getElementById('emailInput');
-      const passwordInput = document.getElementById('passwordInput');
-      const submitAuth = document.getElementById('submitAuth');
-      const toggleAuthLink = document.getElementById('toggleAuthLink');
-      const toggleText = document.getElementById('toggleText');
-      const authMessage = document.getElementById('authMessage');
-      const loginBtn = document.getElementById('loginBtn');
-      const registerBtn = document.getElementById('registerBtn');
-      const logoutBtn = document.getElementById('logoutBtn');
-      const welcomeUser = document.getElementById('welcomeUser');
-      const adminLink = document.getElementById('adminLink');
-      const adminDashboard = document.getElementById('adminDashboard');
-      const productsSection = document.getElementById('productsSection');
-      const productsContainer = document.getElementById('productsContainer');
-      const emptyProducts = document.getElementById('emptyProducts');
-      const addProductBtn = document.getElementById('addProductBtn');
-      const productName = document.getElementById('productName');
-      const productPrice = document.getElementById('productPrice');
-      const productDesc = document.getElementById('productDesc');
-      const productImage = document.getElementById('productImage');
-      const adminProductList = document.getElementById('adminProductList');
-
-      let authMode = 'login'; // 'login' or 'register'
-
-      // ---------- واجهة المستخدم حسب الحالة ----------
-      function updateUI() {
-        const loggedIn = !!currentUser;
-        const isAdmin = currentUser && currentUser.isAdmin;
-
-        // إظهار/إخفاء الأزرار
-        loginBtn.classList.toggle('hidden', loggedIn);
-        registerBtn.classList.toggle('hidden', loggedIn);
-        logoutBtn.classList.toggle('hidden', !loggedIn);
+    // ==================== SUPABASE SETUP ====================
+    async function setupDatabase() {
+      try {
+        // Create users table if not exists (using RPC or direct SQL)
+        const { error: usersError } = await supabase.rpc('create_users_table', {})
+        if (usersError) console.log('Users table might already exist:', usersError.message)
         
-        if (loggedIn) {
-          welcomeUser.textContent = `👤 ${currentUser.username} ${isAdmin ? '<span class="admin-badge">أدمن</span>' : ''}`;
-        } else {
-          welcomeUser.textContent = '';
-        }
+        // Create products table if not exists
+        const { error: productsError } = await supabase.rpc('create_products_table', {})
+        if (productsError) console.log('Products table might already exist:', productsError.message)
+      } catch (e) {
+        console.log('Setup note:', e.message)
+      }
+    }
 
-        // رابط لوحة الإدارة
-        adminLink.classList.toggle('hidden', !isAdmin);
-        adminDashboard.classList.toggle('hidden', !isAdmin);
+    // ==================== AUTH FUNCTIONS ====================
+    async function checkSession() {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session) {
+        currentSession = session
+        await fetchUserProfile(session.user.id)
+      }
+    }
 
-        // إخفاء نموذج المصادقة إذا سجل الدخول
-        if (loggedIn) {
-          authSection.classList.remove('active');
-        }
-
-        renderProducts();
-        if (isAdmin) {
-          renderAdminProductList();
+    async function fetchUserProfile(userId) {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single()
+      
+      if (data) {
+        currentUser = {
+          id: data.id,
+          username: data.username,
+          isAdmin: data.is_admin || false
         }
       }
+      updateUI()
+    }
 
-      // عرض المنتجات في الواجهة الرئيسية
-      function renderProducts() {
-        if (!productsContainer) return;
-        productsContainer.innerHTML = '';
-        if (productsDB.length === 0) {
-          emptyProducts.style.display = 'block';
-        } else {
-          emptyProducts.style.display = 'none';
-          productsDB.forEach((product, index) => {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.innerHTML = `
-              <img src="${product.image || 'https://placehold.co/400x250/e9ecef/2c3e50?text=رمادي+لايز'}" alt="${product.name}" class="product-img" onerror="this.src='https://placehold.co/400x250/e9ecef/2c3e50?text=صورة+غير+متوفرة'">
-              <div class="product-info">
-                <h3 class="product-title">${product.name}</h3>
-                <p class="product-desc">${product.desc || 'بدون وصف'}</p>
-                <span class="product-price">${product.price || '---'}</span>
-              </div>
-            `;
-            productsContainer.appendChild(card);
-          });
+    async function signUp(username, email, password) {
+      // First create auth user
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            username: username
+          }
         }
+      })
+
+      if (authError) throw authError
+
+      // Create profile
+      if (authData.user) {
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert([{
+            id: authData.user.id,
+            username: username,
+            email: email,
+            is_admin: false
+          }])
+        
+        if (profileError) throw profileError
+        
+        currentSession = authData.session
+        currentUser = {
+          id: authData.user.id,
+          username: username,
+          isAdmin: false
+        }
+        return true
+      }
+      return false
+    }
+
+    async function signIn(email, password) {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password
+      })
+
+      if (error) throw error
+
+      if (data.user) {
+        currentSession = data.session
+        await fetchUserProfile(data.user.id)
+        return true
+      }
+      return false
+    }
+
+    async function signOut() {
+      const { error } = await supabase.auth.signOut()
+      if (error) console.error('Logout error:', error)
+      currentUser = null
+      currentSession = null
+      updateUI()
+    }
+
+    // ==================== PRODUCTS FUNCTIONS ====================
+    async function uploadImage(file) {
+      const fileName = `${Date.now()}-${file.name}`
+      const { data, error } = await supabase.storage
+        .from('products')
+        .upload(fileName, file)
+
+      if (error) throw error
+
+      const { data: urlData } = supabase.storage
+        .from('products')
+        .getPublicUrl(fileName)
+
+      return urlData.publicUrl
+    }
+
+    async function addProduct(name, price, desc, imageFile) {
+      let imageUrl = ''
+      
+      if (imageFile) {
+        imageUrl = await uploadImage(imageFile)
       }
 
-      // عرض المنتجات داخل لوحة الأدمن
-      function renderAdminProductList() {
-        if (!adminProductList) return;
-        adminProductList.innerHTML = '';
-        if (productsDB.length === 0) {
-          adminProductList.innerHTML = '<li style="color:#7f8c8d;">لا توجد منتجات.</li>';
-          return;
-        }
-        productsDB.forEach((p, idx) => {
-          const li = document.createElement('li');
-          li.style.display = 'flex';
-          li.style.justifyContent = 'space-between';
-          li.style.alignItems = 'center';
-          li.style.padding = '8px 0';
-          li.style.borderBottom = '1px solid #eee';
-          li.innerHTML = `<span>📌 ${p.name} - ${p.price}</span> 
-            <button class="btn btn-sm btn-gray remove-product" data-index="${idx}">🗑️ حذف</button>`;
-          adminProductList.appendChild(li);
-        });
-        document.querySelectorAll('.remove-product').forEach(btn => {
-          btn.addEventListener('click', function(e) {
-            const index = parseInt(this.getAttribute('data-index'));
-            productsDB.splice(index, 1);
-            saveProducts();
-            renderProducts();
-            renderAdminProductList();
-          });
-        });
+      const { data, error } = await supabase
+        .from('products')
+        .insert([{
+          name: name,
+          price: price,
+          description: desc,
+          image_url: imageUrl,
+          created_by: currentUser.id
+        }])
+
+      if (error) throw error
+      return data
+    }
+
+    async function loadProducts() {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (error) {
+        console.error('Load products error:', error)
+        return []
+      }
+      return data || []
+    }
+
+    async function deleteProduct(productId) {
+      const { error } = await supabase
+        .from('products')
+        .delete()
+        .eq('id', productId)
+
+      if (error) throw error
+    }
+
+    // ==================== UI FUNCTIONS ====================
+    function updateUI() {
+      const loggedIn = !!currentUser
+      const isAdmin = currentUser && currentUser.isAdmin
+
+      loginBtn.classList.toggle('hidden', loggedIn)
+      registerBtn.classList.toggle('hidden', loggedIn)
+      logoutBtn.classList.toggle('hidden', !loggedIn)
+      
+      if (loggedIn) {
+        welcomeUser.innerHTML = `👤 ${currentUser.username} ${isAdmin ? '<span class="admin-badge">أدمن</span>' : ''}`
+      } else {
+        welcomeUser.textContent = ''
       }
 
-      // إعادة تعيين النموذج
-      function resetAuthForm() {
-        usernameInput.value = '';
-        emailInput.value = '';
-        passwordInput.value = '';
-        authMessage.textContent = '';
+      adminLink.classList.toggle('hidden', !isAdmin)
+      adminDashboard.classList.toggle('hidden', !isAdmin)
+
+      if (loggedIn) {
+        authSection.classList.remove('active')
       }
 
-      // تبديل النماذج (دخول / تسجيل)
-      function setAuthMode(mode) {
-        authMode = mode;
-        if (mode === 'login') {
-          formTitle.textContent = 'تسجيل الدخول';
-          emailGroup.style.display = 'none';
-          submitAuth.textContent = '🔐 دخول';
-          toggleText.textContent = 'ليس لديك حساب؟';
-          toggleAuthLink.textContent = 'سجل الآن';
-        } else {
-          formTitle.textContent = 'إنشاء حساب جديد';
-          emailGroup.style.display = 'block';
-          submitAuth.textContent = '✨ تسجيل';
-          toggleText.textContent = 'لديك حساب بالفعل؟';
-          toggleAuthLink.textContent = 'تسجيل الدخول';
-        }
-        resetAuthForm();
-        authSection.classList.add('active');
+      renderProducts()
+      if (isAdmin) {
+        renderAdminProducts()
+      }
+    }
+
+    async function renderProducts() {
+      const products = await loadProducts()
+      productsContainer.innerHTML = ''
+      
+      if (products.length === 0) {
+        emptyProducts.style.display = 'block'
+      } else {
+        emptyProducts.style.display = 'none'
+        products.forEach(product => {
+          const card = document.createElement('div')
+          card.className = 'product-card'
+          card.innerHTML = `
+            <img src="${product.image_url || 'https://placehold.co/400x250/e9ecef/2c3e50?text=رمادي+لايز'}" 
+                 alt="${product.name}" 
+                 class="product-img" 
+                 onerror="this.src='https://placehold.co/400x250/e9ecef/2c3e50?text=صورة+غير+متوفرة'">
+            <div class="product-info">
+              <h3 class="product-title">${product.name}</h3>
+              <p class="product-desc">${product.description || 'بدون وصف'}</p>
+              <span class="product-price">${product.price}</span>
+            </div>
+          `
+          productsContainer.appendChild(card)
+        })
+      }
+    }
+
+    async function renderAdminProducts() {
+      const products = await loadProducts()
+      adminProductList.innerHTML = ''
+      
+      if (products.length === 0) {
+        adminProductList.innerHTML = '<li style="color:#7f8c8d;">لا توجد منتجات.</li>'
+        return
+      }
+      
+      products.forEach(product => {
+        const li = document.createElement('li')
+        li.style.cssText = 'display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #eee;'
+        li.innerHTML = `
+          <span>📌 ${product.name} - ${product.price}</span>
+          <button class="btn btn-sm btn-gray remove-product" data-id="${product.id}">🗑️ حذف</button>
+        `
+        adminProductList.appendChild(li)
+      })
+
+      document.querySelectorAll('.remove-product').forEach(btn => {
+        btn.addEventListener('click', async function() {
+          if (confirm('هل أنت متأكد من حذف هذا المنتج؟')) {
+            try {
+              await deleteProduct(this.dataset.id)
+              await renderProducts()
+              await renderAdminProducts()
+            } catch (error) {
+              alert('خطأ في حذف المنتج: ' + error.message)
+            }
+          }
+        })
+      })
+    }
+
+    function showMessage(message, type = 'error') {
+      authMessage.innerHTML = `<div class="message message-${type}">${message}</div>`
+    }
+
+    function resetAuthForm() {
+      usernameInput.value = ''
+      emailInput.value = ''
+      passwordInput.value = ''
+      authMessage.innerHTML = ''
+    }
+
+    function setAuthMode(mode) {
+      authMode = mode
+      if (mode === 'login') {
+        formTitle.textContent = 'تسجيل الدخول'
+        emailGroup.style.display = 'none'
+        submitAuth.textContent = '🔐 دخول'
+        toggleText.textContent = 'ليس لديك حساب؟'
+        toggleAuthLink.textContent = 'سجل الآن'
+      } else {
+        formTitle.textContent = 'إنشاء حساب جديد'
+        emailGroup.style.display = 'block'
+        submitAuth.textContent = '✨ تسجيل'
+        toggleText.textContent = 'لديك حساب بالفعل؟'
+        toggleAuthLink.textContent = 'تسجيل الدخول'
+      }
+      resetAuthForm()
+      authSection.classList.add('active')
+    }
+
+    // ==================== EVENT LISTENERS ====================
+    loginBtn.addEventListener('click', () => setAuthMode('login'))
+    registerBtn.addEventListener('click', () => setAuthMode('register'))
+    
+    toggleAuthLink.addEventListener('click', (e) => {
+      e.preventDefault()
+      setAuthMode(authMode === 'login' ? 'register' : 'login')
+    })
+
+    submitAuth.addEventListener('click', async () => {
+      const username = usernameInput.value.trim()
+      const password = passwordInput.value.trim()
+      const email = emailInput.value.trim()
+
+      if (!password) {
+        showMessage('الرمز مطلوب')
+        return
       }
 
-      // إظهار نموذج الدخول
-      loginBtn.addEventListener('click', () => setAuthMode('login'));
-      registerBtn.addEventListener('click', () => setAuthMode('register'));
-      toggleAuthLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        setAuthMode(authMode === 'login' ? 'register' : 'login');
-      });
+      submitAuth.disabled = true
+      submitAuth.innerHTML = '<span class="loading-spinner"></span> جاري المعالجة...'
 
-      // معالجة تقديم النموذج
-      submitAuth.addEventListener('click', () => {
-        const username = usernameInput.value.trim();
-        const password = passwordInput.value.trim();
-        const email = emailInput.value.trim();
-        authMessage.textContent = '';
-
-        if (!username || !password) {
-          authMessage.textContent = 'يرجى ملء اسم المستخدم والرمز.';
-          return;
-        }
-        if (authMode === 'register' && !email) {
-          authMessage.textContent = 'البريد الإلكتروني مطلوب للتسجيل.';
-          return;
-        }
-
+      try {
         if (authMode === 'login') {
-          // تسجيل الدخول
-          const user = usersDB.find(u => u.username === username && u.password === password);
-          if (user) {
-            currentUser = { username: user.username, isAdmin: user.isAdmin || false };
-            authSection.classList.remove('active');
-            updateUI();
-            resetAuthForm();
-          } else {
-            authMessage.textContent = 'اسم المستخدم أو الرمز غير صحيح.';
-          }
+          // For login, we need email - use a default format if not provided
+          const loginEmail = email || `${username}@ramadi.com`
+          await signIn(loginEmail, password)
+          authSection.classList.remove('active')
+          updateUI()
+          resetAuthForm()
+          showMessage('تم تسجيل الدخول بنجاح', 'success')
         } else {
-          // تسجيل جديد
-          if (usersDB.some(u => u.username === username)) {
-            authMessage.textContent = 'اسم المستخدم موجود مسبقاً.';
-            return;
+          if (!email) {
+            showMessage('البريد الإلكتروني مطلوب للتسجيل')
+            return
           }
-          const newUser = { username, password, email, isAdmin: false };
-          usersDB.push(newUser);
-          localStorage.setItem('ramadi_users', JSON.stringify(usersDB));
-          // تسجيل دخول تلقائي
-          currentUser = { username: newUser.username, isAdmin: false };
-          authSection.classList.remove('active');
-          updateUI();
-          resetAuthForm();
+          if (!username) {
+            showMessage('اسم المستخدم مطلوب')
+            return
+          }
+          await signUp(username, email, password)
+          authSection.classList.remove('active')
+          updateUI()
+          resetAuthForm()
+          showMessage('تم إنشاء الحساب بنجاح! يرجى تأكيد بريدك الإلكتروني', 'success')
         }
-      });
+      } catch (error) {
+        showMessage('خطأ: ' + error.message)
+      } finally {
+        submitAuth.disabled = false
+        submitAuth.innerHTML = authMode === 'login' ? '🔐 دخول' : '✨ تسجيل'
+      }
+    })
 
-      // تسجيل الخروج
-      logoutBtn.addEventListener('click', () => {
-        currentUser = null;
-        authSection.classList.remove('active');
-        adminDashboard.classList.add('hidden');
-        updateUI();
-        resetAuthForm();
-      });
+    logoutBtn.addEventListener('click', () => signOut())
 
-      // إضافة منتج (للأدمن)
-      addProductBtn.addEventListener('click', () => {
-        if (!currentUser || !currentUser.isAdmin) {
-          alert('فقط الأدمن يمكنه إضافة منتجات.');
-          return;
+    addProductBtn.addEventListener('click', async () => {
+      const name = productName.value.trim()
+      const price = productPrice.value.trim()
+      const desc = productDesc.value.trim()
+      const imageFile = productImageFile.files[0]
+
+      if (!name || !price) {
+        alert('اسم المنتج والسعر مطلوبان')
+        return
+      }
+
+      addProductBtn.disabled = true
+      addProductBtn.innerHTML = '<span class="loading-spinner"></span> جاري الإضافة...'
+
+      try {
+        await addProduct(name, price, desc, imageFile)
+        productName.value = ''
+        productPrice.value = ''
+        productDesc.value = ''
+        productImageFile.value = ''
+        await renderProducts()
+        await renderAdminProducts()
+        alert('تمت إضافة المنتج بنجاح!')
+      } catch (error) {
+        alert('خطأ في إضافة المنتج: ' + error.message)
+      } finally {
+        addProductBtn.disabled = false
+        addProductBtn.innerHTML = '➕ إضافة المنتج'
+      }
+    })
+
+    document.getElementById('homeLink').addEventListener('click', (e) => {
+      e.preventDefault()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    })
+
+    document.getElementById('productsLink').addEventListener('click', (e) => {
+      e.preventDefault()
+      document.getElementById('productsSection').scrollIntoView({ behavior: 'smooth' })
+    })
+
+    adminLink.addEventListener('click', (e) => {
+      e.preventDefault()
+      if (currentUser && currentUser.isAdmin) {
+        adminDashboard.scrollIntoView({ behavior: 'smooth' })
+      }
+    })
+
+    // ==================== INITIALIZATION ====================
+    async function init() {
+      await setupDatabase()
+      await checkSession()
+      updateUI()
+      
+      // Listen for auth changes
+      supabase.auth.onAuthStateChange(async (event, session) => {
+        if (event === 'SIGNED_IN' && session) {
+          currentSession = session
+          await fetchUserProfile(session.user.id)
+        } else if (event === 'SIGNED_OUT') {
+          currentUser = null
+          currentSession = null
+          updateUI()
         }
-        const name = productName.value.trim();
-        const price = productPrice.value.trim();
-        const desc = productDesc.value.trim();
-        const image = productImage.value.trim();
-        if (!name || !price) {
-          alert('اسم المنتج والسعر مطلوبان.');
-          return;
-        }
-        productsDB.push({ name, price, desc, image: image || '' });
-        saveProducts();
-        productName.value = '';
-        productPrice.value = '';
-        productDesc.value = '';
-        productImage.value = '';
-        renderProducts();
-        renderAdminProductList();
-      });
+      })
+    }
 
-      // روابط التنقل
-      document.getElementById('homeLink').addEventListener('click', (e) => {
-        e.preventDefault();
-        productsSection.scrollIntoView({ behavior: 'smooth' });
-      });
-      document.getElementById('productsLink').addEventListener('click', (e) => {
-        e.preventDefault();
-        productsSection.scrollIntoView({ behavior: 'smooth' });
-      });
-      adminLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (currentUser && currentUser.isAdmin) {
-          adminDashboard.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-
-      // بدء التشغيل
-      updateUI();
-      // إخفاء نموذج المصادقة افتراضياً
-      authSection.classList.remove('active');
-    })();
+    init()
   </script>
 </body>
 </html>

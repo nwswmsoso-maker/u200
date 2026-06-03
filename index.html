@@ -4,20 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>الرمادي لايز | متجر فاخر</title>
-
-  <!-- ══ Favicon + OG للمشاركة ══ -->
   <link rel="icon" href="al-ramadi-lays-cover.jpg" type="image/jpeg">
-  <meta property="og:type"        content="website">
-  <meta property="og:title"       content="الرمادي لايز | متجر فاخر">
-  <meta property="og:description" content="متجر إلكتروني فاخر بنكهة رمادية راقية وعصرية">
-  <meta property="og:image"       content="al-ramadi-lays-cover.jpg">
-  <meta name="twitter:card"       content="summary_large_image">
-  <meta name="twitter:image"      content="al-ramadi-lays-cover.jpg">
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
-
   <style>
     :root {
       --pink:       #f7006e;
@@ -44,7 +34,7 @@
     }
     .container { max-width:1100px; margin:0 auto; padding:0 20px; position:relative; z-index:1; }
 
-    /* ── غلاف ── */
+    /* غلاف */
     .cover-wrapper { position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
     .cover-img { width:100%; height:340px; object-fit:cover; filter:brightness(0.4) saturate(0.7); display:block; }
     .cover-overlay {
@@ -60,7 +50,7 @@
     }
     .store-subtitle { font-size:1rem; color:#ccc; font-weight:300; margin-top:8px; letter-spacing:2px; text-align:center; }
 
-    /* ── ناف ── */
+    /* ناف */
     .navbar {
       background:rgba(17,17,17,0.92); backdrop-filter:blur(20px);
       border-bottom:1px solid var(--border); padding:14px 0;
@@ -75,7 +65,7 @@
     .nav-buttons { display:flex; gap:8px; }
     .user-welcome-text { font-size:.9rem; color:var(--pink-light); font-weight:600; display:flex; align-items:center; gap:6px; }
 
-    /* ── أزرار ── */
+    /* أزرار */
     .btn {
       padding:9px 20px; border:none; border-radius:8px;
       font-family:'Tajawal',sans-serif; font-weight:700; font-size:.88rem; cursor:pointer;
@@ -89,7 +79,7 @@
     .btn-ghost:hover { background:rgba(255,255,255,0.1); color:#fff; }
     .hidden { display:none !important; }
 
-    /* ── نافذة Auth ── */
+    /* نافذة Auth */
     .auth-overlay {
       position:fixed; inset:0; z-index:500;
       background:rgba(0,0,0,0.78); backdrop-filter:blur(8px);
@@ -138,7 +128,7 @@
       width:46px; height:54px; border-radius:10px; text-align:center;
       font-size:1.5rem; font-weight:800; color:#fff; direction:ltr;
       background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.15);
-      transition:all .2s;
+      transition:all .2s; padding:0;
     }
     .otp-box:focus { outline:none; border-color:var(--pink); background:rgba(247,0,110,0.08); box-shadow:0 0 0 3px var(--pink-glow); }
 
@@ -157,7 +147,15 @@
     .auth-msg.error  { background:rgba(231,76,60,.15); border:1px solid rgba(231,76,60,.3); color:#e74c3c; }
     .auth-msg.success{ background:rgba(39,174,96,.12); border:1px solid rgba(39,174,96,.25); color:#2ecc71; }
 
-    /* ── منتجات ── */
+    /* ملاحظة OTP */
+    .otp-note {
+      background:rgba(247,0,110,0.08); border:1px solid rgba(247,0,110,0.2);
+      border-radius:10px; padding:12px 14px; margin-bottom:14px;
+      font-size:.82rem; color:#ddd; line-height:1.7; text-align:center;
+    }
+    .otp-note strong { color:var(--pink-light); }
+
+    /* منتجات */
     .section-head { display:flex; align-items:center; gap:10px; font-size:1.5rem; font-weight:800; color:#fff; margin:40px 0 22px; }
     .section-head span { color:var(--pink); }
     .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:24px; margin-bottom:60px; }
@@ -185,7 +183,7 @@
     .empty-state { grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--text-muted); }
     .empty-state i { font-size:3rem; color:rgba(247,0,110,0.3); margin-bottom:12px; display:block; }
 
-    /* ── أدمن ── */
+    /* أدمن */
     .admin-panel { background:var(--dark2); border:1px solid var(--border); border-radius:18px; padding:28px; margin-bottom:40px; display:none; }
     .admin-panel h2 { font-size:1.2rem; font-weight:800; color:var(--pink-light); margin-bottom:22px; }
     .admin-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
@@ -195,15 +193,22 @@
     .btn-del { padding:4px 10px; background:rgba(231,76,60,.18); border:1px solid rgba(231,76,60,.3); color:#e74c3c; border-radius:6px; font-size:.75rem; font-family:'Tajawal',sans-serif; cursor:pointer; font-weight:700; transition:all .2s; display:inline-flex; align-items:center; gap:4px; }
     .btn-del:hover { background:rgba(231,76,60,.3); }
 
-    /* رفع صورة */
+    /* رفع صورة - مبسط */
     .img-upload-area {
       border:2px dashed rgba(247,0,110,0.35); border-radius:10px;
-      padding:18px; text-align:center; cursor:pointer; transition:all .25s;
-      position:relative; overflow:hidden; margin-bottom:12px;
+      padding:0; text-align:center; cursor:pointer; transition:all .25s;
+      position:relative; overflow:hidden; margin-bottom:12px; min-height:120px;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
     }
     .img-upload-area:hover { border-color:var(--pink); background:var(--pink-dim); }
-    .img-upload-area input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; }
-    .img-preview { width:100%; height:120px; object-fit:cover; border-radius:8px; margin-top:8px; display:none; }
+    .img-upload-area input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+    .img-upload-area .upload-icon { font-size:2rem; color:var(--pink); pointer-events:none; }
+    .img-upload-area .upload-text { font-size:.85rem; color:var(--text-muted); pointer-events:none; }
+    .img-preview-box {
+      width:100%; height:160px; object-fit:cover;
+      border-radius:8px; display:none; border:2px solid var(--border);
+    }
+    .img-size-info { font-size:.75rem; color:var(--text-muted); margin-top:4px; }
 
     /* toast */
     .toast {
@@ -212,7 +217,7 @@
       padding:14px 20px; border-radius:12px; font-size:.9rem; font-weight:600;
       box-shadow:0 10px 30px rgba(0,0,0,.5),0 0 20px var(--pink-glow);
       transform:translateY(80px); opacity:0; transition:all .35s cubic-bezier(.34,1.56,.64,1);
-      display:flex; align-items:center; gap:10px; max-width:300px;
+      display:flex; align-items:center; gap:10px; max-width:320px;
     }
     .toast.show { transform:translateY(0); opacity:1; }
     .toast i { color:var(--pink-light); }
@@ -229,7 +234,7 @@
 </head>
 <body>
 
-<!-- ════ غلاف ════ -->
+<!-- غلاف -->
 <div class="cover-wrapper">
   <img src="al-ramadi-lays-cover.jpg" alt="غلاف المتجر" class="cover-img"
        onerror="this.src='https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1400';">
@@ -241,7 +246,7 @@
   </div>
 </div>
 
-<!-- ════ ناف ════ -->
+<!-- ناف -->
 <nav class="navbar">
   <div class="container nav-container">
     <div class="brand-logo">✦ الرمادي لايز</div>
@@ -254,7 +259,7 @@
   </div>
 </nav>
 
-<!-- ════ نافذة الدخول / التسجيل ════ -->
+<!-- نافذة Auth -->
 <div class="auth-overlay" id="authOverlay">
   <div class="auth-modal">
     <button class="auth-close" id="authClose"><i class="fa-solid fa-xmark"></i></button>
@@ -279,29 +284,43 @@
       </div>
     </div>
 
-    <!-- خطوة 2: OTP (تظهر بعد التسجيل فقط) -->
+    <!-- خطوة 2: OTP رقمي 6 خانات -->
     <div id="step2" style="display:none;">
-      <div class="auth-icon"><i class="fa-solid fa-envelope-circle-check"></i></div>
-      <h2>تحقق من بريدك</h2>
-      <p class="auth-sub" id="otpEmail">وصلك كود تأكيد على بريدك الإلكتروني</p>
+      <div class="auth-icon"><i class="fa-solid fa-shield-halved"></i></div>
+      <h2>كود التحقق</h2>
+      <p class="auth-sub" id="otpEmail">راجع بريدك الإلكتروني</p>
+
+      <div class="otp-note">
+        📩 وصلك <strong>كود مكون من 6 أرقام</strong> على بريدك<br>
+        ادخله هنا مباشرةً — لا تحتاج تفتح أي رابط
+      </div>
+
       <div class="auth-msg" id="otpMsg"></div>
       <div class="otp-row">
-        <input class="otp-box form-control" maxlength="1" inputmode="numeric">
-        <input class="otp-box form-control" maxlength="1" inputmode="numeric">
-        <input class="otp-box form-control" maxlength="1" inputmode="numeric">
-        <input class="otp-box form-control" maxlength="1" inputmode="numeric">
-        <input class="otp-box form-control" maxlength="1" inputmode="numeric">
-        <input class="otp-box form-control" maxlength="1" inputmode="numeric">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
       </div>
-      <button class="btn-auth" id="btnVerifyOtp">تأكيد الكود</button>
+
+      <!-- أو لصق الكود كاملاً -->
+      <div class="form-group" style="margin-top:8px;">
+        <label style="font-size:.8rem; color:var(--text-muted);">أو الصق الكود مباشرة هنا:</label>
+        <input type="text" id="otpPaste" class="form-control" maxlength="6"
+               placeholder="123456" inputmode="numeric" style="text-align:center; font-size:1.3rem; letter-spacing:8px; font-weight:800;">
+      </div>
+
+      <button class="btn-auth" id="btnVerifyOtp"><i class="fa-solid fa-check"></i> تأكيد الكود</button>
       <div class="auth-switch" style="margin-top:14px;">
-        <span id="resendOtp">إعادة إرسال الكود</span>
+        ما وصلك كود؟ <span id="resendOtp">إعادة الإرسال</span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ════ المحتوى ════ -->
+<!-- المحتوى -->
 <main class="container">
 
   <!-- أدمن -->
@@ -314,22 +333,26 @@
         <div class="form-group"><input type="text" id="pPrice" class="form-control" placeholder="السعر (مثال: 25,000 د.ع)"></div>
         <div class="form-group"><input type="text" id="pDesc"  class="form-control" placeholder="وصف المنتج"></div>
 
-        <!-- رفع صورة مباشر -->
+        <!-- رفع صورة مبسط - Base64 مباشر -->
         <div class="form-group">
-          <label><i class="fa-solid fa-image"></i> صورة المنتج</label>
+          <label><i class="fa-solid fa-image"></i> صورة المنتج <span class="img-size-info">(PNG, JPG — حتى 2MB)</span></label>
+
+          <!-- منطقة السحب والإفلات -->
           <div class="img-upload-area" id="uploadArea">
-            <input type="file" id="pImgFile" accept="image/*" onchange="previewImg(this)">
-            <i class="fa-solid fa-cloud-arrow-up" style="color:var(--pink);font-size:1.5rem;"></i>
-            <div style="margin-top:6px;font-size:.85rem;color:var(--text-muted);">اضغط لرفع صورة</div>
-            <img id="imgPreview" class="img-preview" alt="معاينة">
+            <input type="file" id="pImgFile" accept="image/*">
+            <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+            <div class="upload-text">اضغط هنا أو اسحب الصورة</div>
           </div>
+          <!-- معاينة بعد الاختيار -->
+          <img id="imgPreview" class="img-preview-box" alt="معاينة الصورة">
+          <div id="imgInfo" style="font-size:.78rem; color:var(--text-muted); margin-top:4px; display:none;"></div>
         </div>
 
         <button class="btn-auth" id="btnPublish"><i class="fa-solid fa-cloud-arrow-up"></i> نشر المنتج</button>
       </div>
       <div class="admin-box">
         <h3>📋 المنتجات الحالية</h3>
-        <div id="adminProductsControl" style="max-height:320px;overflow-y:auto;"></div>
+        <div id="adminProductsControl" style="max-height:340px;overflow-y:auto;"></div>
       </div>
     </div>
   </div>
@@ -357,6 +380,7 @@
   let   localAdminActive = false;
   let   authMode         = 'login';
   let   pendingEmail     = '';
+  let   base64ImageData  = '';   /* ← الصورة المحولة */
 
   /* ══ Toast ══ */
   function showToast(msg, isErr = false) {
@@ -368,32 +392,95 @@
     setTimeout(() => t.classList.remove('show'), 3500);
   }
 
-  /* ══ معاينة الصورة ══ */
-  window.previewImg = function(input) {
-    const preview = document.getElementById('imgPreview');
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
-      reader.onload = e => { preview.src = e.target.result; preview.style.display = 'block'; };
-      reader.readAsDataURL(input.files[0]);
-    }
+  /* ══════════════════════════════
+     رفع الصورة - محوّل Base64
+     لا يحتاج Storage أو أي إعداد
+  ══════════════════════════════ */
+  const fileInput   = document.getElementById('pImgFile');
+  const imgPreview  = document.getElementById('imgPreview');
+  const imgInfo     = document.getElementById('imgInfo');
+  const uploadArea  = document.getElementById('uploadArea');
+
+  fileInput.addEventListener('change', () => handleImageFile(fileInput.files[0]));
+
+  /* سحب وإفلات */
+  uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.style.borderColor = 'var(--pink)'; });
+  uploadArea.addEventListener('dragleave', () => { uploadArea.style.borderColor = ''; });
+  uploadArea.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadArea.style.borderColor = '';
+    const f = e.dataTransfer.files[0];
+    if (f && f.type.startsWith('image/')) handleImageFile(f);
+    else showToast('يرجى اختيار ملف صورة فقط', true);
+  });
+
+  function handleImageFile(file) {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) { showToast('ملف غير صالح — يجب أن يكون صورة', true); return; }
+    if (file.size > 2 * 1024 * 1024) { showToast('الصورة كبيرة — الحد الأقصى 2MB', true); return; }
+
+    const reader = new FileReader();
+    reader.onload = e => {
+      base64ImageData = e.target.result;          /* Data URL كاملة */
+      imgPreview.src = base64ImageData;
+      imgPreview.style.display = 'block';
+      uploadArea.style.display = 'none';          /* إخفاء منطقة الرفع */
+      imgInfo.style.display = 'block';
+      imgInfo.innerHTML = `✓ ${file.name} — ${(file.size/1024).toFixed(0)} KB
+        <span style="color:var(--pink);cursor:pointer;margin-right:8px;" onclick="resetImage()">تغيير الصورة ✕</span>`;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  window.resetImage = function() {
+    base64ImageData = '';
+    imgPreview.style.display = 'none';
+    imgPreview.src = '';
+    uploadArea.style.display = 'flex';
+    imgInfo.style.display = 'none';
+    fileInput.value = '';
   };
 
-  /* ══ OTP boxes ══ */
-  document.querySelectorAll('.otp-box').forEach((box, i, boxes) => {
+  /* ══ OTP boxes — تنقل تلقائي ══ */
+  const otpBoxes = document.querySelectorAll('.otp-box');
+  otpBoxes.forEach((box, i) => {
     box.addEventListener('input', () => {
       box.value = box.value.replace(/\D/g,'').slice(-1);
-      if (box.value && i < boxes.length - 1) boxes[i+1].focus();
+      syncOtpPaste();
+      if (box.value && i < otpBoxes.length - 1) otpBoxes[i+1].focus();
     });
     box.addEventListener('keydown', e => {
-      if (e.key === 'Backspace' && !box.value && i > 0) boxes[i-1].focus();
+      if (e.key === 'Backspace' && !box.value && i > 0) otpBoxes[i-1].focus();
+    });
+    box.addEventListener('paste', e => {
+      e.preventDefault();
+      const text = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g,'');
+      if (text.length >= 6) {
+        [...otpBoxes].forEach((b,j) => b.value = text[j] || '');
+        document.getElementById('otpPaste').value = text.slice(0,6);
+        otpBoxes[5].focus();
+      }
     });
   });
 
-  function getOtpCode() {
-    return [...document.querySelectorAll('.otp-box')].map(b => b.value).join('');
+  /* مزامنة حقل اللصق مع الصناديق */
+  document.getElementById('otpPaste').addEventListener('input', function() {
+    const v = this.value.replace(/\D/g,'').slice(0,6);
+    this.value = v;
+    [...otpBoxes].forEach((b,j) => b.value = v[j] || '');
+  });
+
+  function syncOtpPaste() {
+    document.getElementById('otpPaste').value = [...otpBoxes].map(b=>b.value).join('');
   }
 
-  /* ══ فتح نافذة الدخول ══ */
+  function getOtpCode() {
+    const fromPaste = document.getElementById('otpPaste').value.replace(/\D/g,'');
+    const fromBoxes = [...otpBoxes].map(b=>b.value).join('');
+    return fromPaste.length === 6 ? fromPaste : fromBoxes;
+  }
+
+  /* ══ فتح نافذة Auth ══ */
   function openAuth(mode) {
     authMode = mode;
     document.getElementById('step1').style.display = 'block';
@@ -403,17 +490,17 @@
     document.getElementById('authPassword').value = '';
 
     if (mode === 'login') {
-      document.getElementById('authIcon').innerHTML   = '<i class="fa-solid fa-unlock-keyhole"></i>';
-      document.getElementById('authTitle').textContent = 'تسجيل الدخول';
-      document.getElementById('authSub').textContent   = 'أدخل بياناتك للوصول لمتجرك';
+      document.getElementById('authIcon').innerHTML    = '<i class="fa-solid fa-unlock-keyhole"></i>';
+      document.getElementById('authTitle').textContent  = 'تسجيل الدخول';
+      document.getElementById('authSub').textContent    = 'أدخل بياناتك للوصول لمتجرك';
       document.getElementById('btnAuthSubmit').textContent = 'دخول للمتجر';
-      document.getElementById('authSwitch').innerHTML  = 'مو عندك حساب؟ <span id="switchLink">سجل الآن</span>';
+      document.getElementById('authSwitch').innerHTML   = 'مو عندك حساب؟ <span id="switchLink">سجل الآن</span>';
     } else {
-      document.getElementById('authIcon').innerHTML   = '<i class="fa-solid fa-user-plus"></i>';
-      document.getElementById('authTitle').textContent = 'حساب جديد';
-      document.getElementById('authSub').textContent   = 'أنشئ حسابك وابدأ التسوق';
+      document.getElementById('authIcon').innerHTML    = '<i class="fa-solid fa-user-plus"></i>';
+      document.getElementById('authTitle').textContent  = 'حساب جديد';
+      document.getElementById('authSub').textContent    = 'أنشئ حسابك وابدأ التسوق';
       document.getElementById('btnAuthSubmit').textContent = 'إنشاء الحساب';
-      document.getElementById('authSwitch').innerHTML  = 'عندك حساب؟ <span id="switchLink">سجل دخولك</span>';
+      document.getElementById('authSwitch').innerHTML   = 'عندك حساب؟ <span id="switchLink">سجل دخولك</span>';
     }
     document.getElementById('switchLink').onclick = () => openAuth(mode === 'login' ? 'register' : 'login');
     document.getElementById('authOverlay').classList.add('open');
@@ -456,16 +543,17 @@
         showToast('أهلاً بك! تم الدخول بنجاح ✓');
 
       } else {
-        /* تسجيل → إرسال OTP */
-        const { data, error } = await sb.auth.signUp({ email, password });
+        /* تسجيل → OTP رقمي يوصل للإيميل */
+        const { data, error } = await sb.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: undefined   /* بدون رابط — سيرسل OTP فقط */
+          }
+        });
         if (error) throw error;
         pendingEmail = email;
-        /* انتقل للخطوة 2 */
-        document.getElementById('step1').style.display = 'none';
-        document.getElementById('step2').style.display = 'block';
-        document.getElementById('otpEmail').textContent = `وصلك كود على: ${email}`;
-        document.querySelectorAll('.otp-box').forEach(b => b.value = '');
-        document.querySelectorAll('.otp-box')[0].focus();
+        showOtpStep(email);
       }
 
     } catch (err) {
@@ -480,6 +568,15 @@
       btn.textContent = authMode === 'login' ? 'دخول للمتجر' : 'إنشاء الحساب';
     }
   });
+
+  function showOtpStep(email) {
+    document.getElementById('step1').style.display = 'none';
+    document.getElementById('step2').style.display = 'block';
+    document.getElementById('otpEmail').textContent = `كودك يصل على: ${email}`;
+    [...otpBoxes].forEach(b => b.value = '');
+    document.getElementById('otpPaste').value = '';
+    otpBoxes[0].focus();
+  }
 
   /* ══ تأكيد OTP ══ */
   document.getElementById('btnVerifyOtp').addEventListener('click', async () => {
@@ -505,18 +602,20 @@
       handleSession(data.user);
       showToast('مبارك! تم تأكيد حسابك ✓');
     } catch (err) {
-      msg.textContent = 'الكود غلط أو منتهي الصلاحية، حاول ثاني.';
+      msg.textContent = 'الكود غلط أو منتهي الصلاحية. اضغط "إعادة الإرسال" وحاول ثاني.';
       msg.className = 'auth-msg error'; msg.style.display = 'block';
     } finally {
-      btn.disabled = false; btn.textContent = 'تأكيد الكود';
+      btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-check"></i> تأكيد الكود';
     }
   });
 
   /* إعادة إرسال OTP */
   document.getElementById('resendOtp').addEventListener('click', async () => {
     if (!pendingEmail) return;
+    document.getElementById('resendOtp').textContent = 'جاري الإرسال...';
     await sb.auth.resend({ type: 'signup', email: pendingEmail });
     showToast('تم إعادة إرسال الكود ✓');
+    document.getElementById('resendOtp').textContent = 'إعادة الإرسال';
   });
 
   /* Enter في حقل الرمز */
@@ -565,45 +664,38 @@
     }
   }
 
-  /* ══ رفع صورة للـ Storage ══ */
-  async function uploadProductImage(file) {
-    const ext  = file.name.split('.').pop();
-    const name = `${Date.now()}.${ext}`;
-    const { error } = await sb.storage.from('products').upload(name, file, { contentType: file.type });
-    if (error) throw error;
-    const { data } = sb.storage.from('products').getPublicUrl(name);
-    return data.publicUrl;
-  }
-
-  /* ══ نشر منتج ══ */
+  /* ══════════════════════════════════
+     نشر منتج — الصورة تُحفظ كـ Base64
+     لا يحتاج Supabase Storage أبداً
+  ══════════════════════════════════ */
   document.getElementById('btnPublish').addEventListener('click', async () => {
     const name  = document.getElementById('pName').value.trim();
     const price = document.getElementById('pPrice').value.trim();
     const desc  = document.getElementById('pDesc').value.trim();
-    const file  = document.getElementById('pImgFile').files[0];
     const btn   = document.getElementById('btnPublish');
 
     if (!name || !price) { showToast('اسم المنتج والسعر مطلوبان!', true); return; }
 
-    btn.disabled = true; btn.textContent = 'جاري الرفع...';
-    let image_url = '';
+    btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري الحفظ...';
 
     try {
-      if (file) {
-        try { image_url = await uploadProductImage(file); }
-        catch { showToast('ملاحظة: تأكد من إنشاء bucket اسمه products في Supabase Storage', true); }
-      }
-      const { error } = await sb.from('products').insert([{ name, price, description: desc, image_url }]);
+      const { error } = await sb.from('products').insert([{
+        name,
+        price,
+        description: desc,
+        image_url: base64ImageData || ''   /* Base64 مباشرة في قاعدة البيانات */
+      }]);
       if (error) throw error;
+
       showToast('تم نشر المنتج بنجاح ✓');
       ['pName','pPrice','pDesc'].forEach(id => document.getElementById(id).value = '');
-      document.getElementById('pImgFile').value = '';
-      document.getElementById('imgPreview').style.display = 'none';
+      resetImage();
       loadProducts(); loadAdminList();
     } catch (err) {
       showToast('فشل النشر: ' + err.message, true);
     } finally {
-      btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> نشر المنتج';
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> نشر المنتج';
     }
   });
 
@@ -612,15 +704,22 @@
     const grid = document.getElementById('mainProductsGrid');
     grid.innerHTML = '<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i>جاري الجلب...</div>';
     const { data, error } = await sb.from('products').select('*').order('created_at', { ascending: false });
-    if (error) { grid.innerHTML = '<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i>تأكد من إعداد جدول products في Supabase.</div>'; return; }
-    if (!data.length) { grid.innerHTML = '<div class="empty-state"><i class="fa-solid fa-box-open"></i>لا توجد منتجات حالياً</div>'; return; }
+    if (error) {
+      grid.innerHTML = '<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i>تأكد من إعداد جدول products في Supabase.</div>';
+      return;
+    }
+    if (!data.length) {
+      grid.innerHTML = '<div class="empty-state"><i class="fa-solid fa-box-open"></i>لا توجد منتجات حالياً</div>';
+      return;
+    }
     const DEF = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500';
     grid.innerHTML = '';
     data.forEach(p => {
       const card = document.createElement('div');
       card.className = 'product-card';
       card.innerHTML = `
-        <img src="${p.image_url || DEF}" class="product-img" alt="${p.name}" onerror="this.src='${DEF}'">
+        <img src="${p.image_url || DEF}" class="product-img" alt="${p.name}"
+             onerror="this.src='${DEF}'">
         <div class="product-body">
           <div class="product-name">${p.name}</div>
           <div class="product-desc">${p.description || 'لا توجد تفاصيل إضافية.'}</div>
@@ -636,14 +735,17 @@
   /* ══ قائمة أدمن ══ */
   async function loadAdminList() {
     const el = document.getElementById('adminProductsControl');
-    el.innerHTML = 'جاري التحميل...';
-    const { data } = await sb.from('products').select('id,name,price');
-    if (!data?.length) { el.innerHTML = '<div style="color:var(--text-muted);font-size:.85rem;">لا توجد منتجات</div>'; return; }
+    el.innerHTML = '<div style="color:var(--text-muted);font-size:.85rem;">جاري التحميل...</div>';
+    const { data } = await sb.from('products').select('id,name,price').order('created_at',{ascending:false});
+    if (!data?.length) {
+      el.innerHTML = '<div style="color:var(--text-muted);font-size:.85rem;">لا توجد منتجات</div>';
+      return;
+    }
     el.innerHTML = '';
     data.forEach(p => {
       const row = document.createElement('div');
       row.className = 'admin-row';
-      row.innerHTML = `<span>📦 <strong>${p.name}</strong> — ${p.price}</span>
+      row.innerHTML = `<span>📦 <strong>${p.name}</strong><br><small>${p.price}</small></span>
         <button class="btn-del" onclick="deleteProduct('${p.id}')"><i class="fa-solid fa-trash"></i> حذف</button>`;
       el.appendChild(row);
     });
